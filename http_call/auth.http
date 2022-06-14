@@ -1,0 +1,198 @@
+
+GET http://127.0.0.1:8000/api/sms HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 1|qdB5m8Z8UYHya1IY8Y4iiagmzqF9ddgKw4BITX4w
+
+###
+POST http://127.0.0.1:8000/api/login HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+{
+    "email": "admin@demo.com",
+    "password": "password"
+}
+
+###
+POST http://127.0.0.1:8000/api/admin HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 1|ky5vFvqLjpiUnhlbDmQ4LHMRKBE09zRptyvPsUEk
+
+{
+    "name": "Abduljawad Ibraheem Narumah",
+    "phone_number": "07066352444",
+    "email": "jawadrumah@gmail.com",
+    "password": "password",
+    "password_confirmation": "password",
+    "gender": "Male",
+    "dob": "2022-06-06",
+    "group_id": "2"
+}
+
+###
+GET http://127.0.0.1:8000/api/admin HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 1|ky5vFvqLjpiUnhlbDmQ4LHMRKBE09zRptyvPsUEk
+
+###
+GET http://127.0.0.1:8000/api/user-count HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 1|ky5vFvqLjpiUnhlbDmQ4LHMRKBE09zRptyvPsUEk
+
+###
+GET http://127.0.0.1:8000/api/admin-count HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 1|ky5vFvqLjpiUnhlbDmQ4LHMRKBE09zRptyvPsUEk
+
+###
+GET http://127.0.0.1:8000/api/admin/2 HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 1|ky5vFvqLjpiUnhlbDmQ4LHMRKBE09zRptyvPsUEk
+
+###
+DELETE http://127.0.0.1:8000/api/admin/2 HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 1|ky5vFvqLjpiUnhlbDmQ4LHMRKBE09zRptyvPsUEk
+
+###
+PUT http://127.0.0.1:8000/api/admin/1 HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 1|ky5vFvqLjpiUnhlbDmQ4LHMRKBE09zRptyvPsUEk
+
+{
+    "name": "ABDULJAWAD IBRAHIM",
+    "email": "abdouljawadibraheem@gmail.com",
+    "phone_number": "07035460599",
+    "gender": "Female",
+    "dob": "2022-06-01"
+}
+
+###
+GET http://127.0.0.1:8000/api/birthdays HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 1|ky5vFvqLjpiUnhlbDmQ4LHMRKBE09zRptyvPsUEk
+
+
+###
+POST http://127.0.0.1:8000/api/createadmin HTTP/1.1
+ontent-Type: application/json
+Accept: application/json
+Authorization: Bearer 1|ky5vFvqLjpiUnhlbDmQ4LHMRKBE09zRptyvPsUEk
+
+{
+    "group_id": 1,
+    "admin_id": 2,
+    "password": "password"
+}
+
+###
+GET http://127.0.0.1:8000/api/user HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 2|acBGJSx8or8AfMpf03XpXFBXoEs6hb9KY5EiBqZ3
+
+###
+GET http://127.0.0.1:8000/api/users-count HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 2|acBGJSx8or8AfMpf03XpXFBXoEs6hb9KY5EiBqZ3
+
+###
+GET http://127.0.0.1:8000/api/birthday HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 2|acBGJSx8or8AfMpf03XpXFBXoEs6hb9KY5EiBqZ3
+
+###
+POST http://127.0.0.1:8000/api/user HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 2|acBGJSx8or8AfMpf03XpXFBXoEs6hb9KY5EiBqZ3
+
+{
+    "name": "Abduljawad Ibraheem Narumah",
+    "phone_number": "07066352444",
+    "email": "jaymn@gmail.com",
+    "gender": "Male",
+    "dob": "2022-06-06"
+}
+
+###
+PUT http://127.0.0.1:8000/api/user/3 HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 2|acBGJSx8or8AfMpf03XpXFBXoEs6hb9KY5EiBqZ3
+
+{
+    "name": "ABDULJAWAD IBRAHIM",
+    "email": "jawadrumah@gmail.com",
+    "phone_number": "07035460599",
+    "gender": "Female",
+    "dob": "2022-06-01"
+
+}
+
+###
+GET http://127.0.0.1:8000/api/user/1 HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 2|acBGJSx8or8AfMpf03XpXFBXoEs6hb9KY5EiBqZ3
+
+###
+DELETE http://127.0.0.1:8000/api/user/1 HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 2|acBGJSx8or8AfMpf03XpXFBXoEs6hb9KY5EiBqZ3
+
+
+###
+GET http://127.0.0.1:8000/api/group HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 1|NHToU2qJu12eMTM9B5dQjkb5w21H6PA3tjfQMfAX
+
+###
+GET http://127.0.0.1:8000/api/group-count HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 1|NHToU2qJu12eMTM9B5dQjkb5w21H6PA3tjfQMfAX
+
+###
+POST http://127.0.0.1:8000/api/group HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 1|NHToU2qJu12eMTM9B5dQjkb5w21H6PA3tjfQMfAX
+
+{
+    "group_name": "Jay Group",
+    "admin_id": 2
+}
+
+###
+GET http://127.0.0.1:8000/api/group/1 HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 1|NHToU2qJu12eMTM9B5dQjkb5w21H6PA3tjfQMfAX
+
+###
+PUT http://127.0.0.1:8000/api/group/1 HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 1|NHToU2qJu12eMTM9B5dQjkb5w21H6PA3tjfQMfAX
+
+###
+POST http://127.0.0.1:8000/api/logout HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 1|6pApueDorzpf7eA7yNWoLBvpPTweD9OodOPxmcBX
+
+
