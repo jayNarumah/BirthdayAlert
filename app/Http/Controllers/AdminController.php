@@ -95,10 +95,21 @@ class AdminController extends Controller
 
             try {
                 //Mail::to($request->email)->queue(new \App\Mail\NotificationMail($details));
+                if($profile->gender == 'Male')
+            {
+                $gender = "He";
+            }
+            else{
+                $gender = "She";
+            }
 
-                 $details = 'Krunal';
-             Mail::to('jawadrumah@gmail.com')->send(new SendMail($details));
+                $details = [
+                    'name' => $profile->name,
+                    'dob' => $profile->dob,
+                    'gender' => $gender,
 
+                ];
+                Mail::to($profile->email)->send(new SendMail($details));
                 Log::info("Email Sent Successfully!!!");
             } catch (\Throwable $e) {
                 throw $e;

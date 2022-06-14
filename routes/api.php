@@ -45,16 +45,16 @@ Route::group(['middleware' => 'auth:sanctum',], function (){
 
     // Route::get('/meow', [TestController::class, 'meow'])->middleware('admin');
 
-    Route::get('/admin', [AdminController::class, 'index']);
-    Route::post('/admin', [AdminController::class, 'store']);
-    Route::get('/admin/{id}', [AdminController::class, 'show']);
-    Route::delete('/admin/{id}', [AdminController::class, 'destroy']);
-    Route::put('/admin/{id}', [AdminController::class, 'update']);
+    Route::get('/admin', [AdminController::class, 'index'])->middleware('super_admin');
+    Route::post('/admin', [AdminController::class, 'store'])->middleware('super_admin');
+    Route::get('/admin/{id}', [AdminController::class, 'show'])->middleware('super_admin');
+    Route::delete('/admin/{id}', [AdminController::class, 'destroy'])->middleware('super_admin');
+    Route::put('/admin/{id}', [AdminController::class, 'update'])->middleware('super_admin');
 
-    Route::get('/user-count', [AdminController::class, 'profileCount']);
-    Route::get('/admin-count', [AdminController::class, 'count']);
-    Route::post('/createadmin', [AdminController::class, 'createadmin']);
-    Route::get('/birthdays', [BirthdayController::class, 'birthdays']);
+    Route::get('/user-count', [AdminController::class, 'profileCount'])->middleware('super_admin');
+    Route::get('/admin-count', [AdminController::class, 'count'])->middleware('super_admin');
+    Route::post('/createadmin', [AdminController::class, 'createadmin'])->middleware('super_admin');
+    Route::get('/birthdays', [BirthdayController::class, 'birthdays'])->middleware('super_admin');
 
 });
 
