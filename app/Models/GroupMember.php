@@ -18,20 +18,22 @@ class GroupMember extends Model
     ];
 
     protected $with = [
-        'group',
-        'profile'
+        'groups',
+        'profiles'
     ];
 
     protected $cast = [
-        'is_active'
+        'is_active' => 'boolean',
+        'group_id' => 'integer',
+        'profile_id' => 'integer',
     ];
 
-    function profile()
+    function profiles()
     {
-        $this->belongsTo(Profile::class);
+        $this->belongsToMany(Profile::class);
     }
-    function group()
+    function groups()
     {
-        $this->belonsTo(Group::class);
+        $this->belonsToMany(Group::class);
     }
 }

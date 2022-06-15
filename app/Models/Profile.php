@@ -22,17 +22,16 @@ class Profile extends Model
     ];
 
     protected $cast = [
-
     ];
 
-    function userType()
-    {
-        return $this->belongsTo(UserType::class);
-    }
-    function groups()
-    {
-        $this->belongsToMany(Group::class);
-    }
+    // function userType()
+    // {
+    //     return $this->belongsTo(UserType::class);
+    // }
+    // function groups()
+    // {
+    //     $this->belongsToMany(Group::class);
+    // }
     function user()
     {
         $this->hasOne(User::class);

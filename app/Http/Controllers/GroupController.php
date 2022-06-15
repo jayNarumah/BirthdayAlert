@@ -10,9 +10,10 @@ class GroupController extends Controller
 {
     function index()
     {
-        $groups = Group::where('is_active', true)->get();
+        $groups = Group::where('is_active', true)->with('user')->get();
+        // $groups = Group::all();
 
-        return response()->json($groups, 201);
+        return response()->json( $groups, 201);
     }
 
     function count()
@@ -39,7 +40,7 @@ class GroupController extends Controller
         $id = $request->id;
         $group = Group::findOrFail($id);
 
-        return response()->json($group, 201);
+        return response()->json($group->load('user'), 201);
     }
 
     function update(Request $request)

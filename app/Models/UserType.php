@@ -16,7 +16,7 @@ class UserType extends Model
     ];
 
 
-    function Profile()
+    function user()
     {
         return $this->hasOne(Profile::class);
     }

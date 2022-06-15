@@ -28,7 +28,7 @@ class AdminController extends Controller
     {
         $admins=User::all();
 
-        return response()->json($admins, 200);
+        return response()->json($admins->load('group','profile'), 200);
     }
 
     function count()
@@ -57,7 +57,7 @@ class AdminController extends Controller
         }
         $rules=$request->validate([
             'name' => 'required|min:3|max:200',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:profiles,email',
             'password' => 'required|min:6',
             'phone_number' => 'required|min:11|max:13',
             'gender' => 'min:4|max:20',
@@ -175,7 +175,7 @@ class AdminController extends Controller
         $id = $request->profile_id;
         //$rules['name'] = ucwords($request->name);
         $prfl = Profile::findOrFail($id);
-        $usr = where('profile_id', $id);
+        $usr = User::where('profile_id', $id);
 
         $profile = $prfl->update([
             'name' => $request->name,

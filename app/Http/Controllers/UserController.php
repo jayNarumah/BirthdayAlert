@@ -8,19 +8,22 @@ use \Illuminate\Support\Facades\Log;
 use \App\Models\Profile;
 use \App\Models\Group;
 use \App\models\GroupMember;
+use \App\models\User;
 use \App\Http\Resources\UserResource;
 
 class UserController extends Controller
 {
     function index()
     {
-        $id = auth()->user()->profile_id;
+        $members = auth()->user()->profile;
+        Log::alert($members->load('groupMembers'));
+        $id = auth()->user()->id;
         Log::alert('Admin Id; ' . $id);
         $group = Group::where('admin_id', $id)->first();
-        Log::alert($group->id);
-        $users = GroupMember::where('group_id', $group->id)->get();
+        Log::alert($group->load('GroupMember'));
+        // $members = GroupMember::where('group_id', $group->id)->get();
 
-        return response()->json($users, 201);
+        // return response()->json($members, 201);
     }
 
     function count()
@@ -88,7 +91,6 @@ class UserController extends Controller
         $id = $request->profile_id;
         //$rules['name'] = ucwords($request->name);
         $prfl = Profile::findOrFail($id);
-        $usr = where('profile_id', $id);
 
         $profile = $prfl->update([
             'name' => $request->name,
@@ -98,8 +100,7 @@ class UserController extends Controller
             'gender' => $request->gender,
         ]);
 
-
-        return response()->json( $user, 201);
+        return response()->json( $profile, 201);
 
     }
 
