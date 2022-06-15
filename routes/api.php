@@ -55,6 +55,7 @@ Route::group(['middleware' => 'auth:sanctum',], function (){
     Route::get('/admin-count', [AdminController::class, 'count'])->middleware('super_admin');
     Route::post('/createadmin', [AdminController::class, 'createadmin'])->middleware('super_admin');
     Route::get('/birthdays', [BirthdayController::class, 'birthdays'])->middleware('super_admin');
+    Route::get('/birthdays-count', [BirthdayController::class, 'birthdayscount'])->middleware('super_admin');
 
 });
 
@@ -77,6 +78,7 @@ Route::group(['middleware' => 'auth:sanctum',], function (){
     Route::get('/user/{id}', [UserController::class, 'show']);
 
     Route::get('/user-count', [UserController::class, 'count']);
+    Route::get('/birthday-count', [BirthdayController::class, 'birthdaycount']);
     Route::get('/birthday', [BirthdayController::class, 'birthday']);
 
     //Route::get('/test', [TestController::class, 'index']);

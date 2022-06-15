@@ -21,7 +21,7 @@ class Group extends Model
 
     public function user()
     {
-        $this->belongsTo(User::class, 'admin_id');
+        $this->belongsTo(User::class, 'admin_id', 'id');
     }
 
     function groupMembers()

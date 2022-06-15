@@ -12,17 +12,17 @@ use \App\Mail\SendMail;
 
 class AdminController extends Controller
 {
-    function mail()
-    {
-        try{
-            $details = 'Krunal';
-            Mail::to('jawadrumah@gmail.com')->send(new SendMail($details));
+    // function mail()
+    // {
+    //     try{
+    //         $details = 'Krunal';
+    //         Mail::to('jawadrumah@gmail.com')->send(new SendMail($details));
 
-                Log::info("Email Sent Successfully!!!");
-            } catch (\Throwable $e) {
-                throw $e;
-            }
-    }
+    //             Log::info("Email Sent Successfully!!!");
+    //         } catch (\Throwable $e) {
+    //             throw $e;
+    //         }
+    // }
 
     function index()
     {
@@ -164,6 +164,8 @@ class AdminController extends Controller
 
     function update(Request $request)
     {
+        $id = $request->id;
+        //Log::alert($request->id);
         $rules=$request->validate([
             'name' => 'required|min:3|max:200',
             'email' => 'required|email',
@@ -172,9 +174,9 @@ class AdminController extends Controller
             'dob' => 'required|min:5',
         ]);
 
-        $id = $request->profile_id;
         //$rules['name'] = ucwords($request->name);
         $prfl = Profile::findOrFail($id);
+        //$usr = $prfl->user;
         $usr = User::where('profile_id', $id);
 
         $profile = $prfl->update([
@@ -185,9 +187,12 @@ class AdminController extends Controller
             'gender' => $request->gender,
         ]);
 
-        $user = User::where('profile_id', $id)->get();
-        $user->email = $request->email;
-        $user->save();
+        //$usr = User::where('profile_id', $id)->get();
+        $user = $usr->update([
+            'email' => $request->email,
+        ]);
+        //$user->email = $request->email;
+        //$user->save();
 
         return response()->json([
             'user' => $user,

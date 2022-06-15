@@ -10,8 +10,9 @@ class GroupController extends Controller
 {
     function index()
     {
-        $groups = Group::where('is_active', true)->with('user')->get();
-        // $groups = Group::all();
+        $groups = Group::where('is_active', true)->get();
+
+        $groups = $groups->user()->profile;
 
         return response()->json( $groups, 201);
     }

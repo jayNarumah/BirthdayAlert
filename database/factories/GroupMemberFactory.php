@@ -17,7 +17,7 @@ class GroupMemberFactory extends Factory
     public function definition()
     {
         return [
-            'group_id' => 2,
+            'group_id' => 1,
             'profile_id' => 2
         ];
     }

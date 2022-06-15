@@ -80,6 +80,8 @@ class UserController extends Controller
 
     function update(Request $request)
     {
+        $id = $request->id;
+        //Log::alert($request->id);
         $rules=$request->validate([
             'name' => 'required|min:3|max:200',
             'email' => 'required|email',
@@ -88,7 +90,6 @@ class UserController extends Controller
             'dob' => 'required|min:5',
         ]);
 
-        $id = $request->profile_id;
         //$rules['name'] = ucwords($request->name);
         $prfl = Profile::findOrFail($id);
 
