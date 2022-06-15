@@ -17,10 +17,10 @@ class GroupMember extends Model
         'is_active',
     ];
 
-    protected $with = [
-        'groups',
-        'profiles'
-    ];
+    // protected $with = [
+    //     'groups',
+    //     'profiles'
+    // ];
 
     protected $cast = [
         'is_active' => 'boolean',

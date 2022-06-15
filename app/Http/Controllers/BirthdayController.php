@@ -36,11 +36,11 @@ class BirthdayController extends Controller
 
     function birthdayCount()
     {
-        $day = date("d");
-        $month = date("m");
-        $like = "%-".$month."-" . $day . " %";
+        $like = "%-" . date("m") ."-" . date("d") . " %";
+        $group = auth()->user()->group;
+        $group_id = $group->id;
 
-        $count = Profile::where('dob', 'like', $like)->get();
+        $count = GroupMember::where('group_id', $group_id)->count();
 
         return response()->json($count, 201);
     }
@@ -48,8 +48,8 @@ class BirthdayController extends Controller
     function birthday()
     {
         $like = "%-" . date("m") ."-" . date("d") . " %";
-        $groups = auth()->user()->group;
-        $group_id = $groups->id;
+        $group = auth()->user()->group;
+        $group_id = $group->id;
 
         Log::alert("Group :" . $group_id);
 

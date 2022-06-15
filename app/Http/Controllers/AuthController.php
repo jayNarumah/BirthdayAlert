@@ -23,6 +23,7 @@ class AuthController extends Controller
                 'user'=> $user,
                 'access_token' => $user -> createToken('access_token')->plainTextToken,
                 'token_type' => 'Bearer',
+                'role' => $user->userType->type,
             ], 200);
         }
 

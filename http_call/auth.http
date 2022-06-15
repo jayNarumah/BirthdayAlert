@@ -10,7 +10,7 @@ Content-Type: application/json
 Accept: application/json
 
 {
-    "email": "super@demo.com",
+    "email": "admin@demo.com",
     "password": "password"
 }
 
@@ -116,7 +116,7 @@ Authorization: Bearer 2|acBGJSx8or8AfMpf03XpXFBXoEs6hb9KY5EiBqZ3
 GET http://127.0.0.1:8000/api/birthday HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 1|oED9G7hPvC5UkeFGospwNOKqO2CG1UC3LvTwjGqJ
+Authorization: Bearer 1|AlcVBiGQHwQyLlx8QXBdkRxHfiByWhgDn8Pu26ia
 
 ###
 GET http://127.0.0.1:8000/api/birthday-count HTTP/1.1
