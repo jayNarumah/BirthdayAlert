@@ -16,11 +16,11 @@ class SmsController extends Controller
 {
     function aws()
      {
-        $phone_number = "+2347035460599";
+        $phone_number = "+2348036343085";
         $sms = AWS::createClient('sns');
 
         $sms->publish([
-            'Message' => 'Hello, This is just a test Message',
+            'Message' => 'Hello, This is just a test Message from Century test BirthdayNotification Site',
             'PhoneNumber' => $phone_number,
             'MessageAttributes' => [
                 'AWS.SNS.SMS.SMSType'  => [
@@ -29,8 +29,8 @@ class SmsController extends Controller
                  ]
            ],
         ]);
+        Log::alert($sms->publish());
      }
-
 
     function awsSms()
     {

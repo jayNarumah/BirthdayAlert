@@ -16,7 +16,7 @@ class MustBeSuperAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!(auth()->user()?->user_type_id == 1))
+        if(!(auth()->user()?->userType->type == "Super Admin"))
         {
             abort(304);
 

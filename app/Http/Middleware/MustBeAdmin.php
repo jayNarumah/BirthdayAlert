@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use \Illuminate\Support\Facades\Log;
 
 class MustBeAdmin
 {
@@ -16,10 +17,9 @@ class MustBeAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!(auth()->user()?->user_type_id == 2))
+        if(!(auth()->user()?->userType->type == "Admin"))
         {
             abort(304);
-
         }
         return $next($request);
     }

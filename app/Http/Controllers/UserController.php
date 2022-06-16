@@ -16,7 +16,7 @@ class UserController extends Controller
     function index()
     {
         $members = auth()->user()->profile;
-        Log::alert($members->load('groupMembers'));
+        //Log::alert($members->load('groupMembers'));
         $id = auth()->user()->id;
         Log::alert('Admin Id; ' . $id);
         $group = Group::where('admin_id', $id)->first();
@@ -48,24 +48,20 @@ class UserController extends Controller
         ]);
 
         //$rules['name'] = ucwords($request->name);
-        $admin_id = auth()->user()->id;
-        Log::info($admin_id);
-        $group = Group::findOrFail($admin_id);
-        $group_id = $group->id;
+        $group = auth()->user()->group;
         $rules['user_type_id'] = 3;
 
         $profile = Profile::create($rules);
 
         $group_member = GroupMember::create([
             'profile_id' => $profile->id,
-            'group_id' => $group_id,
-            'is-active' => true
+            'group_id' => $group->id,
         ]);
 
         //return new UserResource($profile);
         return response()->json([
             'profile' =>$profile,
-            'group_member' => $group_member
+            'group' => $group
             ], 201);
     }
 
@@ -107,14 +103,13 @@ class UserController extends Controller
 
     function destroy(Request $request)
     {
-        $id = $request->id;
+        $prfl=Profile::findOrFail($request->id);
 
-        $user=Profile::findOrFail($id);
+        $profile = $prfl->update([
+            'is_active' => false,
+        ]);
 
-        $user->is_active = false;
-        $user->save();
-
-        return response()->json($user, 201);
+        return response()->json("Group Member Was Successfully Deleted !!!", 201);
 
     }
 }

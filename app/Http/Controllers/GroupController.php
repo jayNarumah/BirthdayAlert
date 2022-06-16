@@ -4,15 +4,32 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \App\Models\Group;
+use \App\Models\User;
+use \App\Models\Profile;
 use \Illuminate\Support\Facades\Log;
 
 class GroupController extends Controller
 {
     function index()
     {
-        $groups = Group::where('is_active', true)->get();
+        $index = 0;
+        $groups = [];
+        $grps = Group::where('is_active', true)->get();
 
-        $groups = $groups->user()->profile;
+        foreach($grps as $grp)
+        {
+            //
+            $user = User::findOrFail( $grp->admin_id);
+            Log::alert($user->profile_id);
+            $profile = Profile::findOrFail($user->profile_id);
+
+
+            $groups[$index][0] = $user->group;
+            $groups[$index][1] =  $profile;
+
+            $index+=1;
+        }
+        //$groups = $groups->user->profile;
 
         return response()->json( $groups, 201);
     }
@@ -38,10 +55,18 @@ class GroupController extends Controller
 
     function show(Request $request)
     {
-        $id = $request->id;
-        $group = Group::findOrFail($id);
+        $group = [];
+        $grp = Group::findOrFail($request->id);
 
-        return response()->json($group->load('user'), 201);
+            $user = User::findOrFail( $grp->admin_id);
+            Log::alert($user->profile_id);
+            $profile = Profile::findOrFail($user->profile_id);
+
+
+            $group[0][0] = $user->group;
+            $group[0][1] =  $profile;
+
+        return response()->json($group, 201);
     }
 
     function update(Request $request)

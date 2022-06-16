@@ -124,36 +124,6 @@ class AdminController extends Controller
       //  return response()->json($profile, 201);
     }
 
-    function createadmin(Request $request)
-    {
-        $rules=$request->validate([
-            'group_id' => 'required',
-            'admin_id' =>'required',
-            //'email' => 'required|email',
-            'password' => 'required|min:8|max:30',
-        ]);
-
-        //$rules['group_name'] = ucwords($request->group_name);
-
-        $profile_id = $rules['profile_id'];
-
-        $profile = Profile::findOrFail($profile_id);
-
-        $user = User::create([
-            'profile_id' => $rules['profile_id'],
-            'email' => $profile->profile->email,
-            'password' => bcrypt($rules['password']),
-        ]);
-
-        $group = Group::findOrFail($request->id);
-
-       $group->admin_id = $user->id;
-
-       $group->save();
-
-        return response()->json($group, 201);
-    }
-
     function show(Request $request)
     {
         $id = $request->id;
@@ -203,25 +173,50 @@ class AdminController extends Controller
 
     function destroy(Request $request)
     {
-        $id = $request->id;
+        $usr=User::findOrFail($request->id);
 
-        $usr=Profile::findOrFail($id);
-        $usr1=User::findOrFail($id);
+        $user = $usr->update([
+            'is_active' => false,
+        ]);
 
-        $usr1->is_active = false;
-        $usr1->save();
-        $usr->is_active = false;
-        $usr->save();
-
-        //Log::alert($usr);
-
-       //Log::info($usr);
-
-        return response()->json([
-            'user' => $usr1,
-            'profile' => $usr
-        ], 201);
+        return response()->json("Admin Was Successfully Deleted !!!", 201);
 
     }
+
+    // function createAdmin(Request $request)
+    // {
+    //     Log::alert($request->group_id);
+    //     $rules=$request->validate([
+    //         'group_id' => '[required]',
+    //         'profile_id' =>'[required]',
+    //         //'email' => 'required|email',
+    //         'password' => '[required,min:6,max:30]',
+    //     ]);
+
+    //     //$rules['group_name'] = ucwords($request->group_name);
+
+
+    //     $profile = Profile::findOrFail($request->profile_id);
+
+    //     $user = User::create([
+    //         'profile_id' => $request->profile_id,
+    //         'email' => $profile->email,
+    //         'password' => bcrypt($rules['password']),
+    //     ]);
+
+    //     $group = Group::findOrFail($request->group_id);
+
+    //     $group = $group->update([
+    //         'admin_id' => $user->id,
+    //     ]);
+
+    //    //$group->admin_id = $user->id;
+
+    //    //$group->save();
+
+    //     return response()->json($group, 201);
+    // }
+
+
 
 }
