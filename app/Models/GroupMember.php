@@ -18,7 +18,6 @@ class GroupMember extends Model
     ];
 
     // protected $with = [
-    //     'groups',
     //     'profiles'
     // ];
 
@@ -32,6 +31,7 @@ class GroupMember extends Model
     {
         $this->belongsToMany(Profile::class);
     }
+
     function groups()
     {
         $this->belonsToMany(Group::class);

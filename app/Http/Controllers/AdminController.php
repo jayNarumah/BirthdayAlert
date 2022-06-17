@@ -26,7 +26,7 @@ class AdminController extends Controller
 
     function index()
     {
-        $admins=User::all();
+        $admins=User::where('is_active', true)->get();
 
         return response()->json($admins->load('group','profile'), 200);
     }
@@ -47,14 +47,6 @@ class AdminController extends Controller
 
     function store(Request $request)
     {
-        try{
-        $details = 'Krunal';
-        Mail::to('jawadrumah@gmail.com')->send(new SendMail($details));
-
-            Log::info("Email Sent Successfully!!!");
-        } catch (\Throwable $e) {
-            throw $e;
-        }
         $rules=$request->validate([
             'name' => 'required|min:3|max:200',
             'email' => 'required|email|unique:profiles,email',
@@ -76,15 +68,18 @@ class AdminController extends Controller
                 'email' => $profile->email,
                 'password' => bcrypt($request->password),
                 'user_type_id' => 2,
-                'profile_id' => $profile->id
+                'profile_id' => $profile->id,
+                'group_id' => $request->group_id
             ]);
 
-            $id = $request->group_id;
-            Log::info($id);
-            $group = Group::find($id);
-            $group->admin_id = $user->id;
+            //Log::info($id);
+            // $group = Group::findOrFail($request->group_id);
+            // $group->update([
+            //     'admin_id' => $user->id
+            // ]);
+           // $group->admin_id = $user->id;
 
-            $group->save();
+           // $group->save();
 
             $details = [
                 'tittle' => 'My Tittle',
@@ -94,14 +89,13 @@ class AdminController extends Controller
             //Log::debug($details);
 
             try {
-                //Mail::to($request->email)->queue(new \App\Mail\NotificationMail($details));
                 if($profile->gender == 'Male')
-            {
-                $gender = "He";
-            }
-            else{
-                $gender = "She";
-            }
+                {
+                    $gender = "He";
+                }
+                else{
+                    $gender = "She";
+                }
 
                 $details = [
                     'name' => $profile->name,
@@ -109,16 +103,18 @@ class AdminController extends Controller
                     'gender' => $gender,
 
                 ];
-                Mail::to($profile->email)->send(new SendMail($details));
-                Log::info("Email Sent Successfully!!!");
-            } catch (\Throwable $e) {
-                throw $e;
-            }
 
+                //Mail::to($request->email)->queue(new \App\Mail\NotificationMail($details));
+
+                ///Mail::to($request->email)->send(new SendMail($details));
+
+            Log::info("Email Sent Successfully!!!");
+        } catch (\Throwable $e) {
+            throw $e;
+        }
             return response()->json([
                 'profile' => $profile,
                 'user' => $user,
-                'group' =>$group
             ], 201);
       //  }
       //  return response()->json($profile, 201);
@@ -126,28 +122,26 @@ class AdminController extends Controller
 
     function show(Request $request)
     {
-        $id = $request->id;
-        $user = Profile::findOrFail($id);
+        $user = User::findOrFail($request->id);
 
-        return response()->json($user, 200);
+        return response()->json($user->load('profile', 'group'), 200);
     }
 
     function update(Request $request)
     {
-        $id = $request->id;
-        //Log::alert($request->id);
+
         $rules=$request->validate([
             'name' => 'required|min:3|max:200',
             'email' => 'required|email',
             'phone_number' => 'required|min:11|max:13',
-            'gender' => 'min:4|max:20',
+            'gender' => 'required|min:4|max:20',
             'dob' => 'required|min:5',
+            'group_id' => 'required',
         ]);
 
         //$rules['name'] = ucwords($request->name);
-        $prfl = Profile::findOrFail($id);
-        //$usr = $prfl->user;
-        $usr = User::where('profile_id', $id);
+        $usr = User::findOrFail($request->id);
+        $prfl = $usr->profile;
 
         $profile = $prfl->update([
             'name' => $request->name,
@@ -156,10 +150,12 @@ class AdminController extends Controller
             'dob' => $request->dob,
             'gender' => $request->gender,
         ]);
+        //$prfl = Profile::findOrFail($id);
 
         //$usr = User::where('profile_id', $id)->get();
         $user = $usr->update([
             'email' => $request->email,
+            'group_id' => $request->group_id,
         ]);
         //$user->email = $request->email;
         //$user->save();
@@ -173,11 +169,12 @@ class AdminController extends Controller
 
     function destroy(Request $request)
     {
-        $usr=User::findOrFail($request->id);
+        $user=User::findOrFail($request->id);
 
-        $user = $usr->update([
-            'is_active' => false,
-        ]);
+        $user->is_active = false;
+        $user->save();
+
+        Log::alert($user);
 
         return response()->json("Admin Was Successfully Deleted !!!", 201);
 

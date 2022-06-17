@@ -11,7 +11,6 @@ class Group extends Model
     use HasFactory;
 
     protected $fillable = [
-        'admin_id',
         'group_name'
     ];
 
@@ -21,7 +20,7 @@ class Group extends Model
 
     public function user()
     {
-        $this->belongsTo(User::class, 'admin_id', 'id');
+        $this->hasOne(User::class);
     }
 
     function groupMembers()

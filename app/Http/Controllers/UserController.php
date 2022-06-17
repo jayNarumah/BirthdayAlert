@@ -15,15 +15,24 @@ class UserController extends Controller
 {
     function index()
     {
-        $members = auth()->user()->profile;
-        //Log::alert($members->load('groupMembers'));
-        $id = auth()->user()->id;
-        Log::alert('Admin Id; ' . $id);
-        $group = Group::where('admin_id', $id)->first();
-        Log::alert($group->load('GroupMember'));
-        // $members = GroupMember::where('group_id', $group->id)->get();
+        // $id = auth()->user()->profile_id;
+        // Log::alert('Admin Id; ' . $id);
+        // $group = Group::where('admin_id', $id)->first();
+        Log::alert(auth()->user()->group_id);
+        //
+        $group_members = GroupMember::where('group_id', auth()->user()->group_id)->get();
 
-        // return response()->json($members, 201);
+        $members = $group_members->profile;
+
+
+        //$group = auth()->user()->group->groupMembers;
+        //Log::alert($members->load('groupMembers'));
+        Log::alert('Admin Id; ' . $members);
+        //$group = Group::where('admin_id', $id)->first();
+        //Log::alert($group->load('GroupMembers'));
+        //$members = GroupMember::where('group_id', $group->id)->get();
+
+       // return response()->json($members, 201);
     }
 
     function count()
@@ -48,10 +57,11 @@ class UserController extends Controller
         ]);
 
         //$rules['name'] = ucwords($request->name);
-        $group = auth()->user()->group;
-        $rules['user_type_id'] = 3;
+         $group = auth()->user()->profile;
+        //$group = Group::where('admin_id', auth()->user()->id)->first();
 
         $profile = Profile::create($rules);
+        Log::alert(auth()->user()->id);
 
         $group_member = GroupMember::create([
             'profile_id' => $profile->id,

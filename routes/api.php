@@ -27,9 +27,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+Route::post('/login', [AuthController::class, 'login']);
+
+
 Route::get('/sms', [SmsController::class, 'aws']);
 Route::get('/test', [NotificationController::class, 'twilioSms']);
 
+Route::group(['middleware' => 'auth:sanctum',], function (){
+    Route::post('/logout', [AuthController::class, 'logout']);
+});
 
 Route::group(['middleware' => 'auth:sanctum',], function (){
     Route::get('/admin', [AdminController::class, 'index'])->middleware('super_admin');
@@ -51,6 +58,7 @@ Route::group(['middleware' => 'auth:sanctum',], function (){
     Route::post('/group', [GroupController::class, 'store'])->middleware('super_admin');
     Route::get('/group/{id}', [GroupController::class, 'show'])->middleware('super_admin');
     Route::post('/group/{id}', [GroupController::class, 'update'])->middleware('super_admin');
+    Route::delete('/group/{id}', [GroupController::class, 'destroy'])->middleware('super_admin');
 
     Route::get('/group-count', [GroupController::class, 'count'])->middleware('super_admin');
 });
@@ -67,8 +75,6 @@ Route::group(['middleware' => 'auth:sanctum',], function (){
     Route::get('/birthday', [BirthdayController::class, 'birthday'])->middleware('admin');
 });
 
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout']);
 
 
 

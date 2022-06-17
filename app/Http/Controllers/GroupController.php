@@ -14,24 +14,24 @@ class GroupController extends Controller
     {
         $index = 0;
         $groups = [];
+        $temp = [];
         $grps = Group::where('is_active', true)->get();
 
-        foreach($grps as $grp)
-        {
-            //
-            $user = User::findOrFail( $grp->admin_id);
-            Log::alert($user->profile_id);
-            $profile = Profile::findOrFail($user->profile_id);
+        // foreach($grps as $grp)
+        // {
+        //     $user = User::findOrFail( $grp->admin_id);
+        //     Log::alert($user->profile_id);
+        //     $profile = Profile::findOrFail($user->profile_id);
+        //     $temp[0] = $user->group;
+        //     $temp[1] = $profile;
 
+        //     $groups[$index] = $temp;
 
-            $groups[$index][0] = $user->group;
-            $groups[$index][1] =  $profile;
-
-            $index+=1;
-        }
+        //     $index+=1;
+        // }
         //$groups = $groups->user->profile;
 
-        return response()->json( $groups, 201);
+        return response()->json( $grps->load('users'), 200);
     }
 
     function count()
@@ -48,37 +48,54 @@ class GroupController extends Controller
             'admin_id' => 'required|min:1'
         ]);
 
-        $group = Group::create($rules);
+        $group = Group::create([
+            'group_name' => $request->group_name,
+        ]);
+
+        if(isset($request->admin_id))
+        {
+            $admin = User::findOrFail($request->admin_id);
+            $admin = update([
+                'group_id' => $group->id,
+            ]);
+
+            return response()->json([
+                'group' => $group,
+                'admin' => $admin,
+            ], 201);
+        }
         return response()->json($group, 201);
 
     }
 
     function show(Request $request)
     {
-        $group = [];
-        $grp = Group::findOrFail($request->id);
+        $group = User::where('group_id', $request->id)->first();
 
-            $user = User::findOrFail( $grp->admin_id);
-            Log::alert($user->profile_id);
-            $profile = Profile::findOrFail($user->profile_id);
-
-
-            $group[0][0] = $user->group;
-            $group[0][1] =  $profile;
-
-        return response()->json($group, 201);
+        return response()->json($group->load('group'), 201);
     }
 
     function update(Request $request)
     {
         $id = $request->id;
-        $grp = Group::findOrFail($id);
+        $group = Group::findOrFail($id);
 
-       // $grp->update( ['is_active' => false]);
+        Log::alert($request->group_name);
+
+        $group->group_name = $request->group_name;
+        $group->save();
+
+        return response()->json($group, 201);
+
+    }
+
+    function destroy(Request $request)
+    {
+        $grp = Group::findOrFail($request->id);
         $grp->is_active = false;
         $grp->save();
 
-        return response()->json($grp, 201);
+        return response()->json($grp->group_name . "Was Successfully Deleted!!! ", 201);
 
     }
 }

@@ -20,6 +20,7 @@ class UserFactory extends Factory
         return [
             'user_type_id' => 2,
             'profile_id' => 2,
+            'group_id' => 1,
             'email' => $this->faker->unique()->safeEmail(),
             'password' => bcrypt('password'),
             'remember_token' => Str::random(10),

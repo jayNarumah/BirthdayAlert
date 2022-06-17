@@ -16,23 +16,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Profile::create(
-            [
-                'name' => 'Super Admin',
-                'dob' => now(),
-                'gender' => 'Male',
-                'email' => 'super@demo.com',
-                'phone_number' => '07035660599'
-            ]);
-        $this->call([
-            UserSeeder::class,
-            ProfileSeeder::class,
-
-            GroupSeeder::class,
-            GroupMemberSeeder::class,
-
-
-        ]);
         UserType::create(
             [
                 'type' => 'Super Admin',
@@ -48,6 +31,24 @@ class DatabaseSeeder extends Seeder
                 'type' => 'User',
             ]
         );
+
+        Profile::create(
+            [
+                'name' => 'Super Admin',
+                'dob' => now(),
+                'gender' => 'Male',
+                'email' => 'super@demo.com',
+                'phone_number' => '07035660599'
+            ]);
+        $this->call([
+            ProfileSeeder::class,
+            GroupSeeder::class,
+            UserSeeder::class,
+            GroupMemberSeeder::class,
+
+
+        ]);
+
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

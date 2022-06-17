@@ -22,20 +22,14 @@ class Profile extends Model
     ];
 
     protected $cast = [
+        'dob' => 'datetime'
     ];
 
-    // function userType()
-    // {
-    //     return $this->belongsTo(UserType::class);
-    // }
-    // function groups()
-    // {
-    //     $this->belongsToMany(Group::class);
-    // }
     function user()
     {
         $this->hasOne(User::class);
     }
+
     function groupMembers()
     {
         return $this->hasMany(GroupMember::class);

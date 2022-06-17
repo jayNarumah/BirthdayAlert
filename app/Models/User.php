@@ -24,6 +24,7 @@ class User extends Authenticatable
         'user_type_id',
         'email',
         'password',
+        'group_id',
     ];
 
     /**
@@ -43,7 +44,9 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'profile' => 'integer'
+        'profile_id' => 'integer',
+        'user_type_id' => 'integer',
+        'group_id' => 'integer'
     ];
 
     // protected $with = [
@@ -63,6 +66,6 @@ class User extends Authenticatable
 
     function group()
     {
-        return $this->hasOne(Group::class, 'admin_id');
+        return $this->belongsTo(Group::class);
     }
 }
