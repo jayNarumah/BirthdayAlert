@@ -15,33 +15,17 @@ class UserController extends Controller
 {
     function index()
     {
-        // $id = auth()->user()->profile_id;
-        // Log::alert('Admin Id; ' . $id);
-        // $group = Group::where('admin_id', $id)->first();
         Log::alert(auth()->user()->group_id);
         //
         $group_members = GroupMember::where('group_id', auth()->user()->group_id)->get();
 
-        $members = $group_members->profile;
-
-
-        //$group = auth()->user()->group->groupMembers;
-        //Log::alert($members->load('groupMembers'));
-        Log::alert('Admin Id; ' . $members);
-        //$group = Group::where('admin_id', $id)->first();
-        //Log::alert($group->load('GroupMembers'));
-        //$members = GroupMember::where('group_id', $group->id)->get();
-
-       // return response()->json($members, 201);
+        return response()->json($group_members, 201);
     }
 
     function count()
     {
-        $id = auth()->user()->profile_id;
-        Log::alert('Admin Id; ' . $id);
-        $group = Group::where('admin_id', $id)->first();
-        Log::alert($group->id);
-        $users = GroupMember::where('group_id', $group->id)->count();
+        $id = auth()->user()->group->id;
+        $users = GroupMember::where('group_id', $id)->count();
 
         return response()->json($users, 201);
     }

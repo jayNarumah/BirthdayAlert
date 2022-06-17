@@ -29,11 +29,11 @@ class GroupMember extends Model
 
     function profiles()
     {
-        $this->belongsToMany(Profile::class);
+        $this->belongsTo(Profile::class);
     }
 
     function groups()
     {
-        $this->belonsToMany(Group::class);
+        $this->belonsTo(Group::class);
     }
 }

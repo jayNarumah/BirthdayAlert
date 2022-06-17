@@ -106,7 +106,7 @@ class AdminController extends Controller
 
                 //Mail::to($request->email)->queue(new \App\Mail\NotificationMail($details));
 
-                ///Mail::to($request->email)->send(new SendMail($details));
+                //Mail::to($request->email)->send(new SendMail($details));
 
             Log::info("Email Sent Successfully!!!");
         } catch (\Throwable $e) {

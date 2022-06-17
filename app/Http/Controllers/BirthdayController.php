@@ -38,9 +38,8 @@ class BirthdayController extends Controller
     {
         $like = "%-" . date("m") ."-" . date("d") . " %";
         $group = auth()->user()->group;
-        $group_id = $group->id;
 
-        $count = GroupMember::where('group_id', $group_id)->count();
+        $count = GroupMember::where('group_id', $group->id)->count();
 
         return response()->json($count, 201);
     }
