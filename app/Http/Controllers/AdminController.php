@@ -12,23 +12,23 @@ use \App\Mail\SendMail;
 
 class AdminController extends Controller
 {
-    function mail()
-    {
-        try{
-            $details = 'Krunal';
-            Mail::to('jawadrumah@gmail.com')->send(new SendMail($details));
+    // function mail()
+    // {
+    //     try{
+    //         $details = 'Krunal';
+    //         Mail::to('jawadrumah@gmail.com')->send(new SendMail($details));
 
-                Log::info("Email Sent Successfully!!!");
-            } catch (\Throwable $e) {
-                throw $e;
-            }
-    }
+    //             Log::info("Email Sent Successfully!!!");
+    //         } catch (\Throwable $e) {
+    //             throw $e;
+    //         }
+    // }
 
     function index()
     {
-        $admins=User::all();
+        $admins=User::where('is_active', true)->get();
 
-        return response()->json($admins, 200);
+        return response()->json($admins->load('group','profile'), 200);
     }
 
     function count()
@@ -47,17 +47,9 @@ class AdminController extends Controller
 
     function store(Request $request)
     {
-        try{
-        $details = 'Krunal';
-        Mail::to('jawadrumah@gmail.com')->send(new SendMail($details));
-
-            Log::info("Email Sent Successfully!!!");
-        } catch (\Throwable $e) {
-            throw $e;
-        }
         $rules=$request->validate([
             'name' => 'required|min:3|max:200',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:profiles,email',
             'password' => 'required|min:6',
             'phone_number' => 'required|min:11|max:13',
             'gender' => 'min:4|max:20',
@@ -76,15 +68,18 @@ class AdminController extends Controller
                 'email' => $profile->email,
                 'password' => bcrypt($request->password),
                 'user_type_id' => 2,
-                'profile_id' => $profile->id
+                'profile_id' => $profile->id,
+                'group_id' => $request->group_id
             ]);
 
-            $id = $request->group_id;
-            Log::info($id);
-            $group = Group::find($id);
-            $group->admin_id = $user->id;
+            //Log::info($id);
+            // $group = Group::findOrFail($request->group_id);
+            // $group->update([
+            //     'admin_id' => $user->id
+            // ]);
+           // $group->admin_id = $user->id;
 
-            $group->save();
+           // $group->save();
 
             $details = [
                 'tittle' => 'My Tittle',
@@ -94,77 +89,59 @@ class AdminController extends Controller
             //Log::debug($details);
 
             try {
+                if($profile->gender == 'Male')
+                {
+                    $gender = "He";
+                }
+                else{
+                    $gender = "She";
+                }
+
+                $details = [
+                    'name' => $profile->name,
+                    'dob' => $profile->dob,
+                    'gender' => $gender,
+
+                ];
+
                 //Mail::to($request->email)->queue(new \App\Mail\NotificationMail($details));
 
-                 $details = 'Krunal';
-             Mail::to('jawadrumah@gmail.com')->send(new SendMail($details));
+                //Mail::to($request->email)->send(new SendMail($details));
 
-                Log::info("Email Sent Successfully!!!");
-            } catch (\Throwable $e) {
-                throw $e;
-            }
-
+            Log::info("Email Sent Successfully!!!");
+        } catch (\Throwable $e) {
+            throw $e;
+        }
             return response()->json([
                 'profile' => $profile,
                 'user' => $user,
-                'group' =>$group
             ], 201);
       //  }
       //  return response()->json($profile, 201);
     }
 
-    function createadmin(Request $request)
-    {
-        $rules=$request->validate([
-            'group_id' => 'required',
-            'admin_id' =>'required',
-            //'email' => 'required|email',
-            'password' => 'required|min:8|max:30',
-        ]);
-
-        //$rules['group_name'] = ucwords($request->group_name);
-
-        $profile_id = $rules['profile_id'];
-
-        $profile = Profile::findOrFail($profile_id);
-
-        $user = User::create([
-            'profile_id' => $rules['profile_id'],
-            'email' => $profile->profile->email,
-            'password' => bcrypt($rules['password']),
-        ]);
-
-        $group = Group::findOrFail($request->id);
-
-       $group->admin_id = $user->id;
-
-       $group->save();
-
-        return response()->json($group, 201);
-    }
-
     function show(Request $request)
     {
-        $id = $request->id;
-        $user = Profile::findOrFail($id);
+        $user = User::findOrFail($request->id);
 
-        return response()->json($user, 200);
+        return response()->json($user->load('profile', 'group'), 200);
     }
 
     function update(Request $request)
     {
+
         $rules=$request->validate([
             'name' => 'required|min:3|max:200',
             'email' => 'required|email',
             'phone_number' => 'required|min:11|max:13',
-            'gender' => 'min:4|max:20',
+            'gender' => 'required|min:4|max:20',
             'dob' => 'required|min:5',
+            'group_id' => 'required',
         ]);
 
-        $id = $request->profile_id;
         //$rules['name'] = ucwords($request->name);
-        $prfl = Profile::findOrFail($id);
-        $usr = where('profile_id', $id);
+        $usr = User::findOrFail($request->id);
+        $prfl = $usr->profile;
 
         $profile = $prfl->update([
             'name' => $request->name,
@@ -173,10 +150,15 @@ class AdminController extends Controller
             'dob' => $request->dob,
             'gender' => $request->gender,
         ]);
+        //$prfl = Profile::findOrFail($id);
 
-        $user = User::where('profile_id', $id)->get();
-        $user->email = $request->email;
-        $user->save();
+        //$usr = User::where('profile_id', $id)->get();
+        $user = $usr->update([
+            'email' => $request->email,
+            'group_id' => $request->group_id,
+        ]);
+        //$user->email = $request->email;
+        //$user->save();
 
         return response()->json([
             'user' => $user,
@@ -187,25 +169,51 @@ class AdminController extends Controller
 
     function destroy(Request $request)
     {
-        $id = $request->id;
+        $user=User::findOrFail($request->id);
 
-        $usr=Profile::findOrFail($id);
-        $usr1=User::findOrFail($id);
+        $user->is_active = false;
+        $user->save();
 
-        $usr1->is_active = false;
-        $usr1->save();
-        $usr->is_active = false;
-        $usr->save();
+        Log::alert($user);
 
-        //Log::alert($usr);
-
-       //Log::info($usr);
-
-        return response()->json([
-            'user' => $usr1,
-            'profile' => $usr
-        ], 201);
+        return response()->json("Admin Was Successfully Deleted !!!", 201);
 
     }
+
+    // function createAdmin(Request $request)
+    // {
+    //     Log::alert($request->group_id);
+    //     $rules=$request->validate([
+    //         'group_id' => '[required]',
+    //         'profile_id' =>'[required]',
+    //         //'email' => 'required|email',
+    //         'password' => '[required,min:6,max:30]',
+    //     ]);
+
+    //     //$rules['group_name'] = ucwords($request->group_name);
+
+
+    //     $profile = Profile::findOrFail($request->profile_id);
+
+    //     $user = User::create([
+    //         'profile_id' => $request->profile_id,
+    //         'email' => $profile->email,
+    //         'password' => bcrypt($rules['password']),
+    //     ]);
+
+    //     $group = Group::findOrFail($request->group_id);
+
+    //     $group = $group->update([
+    //         'admin_id' => $user->id,
+    //     ]);
+
+    //    //$group->admin_id = $user->id;
+
+    //    //$group->save();
+
+    //     return response()->json($group, 201);
+    // }
+
+
 
 }

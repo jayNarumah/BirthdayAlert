@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use \App\Models\UserType;
+use \App\Models\Group;
 
 class User extends Authenticatable
 {
@@ -23,7 +24,7 @@ class User extends Authenticatable
         'user_type_id',
         'email',
         'password',
-
+        'group_id',
     ];
 
     /**
@@ -43,11 +44,15 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'profile_id' => 'integer',
+        'user_type_id' => 'integer',
+        'group_id' => 'integer'
     ];
 
-    protected $with = [
-        'profile',
-    ];
+    // protected $with = [
+    //     'profile',
+    //     'group'
+    // ];
 
     function userType()
     {
@@ -57,5 +62,10 @@ class User extends Authenticatable
     function profile()
     {
         return $this->belongsTo(Profile::class);
+    }
+
+    function group()
+    {
+        return $this->belongsTo(Group::class);
     }
 }

@@ -11,13 +11,16 @@ class Group extends Model
     use HasFactory;
 
     protected $fillable = [
-        'admin_id',
         'group_name'
     ];
 
-    function user()
+    protected $casts = [
+        'admin_id' => 'integer',
+    ];
+
+    public function user()
     {
-        $this->belongsTo(User::class, 'admin_id');
+        $this->hasOne(User::class);
     }
 
     function groupMembers()

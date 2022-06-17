@@ -18,7 +18,6 @@ class GroupFactory extends Factory
     public function definition()
     {
         return [
-            'admin_id' => User::inRandomOrder()->first(),
             'group_name' => $this->faker->sentence()
         ];
     }

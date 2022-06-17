@@ -23,34 +23,52 @@ class BirthdayController extends Controller
         return response()->json($profiles, 201);
     }
 
-    function birthday()
+    function birthdaysCount()
     {
         $day = date("d");
         $month = date("m");
         $like = "%-".$month."-" . $day . " %";
-        $id = auth()->user()->id;
-        Log::info($id);
-        $groups = Group::where('admin_id', $id)->get();
+
+        $count = Profile::where('dob', 'like', $like)->count();
+
+        return response()->json($count, 201);
+    }
+
+    function birthdayCount()
+    {
+        $like = "%-" . date("m") ."-" . date("d") . " %";
+        $group = auth()->user()->group;
+
+        $count = GroupMember::where('group_id', $group->id)->count();
+
+        return response()->json($count, 201);
+    }
+
+    function birthday()
+    {
+        $like = "%-" . date("m") ."-" . date("d") . " %";
+        $group = auth()->user()->group;
+        $group_id = $group->id;
+
+        Log::alert("Group :" . $group_id);
 
         $birthdays = [];
         $index = 0;
 
-        foreach($groups as $group)
-        {
-            $group_members = GroupMember::where('group_id', $group->id)->get();
+        $group_members = GroupMember::where('group_id', $group_id)->get();
+        // $group_members = $groups->groupMembers;
 
-            foreach($group_members as $group_member )
+        foreach($group_members as $group_member )
         {
 
             $profile = Profile::where('id', $group_member->profile_id)
-                                ->where('dob', 'like', $like)->get();
+                              ->where('dob', 'like', $like)->get();
 
             $birthdays[$index] = $profile;
             $index += 1;
-        }
-        }
+         }
 
-            return response()->json($birthdays, 201);
+         return response()->json($birthdays, 201);
 
-        }
+     }
 }

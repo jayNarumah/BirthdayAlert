@@ -8,28 +8,36 @@ use \Illuminate\Support\Facades\Log;
 use \App\Models\Profile;
 use \App\Models\Group;
 use \App\models\GroupMember;
+use \App\models\User;
 use \App\Http\Resources\UserResource;
 
 class UserController extends Controller
 {
     function index()
     {
-        $id = auth()->user()->profile_id;
-        Log::alert('Admin Id; ' . $id);
-        $group = Group::where('admin_id', $id)->first();
-        Log::alert($group->id);
-        $users = GroupMember::where('group_id', $group->id)->get();
 
-        return response()->json($users, 201);
+        $index = 0;
+        $group_members = [];
+        //
+        $members = GroupMember::where('group_id', auth()->user()->group_id)->get();
+
+        foreach($members as $member)
+        {
+            $profile = Profile::findOrFail($member->id);
+            $group_members[$index] = $profile;
+            Log::alert($member);
+
+            $index+=1;
+        }
+
+
+        return response()->json($group_members, 201);
     }
 
     function count()
     {
-        $id = auth()->user()->profile_id;
-        Log::alert('Admin Id; ' . $id);
-        $group = Group::where('admin_id', $id)->first();
-        Log::alert($group->id);
-        $users = GroupMember::where('group_id', $group->id)->count();
+        $id = auth()->user()->group->id;
+        $users = GroupMember::where('group_id', $id)->count();
 
         return response()->json($users, 201);
     }
@@ -45,24 +53,21 @@ class UserController extends Controller
         ]);
 
         //$rules['name'] = ucwords($request->name);
-        $admin_id = auth()->user()->id;
-        Log::info($admin_id);
-        $group = Group::findOrFail($admin_id);
-        $group_id = $group->id;
-        $rules['user_type_id'] = 3;
+         $group = auth()->user()->profile;
+        //$group = Group::where('admin_id', auth()->user()->id)->first();
 
         $profile = Profile::create($rules);
+        Log::alert(auth()->user()->id);
 
         $group_member = GroupMember::create([
             'profile_id' => $profile->id,
-            'group_id' => $group_id,
-            'is-active' => true
+            'group_id' => $group->id,
         ]);
 
         //return new UserResource($profile);
         return response()->json([
             'profile' =>$profile,
-            'group_member' => $group_member
+            'group' => $group
             ], 201);
     }
 
@@ -77,6 +82,8 @@ class UserController extends Controller
 
     function update(Request $request)
     {
+        $id = $request->id;
+        //Log::alert($request->id);
         $rules=$request->validate([
             'name' => 'required|min:3|max:200',
             'email' => 'required|email',
@@ -85,10 +92,8 @@ class UserController extends Controller
             'dob' => 'required|min:5',
         ]);
 
-        $id = $request->profile_id;
         //$rules['name'] = ucwords($request->name);
         $prfl = Profile::findOrFail($id);
-        $usr = where('profile_id', $id);
 
         $profile = $prfl->update([
             'name' => $request->name,
@@ -98,21 +103,19 @@ class UserController extends Controller
             'gender' => $request->gender,
         ]);
 
-
-        return response()->json( $user, 201);
+        return response()->json( $profile, 201);
 
     }
 
     function destroy(Request $request)
     {
-        $id = $request->id;
+        $prfl=Profile::findOrFail($request->id);
 
-        $user=Profile::findOrFail($id);
+        $profile = $prfl->update([
+            'is_active' => false,
+        ]);
 
-        $user->is_active = false;
-        $user->save();
-
-        return response()->json($user, 201);
+        return response()->json("Group Member Was Successfully Deleted !!!", 201);
 
     }
 }
