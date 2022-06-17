@@ -15,9 +15,21 @@ class UserController extends Controller
 {
     function index()
     {
-        Log::alert(auth()->user()->group_id);
+
+        $index = 0;
+        $group_members = [];
         //
-        $group_members = GroupMember::where('group_id', auth()->user()->group_id)->get();
+        $members = GroupMember::where('group_id', auth()->user()->group_id)->get();
+
+        foreach($members as $member)
+        {
+            $profile = Profile::findOrFail($member->id);
+            $group_members[$index] = $profile;
+            Log::alert($member);
+
+            $index+=1;
+        }
+
 
         return response()->json($group_members, 201);
     }

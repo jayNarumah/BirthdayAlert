@@ -13,9 +13,9 @@ class GroupController extends Controller
     function index()
     {
         $index = 0;
-        $groups = [];
+        $groups_list = [];
         $temp = [];
-        $grps = Group::where('is_active', true)->get();
+        $groups = Group::where('is_active', true)->get();
 
         // foreach($grps as $grp)
         // {
@@ -31,7 +31,7 @@ class GroupController extends Controller
         // }
         //$groups = $groups->user->profile;
 
-        return response()->json( $grps->load('users'), 200);
+        return response()->json( $groups, 200);
     }
 
     function count()
