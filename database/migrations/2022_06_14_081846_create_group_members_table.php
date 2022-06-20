@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('group_members', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('profile_id')->constrained()->onUpdateCascade();
+            $table->foreignId('profile_id')->constrained();
             $table->foreignId('group_id')->constrained();
             $table->boolean('is_active')->default(true);
             $table->timestamps();

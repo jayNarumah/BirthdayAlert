@@ -27,13 +27,13 @@ class GroupMember extends Model
         'profile_id' => 'integer',
     ];
 
-    function profiles()
+    function profile()
     {
         $this->belongsTo(Profile::class);
     }
 
-    function groups()
+    function group()
     {
-        $this->belonsTo(Group::class);
+        $this->belongsTo(Group::class);
     }
 }

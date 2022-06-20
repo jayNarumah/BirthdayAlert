@@ -46,29 +46,30 @@ class BirthdayController extends Controller
 
     function birthday()
     {
-        $like = "%-" . date("m") ."-" . date("d") . " %";
+        $like = "%-" . date("m") ."-" . date("d") ;
         $group = auth()->user()->group;
-        $group_id = $group->id;
 
-        Log::alert("Group :" . $group_id);
-
-        $birthdays = [];
+        $id = [];
         $index = 0;
+       // Log::alert(date('Y-m-d'));
 
-        $group_members = GroupMember::where('group_id', $group_id)->get();
-        // $group_members = $groups->groupMembers;
+        $group_members = GroupMember::where('group_id', $group->id)->profile->get();
 
         foreach($group_members as $group_member )
         {
-
             $profile = Profile::where('id', $group_member->profile_id)
-                              ->where('dob', 'like', $like)->get();
+                            ->where('dob', 'like', $like)->first();
+            //Log::alert($profile->dob);
 
-            $birthdays[$index] = $profile;
-            $index += 1;
-         }
+            if($profile->dob == date('Y-m-d'))
+            {
+                $id[$index] = $group_member->profile_id;
+                $index = $index + 1;
+            }
+        }
 
-         return response()->json($birthdays, 201);
+        $birthdays = Profile::whereIn('id', $id)->get();
 
-     }
+        return response()->json($birthdays, 201);
+    }
 }

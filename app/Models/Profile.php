@@ -22,7 +22,7 @@ class Profile extends Model
     ];
 
     protected $cast = [
-        'dob' => 'datetime'
+        'dob' => 'date'
     ];
 
     function user()

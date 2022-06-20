@@ -17,19 +17,19 @@ class GroupController extends Controller
         $temp = [];
         $groups = Group::where('is_active', true)->get();
 
-        // foreach($grps as $grp)
-        // {
-        //     $user = User::findOrFail( $grp->admin_id);
-        //     Log::alert($user->profile_id);
-        //     $profile = Profile::findOrFail($user->profile_id);
-        //     $temp[0] = $user->group;
-        //     $temp[1] = $profile;
+        foreach($grps as $grp)
+        {
+            $user = User::findOrFail( $grp->admin_id);
+            Log::alert($user->profile_id);
+            $profile = Profile::findOrFail($user->profile_id);
+            $temp[0] = $user->group;
+            $temp[1] = $profile;
 
-        //     $groups[$index] = $temp;
+            $groups[$index] = $temp;
 
-        //     $index+=1;
-        // }
-        //$groups = $groups->user->profile;
+            $index+=1;
+        }
+        $groups = $groups->user->profile;
 
         return response()->json( $groups, 200);
     }
@@ -44,26 +44,25 @@ class GroupController extends Controller
     function store(Request $request)
     {
         $rules=$request->validate([
-            'group_name' => 'required|min:3|max:250',
-            'admin_id' => 'required|min:1'
+            'group_name' => 'required|min:3|max:250'
         ]);
 
         $group = Group::create([
-            'group_name' => $request->group_name,
+            'group_name' => $request->group_name
         ]);
 
-        if(isset($request->admin_id))
-        {
-            $admin = User::findOrFail($request->admin_id);
-            $admin = update([
-                'group_id' => $group->id,
-            ]);
+        // if($request->admin_id > 0)
+        // {
+        //     $admin = User::findOrFail($request->admin_id);
+        //     $admin = update([
+        //         'group_id' => $group->id,
+        //     ]);
 
-            return response()->json([
-                'group' => $group,
-                'admin' => $admin,
-            ], 201);
-        }
+        //     return response()->json([
+        //         'group' => $group,
+        //         'admin' => $admin,
+        //     ], 201);
+        // }
         return response()->json($group, 201);
 
     }
@@ -82,8 +81,9 @@ class GroupController extends Controller
 
         Log::alert($request->group_name);
 
-        $group->group_name = $request->group_name;
-        $group->save();
+        $group->update([
+            'group_name' => $request->group_name
+        ]);
 
         return response()->json($group, 201);
 

@@ -39,40 +39,40 @@ Route::group(['middleware' => 'auth:sanctum',], function (){
 });
 
 Route::group(['middleware' => 'auth:sanctum',], function (){
-    Route::get('/admin', [AdminController::class, 'index'])->middleware('super_admin');
-    Route::post('/admin', [AdminController::class, 'store'])->middleware('super_admin');
-    Route::get('/admin/{id}', [AdminController::class, 'show'])->middleware('super_admin');
-    Route::delete('/admin/{id}', [AdminController::class, 'destroy'])->middleware('super_admin');
-    Route::post('/admin/{id}', [AdminController::class, 'update'])->middleware('super_admin');
+    Route::get('/admin', [AdminController::class, 'index']);
+    Route::post('/admin', [AdminController::class, 'store']);
+    Route::get('/admin/{id}', [AdminController::class, 'show']);
+    Route::delete('/admin/{id}', [AdminController::class, 'destroy']);
+    Route::post('/admin/{id}', [AdminController::class, 'update']);
 
-    Route::get('/users-count', [AdminController::class, 'profileCount'])->middleware('super_admin');
-    Route::get('/admin-count', [AdminController::class, 'count'])->middleware('super_admin');
-    Route::post('/create-admin', [AdminController::class, 'createAdmin'])->middleware('super_admin');
-    Route::get('/birthdays', [BirthdayController::class, 'birthdays'])->middleware('super_admin');
-    Route::get('/birthdays-count', [BirthdayController::class, 'birthdayscount'])->middleware('super_admin');
+    Route::get('/users-count', [AdminController::class, 'profileCount']);
+    Route::get('/admin-count', [AdminController::class, 'count']);
+    Route::post('/create-admin', [AdminController::class, 'createAdmin']);
+    Route::get('/birthdays', [BirthdayController::class, 'birthdays']);
+    Route::get('/birthdays-count', [BirthdayController::class, 'birthdayscount']);
 });
 
 Route::group(['middleware' => 'auth:sanctum',], function (){
 
-    Route::get('/group', [GroupController::class, 'index'])->middleware('super_admin');
-    Route::post('/group', [GroupController::class, 'store'])->middleware('super_admin');
-    Route::get('/group/{id}', [GroupController::class, 'show'])->middleware('super_admin');
-    Route::post('/group/{id}', [GroupController::class, 'update'])->middleware('super_admin');
-    Route::delete('/group/{id}', [GroupController::class, 'destroy'])->middleware('super_admin');
+    Route::get('/group', [GroupController::class, 'index']);
+    Route::post('/group', [GroupController::class, 'store']);
+    Route::get('/group/{id}', [GroupController::class, 'show']);
+    Route::post('/group/{id}', [GroupController::class, 'update']);
+    Route::delete('/group/{id}', [GroupController::class, 'destroy']);
 
-    Route::get('/group-count', [GroupController::class, 'count'])->middleware('super_admin');
+    Route::get('/group-count', [GroupController::class, 'count']);
 });
 
 Route::group(['middleware' => 'auth:sanctum',], function (){
-    Route::get('/user', [UserController::class, 'index'])->middleware('admin');
-    Route::post('/user', [UserController::class, 'store'])->middleware('admin');
-    Route::delete('/user/{id}', [UserController::class, 'destroy'])->middleware('admin');
-    Route::post('/user/{id}', [UserController::class, 'update'])->middleware('admin');
-    Route::get('/user/{id}', [UserController::class, 'show'])->middleware('admin');
+    Route::get('/user', [UserController::class, 'index']);
+    Route::post('/user', [UserController::class, 'store']);
+    Route::delete('/user/{id}', [UserController::class, 'destroy']);
+    Route::post('/user/{id}', [UserController::class, 'update']);
+    Route::get('/user/{id}', [UserController::class, 'show']);
 
-    Route::get('/user-count', [UserController::class, 'count'])->middleware('admin');
-    Route::get('/birthday-count', [BirthdayController::class, 'birthdaycount'])->middleware('admin');
-    Route::get('/birthday', [BirthdayController::class, 'birthday'])->middleware('admin');
+    Route::get('/user-count', [UserController::class, 'count']);
+    Route::get('/birthday-count', [BirthdayController::class, 'birthdaycount']);
+    Route::get('/birthday', [BirthdayController::class, 'birthday']);
 });
 
 

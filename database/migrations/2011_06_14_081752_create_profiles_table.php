@@ -21,9 +21,6 @@ return new class extends Migration
             $table->string('gender');
             $table->string('dob');
             $table->boolean('is_active')->default(true);
-            //$table->string('month');
-           // $table->foreignId('group_id');
-           // $table->string('created_by');
             $table->timestamps();
         });
     }

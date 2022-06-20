@@ -15,23 +15,23 @@ class UserController extends Controller
 {
     function index()
     {
-
         $index = 0;
-        $group_members = [];
-        //
+        $id = [];
         $members = GroupMember::where('group_id', auth()->user()->group_id)->get();
 
         foreach($members as $member)
         {
-            $profile = Profile::findOrFail($member->id);
-            $group_members[$index] = $profile;
-            Log::alert($member);
-
-            $index+=1;
+            $profile = Profile::findOrFail($member->profile_id);
+            if($profile->id > 0)
+            {
+                $id[$index] = $profile->id;
+                $index = $index + 1;
+            }
         }
 
+        $profiles = Profile::whereIn('id', $id)->get();
 
-        return response()->json($group_members, 201);
+        return response()->json($profiles, 201);
     }
 
     function count()

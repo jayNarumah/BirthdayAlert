@@ -180,39 +180,39 @@ class AdminController extends Controller
 
     }
 
-    // function createAdmin(Request $request)
-    // {
-    //     Log::alert($request->group_id);
-    //     $rules=$request->validate([
-    //         'group_id' => '[required]',
-    //         'profile_id' =>'[required]',
-    //         //'email' => 'required|email',
-    //         'password' => '[required,min:6,max:30]',
-    //     ]);
+    function createAdmin(Request $request)
+    {
+        Log::alert($request->group_id);
+        $rules=$request->validate([
+            'group_id' => '[required]',
+            'profile_id' =>'[required]',
+            //'email' => 'required|email',
+            'password' => '[required,min:6,max:30]',
+        ]);
 
-    //     //$rules['group_name'] = ucwords($request->group_name);
+        //$rules['group_name'] = ucwords($request->group_name);
 
 
-    //     $profile = Profile::findOrFail($request->profile_id);
+        $profile = Profile::findOrFail($request->profile_id);
 
-    //     $user = User::create([
-    //         'profile_id' => $request->profile_id,
-    //         'email' => $profile->email,
-    //         'password' => bcrypt($rules['password']),
-    //     ]);
+        $user = User::create([
+            'profile_id' => $request->profile_id,
+            'email' => $profile->email,
+            'password' => bcrypt($rules['password']),
+        ]);
 
-    //     $group = Group::findOrFail($request->group_id);
+        $user = User::findOrFail($request->group_id);
 
-    //     $group = $group->update([
-    //         'admin_id' => $user->id,
-    //     ]);
+        $group = $user->update([
+            'group_id' => $request->group_id,
+        ]);
 
-    //    //$group->admin_id = $user->id;
+       //$group->admin_id = $user->id;
 
-    //    //$group->save();
+       //$group->save();
 
-    //     return response()->json($group, 201);
-    // }
+        return response()->json($group, 201);
+    }
 
 
 
