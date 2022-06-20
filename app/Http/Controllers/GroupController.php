@@ -17,19 +17,19 @@ class GroupController extends Controller
         $temp = [];
         $groups = Group::where('is_active', true)->get();
 
-        foreach($grps as $grp)
-        {
-            $user = User::findOrFail( $grp->admin_id);
-            Log::alert($user->profile_id);
-            $profile = Profile::findOrFail($user->profile_id);
-            $temp[0] = $user->group;
-            $temp[1] = $profile;
+        // foreach($grps as $grp)
+        // {
+        //     $user = User::findOrFail( $grp->admin_id);
+        //     Log::alert($user->profile_id);
+        //     $profile = Profile::findOrFail($user->profile_id);
+        //     $temp[0] = $user->group;
+        //     $temp[1] = $profile;
 
-            $groups[$index] = $temp;
+        //     $groups[$index] = $temp;
 
-            $index+=1;
-        }
-        $groups = $groups->user->profile;
+        //     $index+=1;
+        // }
+        // $groups = $groups->user->profile;
 
         return response()->json( $groups, 200);
     }
