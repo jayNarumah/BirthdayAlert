@@ -32,6 +32,7 @@ Route::post('/login', [AuthController::class, 'login']);
 
 
 Route::get('/sms', [SmsController::class, 'aws']);
+Route::get('/crone-job-test', [BirthdayController::class, 'dailyBirthday']);
 Route::get('/test', [NotificationController::class, 'twilioSms']);
 
 Route::group(['middleware' => 'auth:sanctum',], function (){

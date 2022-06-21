@@ -17,55 +17,54 @@ class BirthdayController extends Controller
         $day = date("d");
         $month = date("m");
         $like = "%-".$month."-" . $day . " %";
-        $group_id = [];
-        $index = 0;
+        $groups = [];
+        $profiles = [];
+        $col = 0;
+        $row = 0;
 
-        $profiles = Profile::with('groupMembers')->where('dob', 'like', $like)->get();
+        $profiles = Profile::where('dob', 'like', $like)->get();
 
-        // $group_members = $profiles->groupMember;
-        // return response()->json($profiles->groupMembers);
+        foreach($profiles as $profile)
+        {
+            $group_members = GroupMember::where('profile_id', $profile->id)->first();
+            if($group_members != null)
+            {
+                Log::alert("message");
+                return response()->json($group_members, 200);
 
-        // return response()->json([
-        //    'profile' => $profiles,
-        //    'groupMembers' => $profiles->groupMembers
-        // ], 200);
-
-        foreach ($profiles as $profile) {
-            if ($profile) {
-                $data[] = GroupMember::where('profile_id', $profile->id)->get();
             }
+
+
+            if($profile->gender == 'Male')
+            {
+                $gender = "He";
+            }
+            else{
+                $gender = "She";
+            }
+           // try{
+                $details = [
+                    'name' => $profile->name,
+                    'dob' => $profile->dob,
+                    'gender' => $gender,
+
+                ];
+                //Mail::to($profile->email)->send(new SendMail($details));
+                $group_members = GroupMember::where('profile_id', $profile->id)->first();
+                $group = $group_members?->group;
+                return response()->json($group, 200);
+                Log::Info("Send Message to Birthday Partner" . $profile->email . " on" . Group::find());
+                if ($profiles->group_members != null)
+                {
+                    foreach ($profiles->group_members as $member)
+                    {
+                        if($profiles->groupMembers != null)
+                        {
+                        Log::alert("Gud");
+                        }
+                    }
+                }
         }
-
-        return response()->json($data, 200);
-
-        // foreach($profiles as $profile)
-        // {
-        //     if($profile->gender == 'Male')
-        //     {
-        //         $gender = "He";
-        //     }
-        //     else{
-        //         $gender = "She";
-        //     }
-        //    // try{
-        //         $details = [
-        //             'name' => $profile->name,
-        //             'dob' => $profile->dob,
-        //             'gender' => $gender,
-
-        //         ];
-        //         //Mail::to($profile->email)->send(new SendMail($details));
-        //         if ($profiles->group_members != null)
-        //         {
-        //             foreach ($profiles->group_members as $member)
-        //             {
-        //                 if($profiles->groupMembers != null)
-        //                 {
-        //                 Log::alert("Gud");
-        //                 }
-        //             }
-        //         }
-        // }
 
         $this->info('Hourly Update has been send successfully');
     }
