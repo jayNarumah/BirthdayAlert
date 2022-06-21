@@ -57,7 +57,6 @@ class UserController extends Controller
         //$group = Group::where('admin_id', auth()->user()->id)->first();
 
         $profile = Profile::create($rules);
-        Log::alert(auth()->user()->id);
 
         $group_member = GroupMember::create([
             'profile_id' => $profile->id,
@@ -83,7 +82,7 @@ class UserController extends Controller
     function update(Request $request)
     {
         $id = $request->id;
-        //Log::alert($request->id);
+
         $rules=$request->validate([
             'name' => 'required|min:3|max:200',
             'email' => 'required|email',

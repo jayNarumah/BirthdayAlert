@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use \App\Models\UserType;
 use \App\Models\Group;
+use \App\Models\Profile;
 
 class User extends Authenticatable
 {

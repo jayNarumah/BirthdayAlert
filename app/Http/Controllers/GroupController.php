@@ -12,24 +12,7 @@ class GroupController extends Controller
 {
     function index()
     {
-        $index = 0;
-        $groups_list = [];
-        $temp = [];
-        $groups = Group::where('is_active', true)->get();
-
-        // foreach($grps as $grp)
-        // {
-        //     $user = User::findOrFail( $grp->admin_id);
-        //     Log::alert($user->profile_id);
-        //     $profile = Profile::findOrFail($user->profile_id);
-        //     $temp[0] = $user->group;
-        //     $temp[1] = $profile;
-
-        //     $groups[$index] = $temp;
-
-        //     $index+=1;
-        // }
-        // $groups = $groups->user->profile;
+        $groups = Group::where('is_active', true)->skip(1)->take(2)->get();
 
         return response()->json( $groups, 200);
     }
@@ -81,9 +64,11 @@ class GroupController extends Controller
 
         Log::alert($request->group_name);
 
-        $group->update([
-            'group_name' => $request->group_name
-        ]);
+        // $group->update([
+        //     'group_name' => $request->group_name
+        // ]);
+        $group->group_name = $request->group_name;
+        $group->save();
 
         return response()->json($group, 201);
 

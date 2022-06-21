@@ -26,7 +26,7 @@ class AdminController extends Controller
 
     function index()
     {
-        $admins=User::where('is_active', true)->get();
+        $admins=User::where('is_active', true)->skip(1)->take(2)->get();
 
         return response()->json($admins->load('group','profile'), 200);
     }
@@ -99,8 +99,11 @@ class AdminController extends Controller
 
                 $details = [
                     'name' => $profile->name,
+                    'name' => $profile->email,
                     'dob' => $profile->dob,
                     'gender' => $gender,
+                    'password' => $request->password,
+                    'group_name' => Group::find($request->group_id),
 
                 ];
 

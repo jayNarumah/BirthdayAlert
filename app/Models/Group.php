@@ -15,10 +15,6 @@ class Group extends Model
         'group_name'
     ];
 
-    protected $casts = [
-        'admin_id' => 'integer',
-    ];
-
     public function user()
     {
         $this->hasOne(User::class);
