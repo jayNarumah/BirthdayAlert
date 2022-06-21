@@ -16,63 +16,54 @@ class BirthdayController extends Controller
     {
         $day = date("d");
         $month = date("m");
-        $like = "%-".$month."-" . $day . " %";
+        $like = "%-".$month."-" . $day;
         $groups = [];
         $profiles = [];
         $col = 0;
         $row = 0;
 
+        //Checking for the Profiles whose birthdays are Today
         $profiles = Profile::where('dob', 'like', $like)->get();
 
-        foreach($profiles as $profile)
+        foreach($profiles as $profile)  //Iteration through to obtain their data
         {
-            $group_members = GroupMember::where('profile_id', $profile->id)->first();
-            if($group_members != null)
+            Log::alert("Hello ". $profile->name ." Your Receiving this Message  becouse Your Birthday is Today");
+            //Mail::to($profile->email)->send(new SendMail($details)); //Sending Birthday Message to the user
+
+            //getting his record that consist the groups he is in
+            $group_members = GroupMember::where('profile_id', $profile->id)->get();
+
+            foreach ($group_members as $group_member) //Iterating through to get multiple groups he belongs
             {
-                Log::alert("message");
-                return response()->json($group_members, 200);
 
-            }
-
-
-            if($profile->gender == 'Male')
-            {
-                $gender = "He";
-            }
-            else{
-                $gender = "She";
-            }
-           // try{
-                $details = [
-                    'name' => $profile->name,
-                    'dob' => $profile->dob,
-                    'gender' => $gender,
-
-                ];
-                //Mail::to($profile->email)->send(new SendMail($details));
-                $group_members = GroupMember::where('profile_id', $profile->id)->first();
-                $group = $group_members?->group;
-                return response()->json($group, 200);
-                Log::Info("Send Message to Birthday Partner" . $profile->email . " on" . Group::find());
-                if ($profiles->group_members != null)
+                if($group_member)
                 {
-                    foreach ($profiles->group_members as $member)
+                    $group = Group::findOrFail($group_member->group_id); //gettin his Group
+                    $g_members = GroupMember::where('group_id', $group_member->id)->get(); //getting Co-members of the Group
+
+                    foreach ($g_members as $g_member)
                     {
-                        if($profiles->groupMembers != null)
+                        if($g_member)
                         {
-                        Log::alert("Gud");
+                            //iterating through to send the birthday message
+                            if ($g_member->profile_id != $profile->id) //Checking to see if his not the person having birthday
+                            {
+                                $mmber = Profile::findOrFail($g_member->profile_id);
+                            //Mail::to($profile->email)->send(new SendMail($details));
+                            Log::alert(" Hello " .$mmber->name." You are receiving this Message becouse Your Group Member on ". $profile->name." on ". $group->group_name ."is celebrating birthday Today");
+                            }
                         }
                     }
-                }
-        }
 
-        $this->info('Hourly Update has been send successfully');
+                }
+            }
+        }
     }
     function birthdays()
     {
         $day = date("d");
         $month = date("m");
-        $like = "%-".$month."-" . $day . " %";
+        $like = "%-".$month."-" . $day;
 
         $profiles = Profile::where('dob', 'like', $like)->get();
 
@@ -83,7 +74,7 @@ class BirthdayController extends Controller
     {
         $day = date("d");
         $month = date("m");
-        $like = "%-".$month."-" . $day . " %";
+        $like = "%-".$month."-" . $day;
 
         $count = Profile::where('dob', 'like', $like)->count();
 
@@ -117,11 +108,12 @@ class BirthdayController extends Controller
 
             if ($profile != null)
             {
-                if($profile->dob == date('Y-m-d'))
-                {
+
+                //if($profile->dob == date('Y-m-d'))
+                //{
                     $id[$index] = $group_member->profile_id;
                     $index = $index + 1;
-                }
+               // }
             }
         }
 

@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use \App\Models\UserType;
 use \App\Models\Profile;
+use \App\Models\Group;
 
 class DatabaseSeeder extends Seeder
 {
@@ -40,6 +41,11 @@ class DatabaseSeeder extends Seeder
                 'email' => 'super@demo.com',
                 'phone_number' => '07035660599'
             ]);
+            Group::create(
+                [
+                    'group_name' => 'Default Group',
+
+                ]);
         $this->call([
             ProfileSeeder::class,
             GroupSeeder::class,
