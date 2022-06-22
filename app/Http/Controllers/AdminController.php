@@ -143,29 +143,30 @@ class AdminController extends Controller
         ]);
 
         //$rules['name'] = ucwords($request->name);
-        $usr = User::findOrFail($request->id);
-        $prfl = $usr->profile;
+        $user = User::findOrFail($request->id);
+        $profile = $user->profile;
 
-        $profile = $prfl->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone_number' => $request->phone_number,
-            'dob' => $request->dob,
-            'gender' => $request->gender,
-        ]);
-        //$prfl = Profile::findOrFail($id);
+       // $profile = $prfl->update([
+            $profile->name = $request->name;
+            $profile->email = $request->email;
+            $profile->phone_number = $request->phone_number;
+            $profile->dob = $request->dob;
+            $profile->gender = $request->gender;
+            $profile->save();
+        //]);
 
-        //$usr = User::where('profile_id', $id)->get();
-        $user = $usr->update([
-            'email' => $request->email,
-            'group_id' => $request->group_id,
-        ]);
+
+        //$user = $user->update([
+            $user->email = $request->email;
+            $user->group_id = $request->group_id;
+            $user->save();
+        //]);
         //$user->email = $request->email;
         //$user->save();
 
         return response()->json([
             'user' => $user,
-            'profile' => $profile
+            //'profile' => $profile
         ], 201);
 
     }

@@ -30,6 +30,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/login', [AuthController::class, 'login']);
 
+Route::get('/aws-sms-test', [SmsController::class, 'sendAwsMessage']);
+
 
 Route::get('/sms', [SmsController::class, 'aws']);
 Route::get('/crone-job-test', [BirthdayController::class, 'dailyBirthday']);

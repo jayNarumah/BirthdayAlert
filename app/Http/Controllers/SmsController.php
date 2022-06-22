@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Aws\Sns\SnsClient;
-use Aws\Exception\AwsException;
 use AWS;
 use Exception;
+use \Aws\Sns\SnsClient;
+use Aws\Exception\AwsException;
+use \Aws\Credentials\Credentials;
         /** Aliasing the classes */
 
 
@@ -14,9 +15,47 @@ use Exception;
 
 class SmsController extends Controller
 {
+    function sendAwsMessage()
+    {
+        $credentials = new Credentials("AKIAX4WUFPBA7QEGUFV5", "HrSFLLIHs3ykK1Tx5CysWv/lfS4idudCxAfdP7ff");
+        $sns = new SnsClient([
+            'version' => 'latest',
+            'region'  => 'us-east-1',
+            'credentials' => $credentials
+        ]);
+
+        // $params = array(
+        //     'credentials' => array(
+        //         'key' => env("AWS_ACCESS_KEY_ID"),
+        //         'secret' => env("AWS_SECRET_ACCESS_KEY")
+
+        //     ),
+        //     'region' => 'us-east-1',
+        //     'version' => 'latest'
+        // );
+        // //$sns = AWS::createClient('sns');
+
+        // $sns = new SnsClient($params);
+
+        $args = array(
+            'MessageAttributes' => [
+        //]
+            'AWS.SNS.SMSTYPE' =>[
+                'DataType' => 'String',
+                'StringValue' => 'Transactional'
+            ]
+            ],
+
+            'Message' => "BirthdayNotification test Sms!!!",
+            'PhoneNumber' => "+2347066352444"
+        );
+
+        $result = $sns->publish($args);
+        Log::alert($result);
+    }
     function aws()
      {
-        $phone_number = "+2348036343085";
+        $phone_number = "+2347066352444";
         $sms = AWS::createClient('sns');
 
         $sms->publish([
