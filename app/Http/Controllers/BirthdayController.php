@@ -50,7 +50,7 @@ class BirthdayController extends Controller
                             {
                                 $mmber = Profile::findOrFail($g_member->profile_id);
                             //Mail::to($profile->email)->send(new SendMail($details));
-                            Log::alert(" Hello " .$mmber->name." You are receiving this Message becouse Your Group Member on ". $profile->name." on ". $group->group_name ."is celebrating birthday Today");
+                            Log::alert(" Hello " .$mmber->name." You are receiving this Message becouse Your Group Member ". $profile->name." on ". $group->group_name ."is celebrating birthday Today");
                             }
                         }
                     }
