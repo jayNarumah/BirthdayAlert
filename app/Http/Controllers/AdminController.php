@@ -26,7 +26,7 @@ class AdminController extends Controller
 
     function index()
     {
-        $admins=User::where('is_active', true)->skip(1)->take(2)->get();
+        $admins=User::where('is_active', true)->skip(1)->take(User::all()->count())->get();
 
         return response()->json($admins->load('group','profile'), 200);
     }
@@ -144,6 +144,7 @@ class AdminController extends Controller
 
         //$rules['name'] = ucwords($request->name);
         $user = User::findOrFail($request->id);
+
         $profile = $user->profile;
 
        // $profile = $prfl->update([
@@ -156,18 +157,18 @@ class AdminController extends Controller
         //]);
 
 
-        //$user = $user->update([
+        // $user = $user->update([
             $user->email = $request->email;
             $user->group_id = $request->group_id;
             $user->save();
-        //]);
+        // ]);
         //$user->email = $request->email;
         //$user->save();
 
         return response()->json([
-            'user' => $user,
-            //'profile' => $profile
-        ], 201);
+            'user' => $user->load('group'),
+            'profile' => $profile
+        ], 200);
 
     }
 
