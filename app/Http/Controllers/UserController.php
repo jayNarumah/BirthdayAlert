@@ -92,15 +92,16 @@ class UserController extends Controller
         ]);
 
         //$rules['name'] = ucwords($request->name);
-        $prfl = Profile::findOrFail($id);
+        $profile = Profile::findOrFail($id);
 
-        $profile = $prfl->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone_number' => $request->phone_number,
-            'dob' => $request->dob,
-            'gender' => $request->gender,
-        ]);
+
+            $profile->name = $request->name;
+            $profile->email = $request->email;
+            $profile->phone_number = $request->phone_number;
+            $profile->dob = $request->dob;
+            $profile->gender = $request->gender;
+            $profile->save();
+
 
         return response()->json( $profile, 201);
 
