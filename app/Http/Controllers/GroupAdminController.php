@@ -10,7 +10,7 @@ class GroupAdminController extends Controller
 {
     function getMyGroupName()
     {
-        return response()->json(auth()->user()->group, 200);
+        return response()->json(auth()->user()->load('group', 'profile'), 200);
     }
 
     function addMember(Request $request)
