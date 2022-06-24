@@ -27,30 +27,18 @@ class SmsController extends Controller
             'credentials' => $credentials
         ]);
 
-        // $params = array(
-        //     'credentials' => array(
-        //         'key' => env("AWS_ACCESS_KEY_ID"),
-        //         'secret' => env("AWS_SECRET_ACCESS_KEY")
-
-        //     ),
-        //     'region' => 'us-east-1',
-        //     'version' => 'latest'
-        // );
-        // //$sns = AWS::createClient('sns');
-
-        // $sns = new SnsClient($params);
 
         $args = array(
             'MessageAttributes' => [
         //]
             'AWS.SNS.SMS.SMSType' =>[
                 'DataType' => 'String',
-                'StringValue' => 'Promotional'
+                'StringValue' => 'Transactional'
             ]
             ],
 
             'Message' => "BirthdayNotification test Sms!!!",
-            'PhoneNumber' => "+2347066352444",
+            'PhoneNumber' => "+2347035460599",
         );
 
         $result = $sns->publish($args);

@@ -165,10 +165,7 @@ class AdminController extends Controller
         //$user->email = $request->email;
         //$user->save();
 
-        return response()->json([
-            'user' => $user->load('group'),
-            'profile' => $profile
-        ], 200);
+        return response()->json($user->load('group'), 200);
 
     }
 

@@ -32,36 +32,38 @@ class BirthdayController extends Controller
                 'group_name' => '',
             ];
 
-            Log::alert("Hello ". $profile->name ." Your Receiving this Message  becouse Your Birthday is Today");
+            Log::Info($profile->id . " Hello ". $profile->name ." Your Receiving this Message  becouse Your Birthday is Today");
             //Mail::to($profile->email)->queue(new BirthdayAlertMail($details)); //Sending Birthday Message to the user
-            exit();
+
             //getting his record that consist the groups he is in
-            $group_members = GroupMember::where('profile_id', $profile->id)->get();
+            $user_groups = GroupMember::where('profile_id', $profile->id)->get();
 
-            foreach ($group_members as $group_member) //Iterating through to get multiple groups he belongs
+            foreach ($user_groups as $user_group) //Iterating through to get multiple groups he belongs
             {
+                Log::alert($profile->id . " BelogsTo : " . $user_group?->group_id);
 
-                if($group_member)
+
+                if($user_group->profile_id == $profile->id) //recheck the selected user if he is the targeted user
                 {
-                    $group = Group::findOrFail($group_member->group_id); //gettin his Group
-                    $g_members = GroupMember::where('group_id', $group_member->id)->get(); //getting Co-members of the Group
+                    $group = Group::findOrFail($user_group->group_id); //getting his Group
+                    $group_members = GroupMember::where('group_id', $group->id)->get(); //getting Co-members of the Group
 
                     $details['group_name'] = $group->group_name;
 
-                    foreach ($g_members as $g_member)
+                    foreach ($group_members as $group_member)
                     {
-                        if($g_member)
+                        if($group_member->profile_id != $user_group->profile_id)
                         {
                             //iterating through to send the birthday message
 
-                            if ($g_member->profile_id != $profile->id) //Checking to see if his not the person having birthday
-                            {
-                                $mmber = Profile::findOrFail($g_member->profile_id);
+                        if ($group_member->profile_id != $profile->id) //Checking to see if his not the person having birthday
+                        {
+                        $member = Profile::findOrFail($group_member->profile_id);
 
-                            // Mail::to($profile->email)->queue(new NotificationMail($details)); //Sending Birthday Message to the user
+                     // Mail::to($profile->email)->queue(new NotificationMail($details)); //Sending Birthday Message to the user
 
-                            Log::alert(" Hello " .$mmber->name." You are receiving this Message becouse Your Group Member ". $profile->name." on ". $group->group_name ."is celebrating birthday Today");
-                            }
+                         Log::Info($member->id . " Hello " .$member->name." You are receiving this Message becouse Your Group Member ". $profile->name." on ". $group->group_name ."is celebrating birthday Today");
+                        }
                         }
                     }
 

@@ -11,6 +11,7 @@ use \App\Http\Controllers\BirthdayController;
 use \App\Http\Controllers\TestController;
 use \App\Http\Controllers\NotificationController;
 use \App\Http\Controllers\SmsController;
+use \App\Http\Controllers\GroupAdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,6 +65,8 @@ Route::group(['middleware' => 'auth:sanctum',], function (){
     Route::delete('/group/{id}', [GroupController::class, 'destroy']);
 
     Route::get('/group-count', [GroupController::class, 'count']);
+    Route::post('/add-member', [GroupAdminController::class, 'addMember']);
+    Route::get('/admin-group', [GroupAdminController::class, 'getMyGroupName']);
 });
 
 Route::group(['middleware' => 'auth:sanctum',], function (){

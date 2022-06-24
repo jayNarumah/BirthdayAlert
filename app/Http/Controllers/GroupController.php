@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \App\Models\Group;
+use \App\Models\GroupMember;
 use \App\Models\User;
 use \App\Models\Profile;
 use \Illuminate\Support\Facades\Log;
@@ -83,33 +84,5 @@ class GroupController extends Controller
         return response()->json($grp->group_name . "Was Successfully Deleted!!! ", 201);
     }
 
-    function addMember(Request $request)
-    {
-        $rules = $request->validate([
-            'email' => 'required|email',
-            'group_id' => 'required'
-        ]);
 
-        $profile = Profile::where('email', $request->email)->first();
-        if($profile)
-        {
-            $group_member = GroupMember::where('profile_id', $profile->id)
-                                       ->where('group_id', $group_id);
-            if(!$group_member)
-            {
-                $member = GroupMember::create([
-                    'profile_id' => $profile_id,
-                    'group_id' => $group_id
-                ]);
-
-            }
-        }
-        else {
-            {
-                $member = "profile Does not Exist Yet!!!";
-
-            }
-        }
-        return response()->json($member, 201);
-    }
 }
