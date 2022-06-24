@@ -67,6 +67,7 @@ Route::group(['middleware' => 'auth:sanctum',], function (){
     Route::get('/group-count', [GroupController::class, 'count']);
     Route::post('/add-member', [GroupAdminController::class, 'addMember']);
     Route::get('/admin-group', [GroupAdminController::class, 'getMyGroupName']);
+    Route::get('/admin-profile', [GroupAdminController::class, 'admin']);
 });
 
 Route::group(['middleware' => 'auth:sanctum',], function (){

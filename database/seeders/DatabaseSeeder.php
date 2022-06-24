@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
                 'dob' => now(),
                 'gender' => 'Male',
                 'email' => 'super@demo.com',
-                'phone_number' => '07035660599'
+                'phone_number' => '07066352444'
             ]);
             Group::create(
                 [
