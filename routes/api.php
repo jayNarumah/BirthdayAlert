@@ -47,7 +47,7 @@ Route::group(['middleware' => 'auth:sanctum',], function (){
     Route::post('/admin', [AdminController::class, 'store']);
     Route::get('/admin/{id}', [AdminController::class, 'show']);
     Route::delete('/admin/{id}', [AdminController::class, 'destroy']);
-    Route::post('/admin/{id}', [AdminController::class, 'update']);
+    Route::put('/admin/{id}', [AdminController::class, 'update']);
 
     Route::get('/users-count', [AdminController::class, 'profileCount']);
     Route::get('/admin-count', [AdminController::class, 'count']);
@@ -58,11 +58,12 @@ Route::group(['middleware' => 'auth:sanctum',], function (){
 
 Route::group(['middleware' => 'auth:sanctum',], function (){
 
-    Route::get('/group', [GroupController::class, 'index']);
-    Route::post('/group', [GroupController::class, 'store']);
-    Route::get('/group/{id}', [GroupController::class, 'show']);
-    Route::post('/group/{id}', [GroupController::class, 'update']);
-    Route::delete('/group/{id}', [GroupController::class, 'destroy']);
+    // Route::get('/group', [GroupController::class, 'index']);
+    // Route::post('/group', [GroupController::class, 'store']);
+    // Route::get('/group/{id}', [GroupController::class, 'show']);
+    // Route::post('/group/{id}', [GroupController::class, 'update']);
+    // Route::delete('/group/{id}', [GroupController::class, 'destroy']);
+    Route::apiResource('/group', GroupController::class);
 
     Route::get('/group-count', [GroupController::class, 'count']);
     Route::post('/add-member', [GroupAdminController::class, 'addMember']);
@@ -74,7 +75,7 @@ Route::group(['middleware' => 'auth:sanctum',], function (){
     Route::get('/user', [UserController::class, 'index']);
     Route::post('/user', [UserController::class, 'store']);
     Route::delete('/user/{id}', [UserController::class, 'destroy']);
-    Route::post('/user/{id}', [UserController::class, 'update']);
+    Route::put('/user/{id}', [UserController::class, 'update']);
     Route::get('/user/{id}', [UserController::class, 'show']);
 
     Route::get('/user-count', [UserController::class, 'count']);

@@ -33,7 +33,7 @@ class AdminController extends Controller
 
     function count()
     {
-        $count=User::where('is_active', true)->count();
+        $count=User::where('is_active', true)->count() - 1;
 
         return response()->json($count, 200);
     }

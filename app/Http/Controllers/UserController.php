@@ -115,7 +115,7 @@ class UserController extends Controller
             'is_active' => false,
         ]);
 
-        return response()->json("Group Member Was Successfully Deleted !!!", 201);
+        return response()->json("Profile Member Was Successfully Deleted !!!", 201);
 
     }
 }
