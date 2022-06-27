@@ -3,35 +3,33 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use \Illuminate\Support\Facades\DB;
 use \Illuminate\Support\Facades\Log;
+use \App\models\GroupMember;
 use \App\Models\Profile;
 use \App\Models\Group;
-use \App\models\GroupMember;
 use \App\models\User;
-use \App\Http\Resources\UserResource;
 
-class UserController extends Controller
+class UsersController extends Controller
 {
     function index()
     {
         $index = 0;
         $id = [];
-        $members = GroupMember::where('group_id', auth()->user()->group_id)->get();
+        $members = auth()->user()->group->groupMember;
 
-        foreach($members as $member)
-        {
-            $profile = Profile::findOrFail($member->profile_id);
-            if($profile->id > 0)
-            {
-                $id[$index] = $profile->id;
-                $index = $index + 1;
-            }
-        }
+        // foreach($members as $member)
+        // {
+        //     $profile = Profile::findOrFail($member->profile_id);
+        //     if($profile->id > 0)
+        //     {
+        //         $id[$index] = $profile->id;
+        //         $index = $index + 1;
+        //     }
+        // }
 
-        $profiles = Profile::whereIn('id', $id)->get();
+        // $profiles = Profile::whereIn('id', $id)->get();
 
-        return response()->json($profiles, 201);
+        return response()->json($members->load('profile', 'group'), 201);
     }
 
     function count()
@@ -64,10 +62,7 @@ class UserController extends Controller
         ]);
 
         //return new UserResource($profile);
-        return response()->json([
-            'profile' =>$profile,
-            'group' => $group
-            ], 201);
+        return response()->json($profile, 201);
     }
 
 

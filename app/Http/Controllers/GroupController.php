@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Group;
+use App\Http\Resources\GroupResource;
 use App\Http\Requests\StoreGroupRequest;
 use App\Http\Requests\UpdateGroupRequest;
-use App\Http\Resources\GroupResource;
+
 
 class GroupController extends Controller
 {
@@ -17,18 +18,7 @@ class GroupController extends Controller
     public function index()
     {
         return GroupResource::collection(Group::where('is_active', true)
-                            ->skip(1)->take(Group::all()->count())->get());
-
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+                            ->skip(1)->take(Group::all()->count())->get()->load('user'));
     }
 
     /**
@@ -68,8 +58,7 @@ class GroupController extends Controller
      */
     public function show(Group $group)
     {
-        //$group = User::where('group_id', $request->id)->first();
-        return new GroupResource($group, 200);
+        return new GroupResource($group->load('user'), 200);
     }
 
     /**
@@ -96,7 +85,7 @@ class GroupController extends Controller
             'group_name' => $request->group_name
         ]);
 
-        return new GroupResource($group, 200);
+        return new GroupResource($group->load('user'), 200);
     }
 
     /**

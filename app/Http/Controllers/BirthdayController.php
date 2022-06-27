@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+
+use \Illuminate\Support\Facades\Mail;
 use \Illuminate\Support\Facades\Log;
 use \Illuminate\Support\Facades\DB;
-use \Illuminate\Support\Facades\Mail;
 use \App\Mail\BirthdayAlertMail;
 use \App\Mail\NotificationMail;
-use \App\Models\Profile;
-use \App\Models\User;
-use \App\Models\Group;
+use Illuminate\Http\Request;
 use \App\Models\GroupMember;
+use \App\Models\Profile;
+use \App\Models\Group;
+use \App\Models\User;
+
+
 
 class BirthdayController extends Controller
 {
@@ -34,7 +37,7 @@ class BirthdayController extends Controller
 
             Log::Info($profile->id . " Hello ". $profile->name ." Your Receiving this Message  becouse Your Birthday is Today");
             //Mail::to($profile->email)->queue(new BirthdayAlertMail($details)); //Sending Birthday Message to the user
-
+            //exit();
             //getting his record that consist the groups he is in
             $user_groups = GroupMember::where('profile_id', $profile->id)->get();
 
@@ -71,6 +74,7 @@ class BirthdayController extends Controller
             }
         }
     }
+
     function birthdays()
     {
         $day = date("d");
@@ -95,23 +99,40 @@ class BirthdayController extends Controller
 
     function birthdayCount()
     {
-        $like = "%-" . date("m") ."-" . date("d") . " %";
-        $group = auth()->user()->group;
+        $like = "%-" . date("m") ."-" . date("d") ;
+        $group_members = auth()->user()->group->groupMembers;
 
-        $count = GroupMember::where('group_id', $group->id)->count();
+        $id = [];
+        $index = 0;
 
-        return response()->json($count, 201);
+        foreach($group_members as $group_member )
+        {
+            $profile = Profile::where('id', $group_member->profile_id)
+                            ->where('dob', 'like', $like)->first();
+
+            if ($profile != null)
+            {
+
+                //if($profile->dob == date('Y-m-d'))
+                //{
+                    $id[$index] = $group_member->profile_id;
+                    $index = $index + 1;
+               // }
+            }
+        }
+
+        $count = Profile::whereIn('id', $id)->get()->count();
+
+        return response()->json($count, 200);
     }
 
     function birthday()
     {
         $like = "%-" . date("m") ."-" . date("d") ;
-        $group = auth()->user()->group;
+        $group_members = auth()->user()->group->groupMembers;
 
         $id = [];
         $index = 0;
-
-        $group_members = GroupMember::where('group_id', $group->id)->get();
 
         foreach($group_members as $group_member )
         {

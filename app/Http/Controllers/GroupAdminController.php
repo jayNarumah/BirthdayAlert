@@ -8,14 +8,24 @@ use \App\Models\GroupMember;
 
 class GroupAdminController extends Controller
 {
+    function count()
+    {
+        $id = auth()->user()->group->id;
+        $users = GroupMember::where('group_id', $id)->count();
+
+        return response()->json($users, 201);
+    }
+
     function getMyGroupName()
     {
-        return response()->json(auth()->user()->group, 200);
+        $group = auth()->user()->group;
+        return response()->json($group->group_name, 200);
     }
 
     function admin()
     {
-        return response()->json(auth()->user()->profile, 200);
+        $admin = auth()->user()->profile;
+        return response()->json($admin->name, 200);
     }
 
     function addMember(Request $request)

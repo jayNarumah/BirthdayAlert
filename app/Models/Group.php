@@ -15,14 +15,26 @@ class Group extends Model
         'group_name'
     ];
 
-    public function user()
+    /**
+     * Get all of the groupMember for the Group
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function groupMembers()
     {
-        $this->hasOne(User::class);
+        return $this->hasMany(GroupMember::class, 'group_id', 'id');
     }
 
-    function groupMembers()
+    /**
+     * Get the user associated with the Group
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function user()
     {
-        $this->hasMany(GroupMember::class);
+        return $this->hasOne(User::class, 'group_id', 'id');
     }
+
+
 
 }
