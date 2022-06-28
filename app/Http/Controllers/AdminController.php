@@ -12,17 +12,17 @@ use \App\Models\User;
 
 class AdminController extends Controller
 {
-    // function mail()
-    // {
-    //     try{
-    //         $details = 'Krunal';
-    //         Mail::to('jawadrumah@gmail.com')->send(new SendMail($details));
+    function mail()
+    {
+        try{
+            $details = 'Krunal';
+            Mail::to('jawadrumah@gmail.com')->send(new SendMail($details));
 
-    //             Log::info("Email Sent Successfully!!!");
-    //         } catch (\Throwable $e) {
-    //             throw $e;
-    //         }
-    // }
+                Log::info("Email Sent Successfully!!!");
+            } catch (\Throwable $e) {
+                throw $e;
+            }
+    }
 
     function index()
     {
@@ -58,22 +58,6 @@ class AdminController extends Controller
                 'group_id' => $request->group_id
             ]);
 
-            //Log::info($id);
-            // $group = Group::findOrFail($request->group_id);
-            // $group->update([
-            //     'admin_id' => $user->id
-            // ]);
-           // $group->admin_id = $user->id;
-
-           // $group->save();
-
-            $details = [
-                'tittle' => 'My Tittle',
-                // 'id' => $request->profile_id
-            ];
-
-            //Log::debug($details);
-
             try {
                 if($profile->gender == 'Male')
                 {
@@ -103,7 +87,7 @@ class AdminController extends Controller
         }
             return response()->json([
                 'profile' => $profile,
-                'user' => $user,
+                'user' => $user->load('group'),
             ], 201);
       //  }
       //  return response()->json($profile, 201);
@@ -133,23 +117,16 @@ class AdminController extends Controller
 
         $profile = $user->profile;
 
-       // $profile = $prfl->update([
             $profile->name = $request->name;
             $profile->email = $request->email;
             $profile->phone_number = $request->phone_number;
             $profile->dob = $request->dob;
             $profile->gender = $request->gender;
             $profile->save();
-        //]);
 
-
-        // $user = $user->update([
             $user->email = $request->email;
             $user->group_id = $request->group_id;
             $user->save();
-        // ]);
-        //$user->email = $request->email;
-        //$user->save();
 
         return response()->json($user->load('group'), 200);
 
@@ -161,8 +138,6 @@ class AdminController extends Controller
 
         $user->is_active = false;
         $user->save();
-
-        Log::alert($user);
 
         return response()->json("Admin Was Successfully Deleted !!!", 201);
 

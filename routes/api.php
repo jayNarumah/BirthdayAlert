@@ -37,7 +37,7 @@ Route::get('/aws-sms-test', [SmsController::class, 'sendAwsMessage']);
 
 Route::get('/sms', [SmsController::class, 'aws']);
 Route::get('/crone-job-test', [BirthdayController::class, 'dailyBirthday']);
-Route::get('/test', [NotificationController::class, 'twilioSms']);
+// Route::get('/test', [NotificationController::class, 'twilioSms']);
 
 Route::group(['middleware' => 'auth:sanctum',], function (){
     Route::post('/logout', [AuthController::class, 'logout']);
@@ -47,14 +47,16 @@ Route::group(['middleware' => 'auth:sanctum',], function (){
     Route::get('/admin', [AdminController::class, 'index']);
     Route::post('/admin', [AdminController::class, 'store']);
     Route::get('/admin/{id}', [AdminController::class, 'show']);
-    Route::delete('/admin/{id}', [AdminController::class, 'destroy']);
     Route::put('/admin/{id}', [AdminController::class, 'update']);
+    Route::delete('/admin/{id}', [AdminController::class, 'destroy']);
 
-    Route::get('/users-count', [SuperAdminController::class, 'profileCount']);
-    Route::get('/admin-count', [SuperAdminController::class, 'count']);
-    Route::post('/create-admin', [SuperAdminController::class, 'createAdmin']);
-    Route::get('/birthdays', [BirthdayController::class, 'birthdays']);
     Route::get('/birthdays-count', [BirthdayController::class, 'birthdayscount']);
+    Route::get('/users-count', [SuperAdminController::class, 'profileCount']);
+    Route::post('/create-admin', [SuperAdminController::class, 'createAdmin']);
+    Route::get('/admin-count', [SuperAdminController::class, 'count']);
+    Route::get('/birthdays', [BirthdayController::class, 'birthdays']);
+    Route::get('/search', [SearchController::class, 'search']);
+
 });
 
 Route::group(['middleware' => 'auth:sanctum',], function (){
@@ -62,20 +64,20 @@ Route::group(['middleware' => 'auth:sanctum',], function (){
     Route::apiResource('/group', GroupController::class);
 
     Route::get('/group-count', [GroupController::class, 'count']);
+    Route::get('/admin-profile', [GroupAdminController::class, 'admin']);
     Route::post('/add-member', [GroupAdminController::class, 'addMember']);
     Route::get('/admin-group', [GroupAdminController::class, 'getMyGroupName']);
-    Route::get('/admin-profile', [GroupAdminController::class, 'admin']);
 });
 
 Route::group(['middleware' => 'auth:sanctum',], function (){
 
-    Route::get('/user/{id}', [UsersController::class, 'show']);
-    Route::put('/user/{id}', [UsersController::class, 'update']);
-    Route::delete('/user/{id}', [UsersController::class, 'destroy']);
+    // Route::get('/user/{id}', [UsersController::class, 'show']);
+    // Route::put('/user/{id}', [UsersController::class, 'update']);
+    // Route::delete('/user/{id}', [UsersController::class, 'destroy']);
 
     Route::apiResource('/user', ProfileController::class);
 
+    Route::get('/birthday', [BirthdayController::class, 'birthday']);
     Route::get('/user-count', [GroupAdminController::class, 'count']);
     Route::get('/birthday-count', [BirthdayController::class, 'birthdaycount']);
-    Route::get('/birthday', [BirthdayController::class, 'birthday']);
 });

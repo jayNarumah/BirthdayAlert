@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use \App\Models\Profile;
 use \App\Models\User;
@@ -24,7 +25,6 @@ class SuperAdminController extends Controller
 
     function createAdmin(Request $request)
     {
-        Log::alert($request->group_id);
         $rules=$request->validate([
             'group_id' => '[required]',
             'profile_id' =>'[required]',
@@ -39,21 +39,12 @@ class SuperAdminController extends Controller
 
         $user = User::create([
             'profile_id' => $request->profile_id,
+            'group_id' => $request->group_id,
             'email' => $profile->email,
             'password' => bcrypt($rules['password']),
         ]);
 
-        $user = User::findOrFail($request->group_id);
-
-        $group = $user->update([
-            'group_id' => $request->group_id,
-        ]);
-
-       //$group->admin_id = $user->id;
-
-       //$group->save();
-
-        return response()->json($group, 201);
+        return response()->json($user->load('group', 'profile'), 201);
     }
 
 

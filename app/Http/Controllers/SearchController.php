@@ -3,18 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\profile;
 
 class SearchController extends Controller
 {
     public function search(Request $request)
     {
-        $user = Profile::all();
+        //$user = Profile::all();
 
-        $user->where('name', 'like', '%' . $request->search . '%')
-             ->orWhere('email', 'like', '%' . $request->search . '%')
-             ->orWhere('gender', 'like', '%' . $request->search . '%');
+        $user = Profile::where('name', 'like', '%' . $request->search . '%')
+                       ->orWhere('phone_number', 'like', '%' . $request->search . '%')
+                       ->orWhere('gender', 'like', '%' . $request->search . '%')
+                       ->orWhere('email', 'like', '%' . $request->search . '%')
+                       ->orWhere('dob', 'like', '%' . $request->search . '%')->get();
 
-             return response()->json($user, 200);
+        return response()->json($user, 200);
 
     }
 }

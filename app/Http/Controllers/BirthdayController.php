@@ -113,11 +113,8 @@ class BirthdayController extends Controller
             if ($profile != null)
             {
 
-                //if($profile->dob == date('Y-m-d'))
-                //{
                     $id[$index] = $group_member->profile_id;
                     $index = $index + 1;
-               // }
             }
         }
 
@@ -141,12 +138,8 @@ class BirthdayController extends Controller
 
             if ($profile != null)
             {
-
-                //if($profile->dob == date('Y-m-d'))
-                //{
                     $id[$index] = $group_member->profile_id;
                     $index = $index + 1;
-               // }
             }
         }
 

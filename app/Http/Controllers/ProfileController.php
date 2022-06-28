@@ -61,17 +61,6 @@ class ProfileController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Profile  $profile
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Profile $profile)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\UpdateProfileRequest  $request
@@ -113,3 +102,4 @@ class ProfileController extends Controller
         return new ProfileResource($profile, 200);
     }
 }
+//0048614266 abraham
