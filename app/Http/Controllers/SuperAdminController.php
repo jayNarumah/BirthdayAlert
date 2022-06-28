@@ -18,7 +18,7 @@ class SuperAdminController extends Controller
 
     function profileCount()
     {
-        $count=Profile::where('is_active', true)->count();
+        $count=Profile::where('is_active', true)->count() -1;
 
         return response()->json($count, 200);
     }
