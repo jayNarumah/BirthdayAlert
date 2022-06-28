@@ -15,17 +15,26 @@ class Group extends Model
         'group_name'
     ];
 
-    protected $casts = [
-        'admin_id' => 'integer',
-    ];
+    /**
+     * Get all of the groupMember for the Group
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function groupMembers()
+    {
+        return $this->hasMany(GroupMember::class, 'group_id', 'id');
+    }
 
+    /**
+     * Get the user associated with the Group
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function user()
     {
-        $this->hasOne(User::class);
+        return $this->hasOne(User::class, 'group_id', 'id');
     }
 
-    function groupMembers()
-    {
-        $this->hasMany(GroupMember::class);
-    }
+
+
 }

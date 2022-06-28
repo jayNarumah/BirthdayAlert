@@ -27,13 +27,23 @@ class GroupMember extends Model
         'profile_id' => 'integer',
     ];
 
-    function profile()
+    /**
+     * Get the profile that owns the GroupMember
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function profile()
     {
-        $this->belongsTo(Profile::class);
+        return $this->belongsTo(User::class, 'id', 'profile_id');
     }
 
-    function group()
+    /**
+     * Get the group that owns the GroupMember
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function group()
     {
-        $this->belongsTo(Group::class);
+        return $this->belongsTo(Group::class, 'group_id', 'id');
     }
 }

@@ -21,7 +21,7 @@ class ProfileFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'phone_number' => '0706635244',
             'gender' => 'Male',
-            'dob' => now(),
+            'dob' => "2019-".date('m')."-".date('d'),
             'created_at' => now(),
             'updated_at' =>now()
         ];

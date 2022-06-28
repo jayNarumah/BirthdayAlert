@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use \App\Models\UserType;
-use \App\Models\User;
-use \App\Models\Group;
 use \App\Models\GroupMember;
+use \App\Models\UserType;
+use \App\Models\Group;
+use \App\Models\User;
+
+
 
 class Profile extends Model
 {
@@ -25,14 +27,24 @@ class Profile extends Model
         'dob' => 'date'
     ];
 
-    function user()
+    /**
+     * Get the user associated with the Profile
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function user()
     {
-        $this->hasOne(User::class);
+        return $this->hasOne(User::class, 'profile_id', 'id');
     }
 
-    function groupMembers()
+    /**
+     * Get all of the groupMember for the Profile
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function groupMember()
     {
-        return $this->hasMany(GroupMember::class);
+        return $this->hasMany(GroupMember::class, 'profile_id', 'id');
     }
 
 }

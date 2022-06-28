@@ -18,7 +18,7 @@ class UserType extends Model
 
     function user()
     {
-        return $this->hasOne(Profile::class);
+        return $this->hasOne(Profile::class, 'user_type_id', 'id');
     }
 
 }

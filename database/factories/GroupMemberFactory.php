@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use \App\Models\Profile;
+use \App\Models\Group;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\GroupMember>
@@ -17,8 +19,8 @@ class GroupMemberFactory extends Factory
     public function definition()
     {
         return [
-            'group_id' => 2,
-            'profile_id' => 2
+            'group_id' => group::inRandomOrder()->first(),
+            'profile_id' => Profile::factory(),
         ];
     }
 }

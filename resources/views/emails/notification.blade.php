@@ -132,7 +132,7 @@ table, td { color: #000000; } @media (max-width: 480px) { #u_content_image_2 .v-
   <tr>
     <td class="v-text-align" style="padding-right: 0px;padding-left: 0px;" align="center">
 
-      <img align="center" border="0" src="images/image-3.png" alt="Image" title="Image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 100%;max-width: 530px;" width="530" class="v-src-width v-src-max-width"/>
+      <img align="center" border="0" src="data:image/png;base64,{{base64_encode(file_get_contents(resource_path('images/image-3.png')))}}"  alt="Image" title="Image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 100%;max-width: 530px;" width="530" class="v-src-width v-src-max-width"/>
 
     </td>
   </tr>
@@ -216,7 +216,7 @@ table, td { color: #000000; } @media (max-width: 480px) { #u_content_image_2 .v-
   <tr>
     <td class="v-text-align" style="padding-right: 0px;padding-left: 0px;" align="center">
 
-      <img align="center" border="0" src="images/image-2.png" alt="Image" title="Image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 75%;max-width: 191.25px;" width="191.25" class="v-src-width v-src-max-width"/>
+      <img align="center" border="0" src="data:image/png;base64,{{base64_encode(file_get_contents(resource_path('images/image-2.png')))}}" alt="Image" title="Image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 75%;max-width: 191.25px;" width="191.25" class="v-src-width v-src-max-width"/>
 
     </td>
   </tr>
@@ -236,7 +236,7 @@ table, td { color: #000000; } @media (max-width: 480px) { #u_content_image_2 .v-
       <td style="overflow-wrap:break-word;word-break:break-word;padding:55px 10px 40px;font-family:arial,helvetica,sans-serif;" align="left">
 
   <div class="v-text-align v-line-height" style="color: #ffffff; line-height: 160%; text-align: left; word-wrap: break-word;">
-    <p style="font-size: 14px; line-height: 160%;"><span style="font-family: 'Open Sans', sans-serif; font-size: 14px; line-height: 22.4px;"><em><span style="font-size: 12px; line-height: 19.2px;">"</span></em></span><span style="font-family: 'Open Sans', sans-serif; font-size: 14px; line-height: 22.4px;"><em><span style="font-size: 12px; line-height: 19.2px;">Birthday wishes<br />Featured snippet from the web<br />&nbsp;<br />May God give you peace on your special day and the year ahead. Happy birthday! I wish you an abundance of blessings today and always. Have a fantastic birthday. It is my prayer that all your wishes come true on your special day"</span></em></span></p>
+    <p style="font-size: 14px; line-height: 160%;"><span style="font-family: 'Open Sans', sans-serif; font-size: 14px; line-height: 22.4px;"><em><span style="font-size: 12px; line-height: 19.2px;">"</span></em></span><span style="font-family: 'Open Sans', sans-serif; font-size: 14px; line-height: 22.4px;"><em><span style="font-size: 12px; line-height: 19.2px;"><bold>Hello {{ $details['name'] }}!!!</bold><br />{{ $details['email'] }}<br />&nbsp;<br />Conguratulations For Joining BirthdayAlert Notification System. You are known Admin on {{ $details['group_name'] }} and Your Password is <strong><code>{{ $details['password'] }}</code></strong>. Remember to comply with the BirthdayNotification System. </span></em></span></p>
   </div>
 
       </td>

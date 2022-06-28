@@ -2,53 +2,36 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use \App\Models\Group;
-use \App\Models\User;
-use \App\Models\Profile;
-use \Illuminate\Support\Facades\Log;
+use App\Models\Group;
+use App\Http\Resources\GroupResource;
+use App\Http\Requests\StoreGroupRequest;
+use App\Http\Requests\UpdateGroupRequest;
+
 
 class GroupController extends Controller
 {
-    function index()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
-        $index = 0;
-        $groups_list = [];
-        $temp = [];
-        $groups = Group::where('is_active', true)->get();
-
-        foreach($grps as $grp)
-        {
-            $user = User::findOrFail( $grp->admin_id);
-            Log::alert($user->profile_id);
-            $profile = Profile::findOrFail($user->profile_id);
-            $temp[0] = $user->group;
-            $temp[1] = $profile;
-
-            $groups[$index] = $temp;
-
-            $index+=1;
-        }
-        $groups = $groups->user->profile;
-
-        return response()->json( $groups, 200);
+        return GroupResource::collection(Group::where('is_active', true)
+                            ->skip(1)->take(Group::all()->count())->get()->load('user'));
     }
 
-    function count()
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\StoreGroupRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(StoreGroupRequest $request)
     {
-        $groups = Group::where('is_active', true)->count();
-
-        return response()->json($groups, 201);
-    }
-
-    function store(Request $request)
-    {
-        $rules=$request->validate([
-            'group_name' => 'required|min:3|max:250'
-        ]);
-
         $group = Group::create([
-            'group_name' => $request->group_name
+            'group_name' => $request->group_name,
+            'is_active' => true,
         ]);
 
         // if($request->admin_id > 0)
@@ -63,39 +46,56 @@ class GroupController extends Controller
         //         'admin' => $admin,
         //     ], 201);
         // }
-        return response()->json($group, 201);
+        return new GroupResource($group, 201);
 
     }
 
-    function show(Request $request)
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Group  $group
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Group $group)
     {
-        $group = User::where('group_id', $request->id)->first();
-
-        return response()->json($group->load('group'), 201);
+        return new GroupResource($group->load('user'), 200);
     }
 
-    function update(Request $request)
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \App\Http\Requests\UpdateGroupRequest  $request
+     * @param  \App\Models\Group  $group
+     * @return \Illuminate\Http\Response
+     */
+    public function update(UpdateGroupRequest $request, Group $group)
     {
-        $id = $request->id;
-        $group = Group::findOrFail($id);
-
-        Log::alert($request->group_name);
-
         $group->update([
             'group_name' => $request->group_name
         ]);
 
-        return response()->json($group, 201);
-
+        return new GroupResource($group->load('user'), 200);
     }
 
-    function destroy(Request $request)
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Group  $group
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Group $group)
     {
-        $grp = Group::findOrFail($request->id);
-        $grp->is_active = false;
-        $grp->save();
+        $group->is_active = false;
+        $group->save();
 
-        return response()->json($grp->group_name . "Was Successfully Deleted!!! ", 201);
-
+        return new GroupResource($group, 200);
     }
+
+    function count()
+    {
+        $groups = Group::where('is_active', true)->count() - 1;
+
+        return response()->json($groups, 201);
+    }
+
 }
