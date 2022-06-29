@@ -46,20 +46,20 @@ class SmsController extends Controller
     }
     function aws()
      {
-        $phone_number = "+2347066352444";
-        $sms = AWS::createClient('sns');
+        // $phone_number = "+2347066352444";
+        // $sms = AWS::createClient('sns');
 
-        $sms->publish([
-            'Message' => 'Hello, This is just a test Message from Century test BirthdayNotification Site',
-            'PhoneNumber' => $phone_number,
-            'MessageAttributes' => [
-                'AWS.SNS.SMS.SMSType'  => [
-                    'DataType'    => 'String',
-                    'StringValue' => 'Transactional',
-                 ]
-           ],
-        ]);
-        Log::alert($sms->publish());
+        // $sms->publish([
+        //     'Message' => 'Hello, This is just a test Message from Century test BirthdayNotification Site',
+        //     'PhoneNumber' => $phone_number,
+        //     'MessageAttributes' => [
+        //         'AWS.SNS.SMS.SMSType'  => [
+        //             'DataType'    => 'String',
+        //             'StringValue' => 'Transactional',
+        //          ]
+        //    ],
+        // ]);
+        // Log::alert($sms->publish());
      }
 
     function awsSms()

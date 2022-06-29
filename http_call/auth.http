@@ -15,7 +15,7 @@ Authorization: Bearer 1|5vthuk5GMeqkj8izK08MDiQFLObokSS6vyI8AR8N
 GET http://127.0.0.1:8000/api/admin HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 1|0gw5zCPn1ISN3SSg66lHoWULSvnwp0B1SK4GQBCq
+Authorization: Bearer 1|9bF9jJH63PsKGjXKihLBvrOQlqD2imxkAtTluJBj
 
 ###
 POST http://127.0.0.1:8000/api/login HTTP/1.1
@@ -23,7 +23,7 @@ Content-Type: application/json
 Accept: application/json
 
 {
-    "email": "admin@demo.com",
+    "email": "super@demo.com",
     "password": "password"
 }
 
@@ -31,7 +31,7 @@ Accept: application/json
 POST http://127.0.0.1:8000/api/admin HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 1|0gw5zCPn1ISN3SSg66lHoWULSvnwp0B1SK4GQBCq
+Authorization: Bearer 1|9bF9jJH63PsKGjXKihLBvrOQlqD2imxkAtTluJBj
 
 {
     "name": "Abduljawad Ibraheem Narumah",
@@ -48,13 +48,13 @@ Authorization: Bearer 1|0gw5zCPn1ISN3SSg66lHoWULSvnwp0B1SK4GQBCq
 GET http://127.0.0.1:8000/api/birthdays-count HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 1|0gw5zCPn1ISN3SSg66lHoWULSvnwp0B1SK4GQBCq
+Authorization: Bearer 1|9bF9jJH63PsKGjXKihLBvrOQlqD2imxkAtTluJBj
 
 ###
 GET http://127.0.0.1:8000/api/users-count HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 1|0gw5zCPn1ISN3SSg66lHoWULSvnwp0B1SK4GQBCq
+Authorization: Bearer 1|9bF9jJH63PsKGjXKihLBvrOQlqD2imxkAtTluJBj
 
 ###
 GET http://127.0.0.1:8000/api/admin-count HTTP/1.1
@@ -66,19 +66,19 @@ Authorization: Bearer 1|0gw5zCPn1ISN3SSg66lHoWULSvnwp0B1SK4GQBCq
 GET http://127.0.0.1:8000/api/admin/2 HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 1|0gw5zCPn1ISN3SSg66lHoWULSvnwp0B1SK4GQBCq
+Authorization: Bearer 1|9bF9jJH63PsKGjXKihLBvrOQlqD2imxkAtTluJBj
 
 ###
 DELETE http://127.0.0.1:8000/api/admin/3 HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 1|0gw5zCPn1ISN3SSg66lHoWULSvnwp0B1SK4GQBCq
+Authorization: Bearer 1|9bF9jJH63PsKGjXKihLBvrOQlqD2imxkAtTluJBj
 
 ###
 PUT http://127.0.0.1:8000/api/admin/3 HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 1|0gw5zCPn1ISN3SSg66lHoWULSvnwp0B1SK4GQBCq
+Authorization: Bearer 1|9bF9jJH63PsKGjXKihLBvrOQlqD2imxkAtTluJBj
 
 {
     "name": "ABDULJAWAD IBRAHIM Narumah",
@@ -93,13 +93,13 @@ Authorization: Bearer 1|0gw5zCPn1ISN3SSg66lHoWULSvnwp0B1SK4GQBCq
 GET http://127.0.0.1:8000/api/birthdays HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 1|0gw5zCPn1ISN3SSg66lHoWULSvnwp0B1SK4GQBCq
+Authorization: Bearer 1|9bF9jJH63PsKGjXKihLBvrOQlqD2imxkAtTluJBj
 
 ###
 GET http://127.0.0.1:8000/api/user HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 1|0gw5zCPn1ISN3SSg66lHoWULSvnwp0B1SK4GQBCq
+Authorization: Bearer 1|9bF9jJH63PsKGjXKihLBvrOQlqD2imxkAtTluJBj
 
 ###
 GET http://127.0.0.1:8000/api/user-count HTTP/1.1
@@ -164,19 +164,19 @@ Authorization: Bearer 1|0gw5zCPn1ISN3SSg66lHoWULSvnwp0B1SK4GQBCq
 GET http://127.0.0.1:8000/api/group HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 1|0gw5zCPn1ISN3SSg66lHoWULSvnwp0B1SK4GQBCq
+Authorization: Bearer 1|9bF9jJH63PsKGjXKihLBvrOQlqD2imxkAtTluJBj
 
 ###
 GET http://127.0.0.1:8000/api/group-count HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 1|2ISncyEDy54HZ0pBQCe96t6ewKLDldXcK27nK8RK
+Authorization: Bearer 1|9bF9jJH63PsKGjXKihLBvrOQlqD2imxkAtTluJBj
 
 ###
 POST http://127.0.0.1:8000/api/group HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 1|2ISncyEDy54HZ0pBQCe96t6ewKLDldXcK27nK8RK
+Authorization: Bearer 1|9bF9jJH63PsKGjXKihLBvrOQlqD2imxkAtTluJBj
 
 {
     "group_name": "Jay Concepts ",
@@ -187,13 +187,13 @@ Authorization: Bearer 1|2ISncyEDy54HZ0pBQCe96t6ewKLDldXcK27nK8RK
 GET http://127.0.0.1:8000/api/group/2 HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 1|2ISncyEDy54HZ0pBQCe96t6ewKLDldXcK27nK8RK
+Authorization: Bearer 1|9bF9jJH63PsKGjXKihLBvrOQlqD2imxkAtTluJBj
 
 ###
 PUT http://127.0.0.1:8000/api/group/1 HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 1|2ISncyEDy54HZ0pBQCe96t6ewKLDldXcK27nK8RK
+Authorization: Bearer 1|9bF9jJH63PsKGjXKihLBvrOQlqD2imxkAtTluJBj
 
 {
     "group_name": "JayConcepts"
@@ -203,18 +203,18 @@ Authorization: Bearer 1|2ISncyEDy54HZ0pBQCe96t6ewKLDldXcK27nK8RK
 DELETE http://127.0.0.1:8000/api/group/1 HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 1|cRmlTXGKlJfa93E3GovM2J9tlHIxwdw0W1S78EcU
+Authorization: Bearer 1|9bF9jJH63PsKGjXKihLBvrOQlqD2imxkAtTluJBj
 
 ###
 POST http://127.0.0.1:8000/api/logout HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 1|cRmlTXGKlJfa93E3GovM2J9tlHIxwdw0W1S78EcU
+Authorization: Bearer 1|9bF9jJH63PsKGjXKihLBvrOQlqD2imxkAtTluJBj
 ###
 POST http://127.0.0.1:8000/api/create-admin HTTP/1.1
 ontent-Type: application/json
 Accept: application/json
-Authorization: Bearer 1|2ISncyEDy54HZ0pBQCe96t6ewKLDldXcK27nK8RK
+Authorization: Bearer 1|9bF9jJH63PsKGjXKihLBvrOQlqD2imxkAtTluJBj
 
 {
     "group_id": 1,
@@ -226,10 +226,10 @@ Authorization: Bearer 1|2ISncyEDy54HZ0pBQCe96t6ewKLDldXcK27nK8RK
 POST http://127.0.0.1:8000/api/add-member HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 1|0gw5zCPn1ISN3SSg66lHoWULSvnwp0B1SK4GQBCq
+Authorization: Bearer 1|9bF9jJH63PsKGjXKihLBvrOQlqD2imxkAtTluJBj
 
 {
-    "email": "a@example.net",
+    "email": "admin@demo.com",
     "group_id": 1
 }
 
@@ -237,18 +237,18 @@ Authorization: Bearer 1|0gw5zCPn1ISN3SSg66lHoWULSvnwp0B1SK4GQBCq
 GET http://127.0.0.1:8000/api/admin-group HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 1|0gw5zCPn1ISN3SSg66lHoWULSvnwp0B1SK4GQBCq
+Authorization: Bearer 1|9bF9jJH63PsKGjXKihLBvrOQlqD2imxkAtTluJBj
 ###
 GET http://127.0.0.1:8000/api/admin-profile HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 1|0gw5zCPn1ISN3SSg66lHoWULSvnwp0B1SK4GQBCq
+Authorization: Bearer 1|9bF9jJH63PsKGjXKihLBvrOQlqD2imxkAtTluJBj
 
 ###
 GET http://127.0.0.1:8000/api/search HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 2|cQMfl9NKuHKbMKKsnf1WVPOpuoijcZDQblvIal9I
+Authorization: Bearer 1|9bF9jJH63PsKGjXKihLBvrOQlqD2imxkAtTluJBj
 
 {
     "search": "jawad"

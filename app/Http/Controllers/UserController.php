@@ -9,7 +9,7 @@ use \App\Models\Profile;
 use \App\Models\Group;
 use \App\models\User;
 
-class UsersController extends Controller
+class UserController extends Controller
 {
     function index()
     {

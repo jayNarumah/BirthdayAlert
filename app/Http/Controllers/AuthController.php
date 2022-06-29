@@ -37,5 +37,4 @@ class AuthController extends Controller
         return response()->json('Bye!!!', 200);
     }
 
-
 }
