@@ -32,7 +32,7 @@ class GroupAdminController extends Controller
     function addMember(Request $request)
     {
         $rules = $request->validate([
-            'email' => 'required|email',
+            'email' => 'required|email|exists:profiles,email',
         ]);
 
         $group = auth()->user()->group;

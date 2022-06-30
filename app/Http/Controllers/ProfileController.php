@@ -69,7 +69,7 @@ class ProfileController extends Controller
      */
     public function update(UpdateProfileRequest $request, Profile $profile)
     {
-        //Log::alert($profile);
+        Log::alert($profile);
         $profile->update([
             'name' => $request->name,
              'email' => $request->email,

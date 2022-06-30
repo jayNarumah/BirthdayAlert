@@ -10,7 +10,7 @@ use \App\Http\Controllers\SearchController;
 use \App\Http\Controllers\GroupController;
 use \App\Http\Controllers\AdminController;
 use \App\Http\Controllers\AuthController;
-use \App\Http\Controllers\UsersController;
+use \App\Http\Controllers\UserController;
 use \App\Http\Controllers\SmsController;
 
 
@@ -32,7 +32,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::get('/aws-sms-test', [SmsController::class, 'sendAwsMessage']);
+Route::get('/aws-sms-test', [SmsController::class, 'twilioSMS1']);
 
 
 Route::get('/sms', [SmsController::class, 'aws']);
@@ -71,9 +71,9 @@ Route::group(['middleware' => 'auth:sanctum',], function (){
 
 Route::group(['middleware' => 'auth:sanctum',], function (){
 
-    Route::get('/user/{id}', [UserController::class, 'show']);
-    Route::put('/user/{id}', [UserController::class, 'update']);
-    Route::delete('/user/{id}', [UserController::class, 'destroy']);
+    // Route::get('/user/{id}', [UserController::class, 'show']);
+    // Route::put('/user/{id}', [UserController::class, 'update']);
+    // Route::delete('/user/{id}', [UserController::class, 'destroy']);
 
     Route::apiResource('/user', ProfileController::class);
 
