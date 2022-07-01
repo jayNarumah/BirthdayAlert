@@ -48,7 +48,7 @@ class GroupAdminController extends Controller
 
             if($group_member)
             {
-               return response()->json($profile->name . 'was already a member Here !!!', 200);
+               return response()->json($profile->name . 'was already a member Here !!!', 403);
 
             }
             else {
@@ -61,7 +61,7 @@ class GroupAdminController extends Controller
         }
         else
             {
-                $member = response()->json("profile Does not Exist Yet!!!", 200);
+                $member = response()->json("profile Does not Exist Yet!!!", 403);
             }
 
 
