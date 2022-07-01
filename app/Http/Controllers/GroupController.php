@@ -17,7 +17,7 @@ class GroupController extends Controller
      */
     public function index()
     {
-        return GroupResource::collection(Group::where('is_active', true)
+        return response()->json(Group::where('is_active', true)
                             ->skip(1)->take(Group::all()->count())->get()->load('user'));
     }
 

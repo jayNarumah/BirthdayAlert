@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Profile;
 use App\models\GroupMember;
 use Illuminate\Support\Facades\Log;
-use \App\Http\Resources\ProfileResource;
+use App\Http\Resources\ProfileResource;
 use App\Http\Requests\StoreProfileRequest;
 use App\Http\Requests\UpdateProfileRequest;
 
@@ -18,10 +18,21 @@ class ProfileController extends Controller
      */
     public function index()
     {
+        $index = 0;
+        $id = [];
         $members = auth()->user()->group->groupMembers;
 
-        return ProfileResource::collection($members->load('profile'), 200);
+        foreach($members as $member)
+        {
+            $profile = Profile::findOrFail($member->profile_id);
+            if($profile->id > 0)
+            {
+                $id[$index] = $profile->id;
+                $index = $index + 1;
+            }
+        }
 
+        return response()->json(Profile::whereIn('id', $id)->get(), 200);
     }
 
     /**
