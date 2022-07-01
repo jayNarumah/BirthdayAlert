@@ -17,11 +17,36 @@ use Twilio\Rest\Client;
 
 class SmsController extends Controller
 {
+    function twilio()
+    {
+        $receiverNumber = "+2347066352444";
+        $message = "Sorry, You are receiving this Message from Century Information Systems Limited testing site";
+
+        try {
+
+            $account_sid = getenv("TWILIO_SID");
+            $account_token = getenv("TWILIO_TOKEN");
+            $from = getenv("TWILIO_FROM");
+           // Log::info($account_sid);
+
+            $client = new Client($account_sid, $account_token);
+            $client->messages->create($receiverNumber, [
+                'from' => $from,
+                'body' => $message]);
+
+            Log:Info('SMS Sent Successfully.');
+
+        } catch (Exception $e) {
+            Log::info("Error: ". $e->getMessage());
+        }
+
+    }
     function twilioSms()
     {
         $to = "+2347066352444";
         $from = getenv("TWILIO_FROM");
         $message = 'Hello from Twilio!';
+        Log::alert(getenv("TWILIO_SID"));
         //open connection
         try {
             $ch = curl_init();
