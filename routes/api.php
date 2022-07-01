@@ -72,9 +72,9 @@ Route::group(['middleware' => 'auth:sanctum',], function (){
 
 Route::group(['middleware' => 'auth:sanctum',], function (){
 
-    // Route::get('/user/{id}', [UserController::class, 'show']);
-    // Route::put('/user/{id}', [UserController::class, 'update']);
-    // Route::delete('/user/{id}', [UserController::class, 'destroy']);
+    Route::get('/user/{id}', [UserController::class, 'show']);
+    Route::put('/user/{id}', [UserController::class, 'update']);
+    Route::delete('/user/{id}', [UserController::class, 'destroy']);
 
     Route::apiResource('/user', ProfileController::class);
 
