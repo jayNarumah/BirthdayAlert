@@ -11,10 +11,9 @@ class GroupAdminController extends Controller
 {
     function count()
     {
-        $id = auth()->user()->group->id;
-        $users = GroupMember::where('group_id', $id)->count();
+        $count = auth()->user()->group->groupMembers->count();
 
-        return response()->json($users, 201);
+        return response()->json($count, 200);
     }
 
     function getMyGroupName()
@@ -63,7 +62,5 @@ class GroupAdminController extends Controller
             {
                 $member = response()->json("profile Does not Exist Yet!!!", 403);
             }
-
-
     }
 }

@@ -57,7 +57,7 @@ class ProfileController extends Controller
             'profile_id' => $profile->id,
             'group_id' => $group->id,
         ]);
-        return new ProfileResource ($profile, 200);
+        return new ProfileResource ($profile, 201);
     }
 
     /**
@@ -68,7 +68,7 @@ class ProfileController extends Controller
      */
     public function show(Profile $profile)
     {
-        return new ProfileResource ($profile, 200);
+       return new ProfileResource ($profile, 200);
     }
 
     /**
@@ -80,20 +80,20 @@ class ProfileController extends Controller
      */
     public function update(UpdateProfileRequest $request, Profile $profile)
     {
-        Log::alert($profile);
-        $profile->update([
-            'name' => $request->name,
-             'email' => $request->email,
-            'phone_number' => $request->phone_number,
-             'dob' => $request->dob,
-             'gender' => $request->gender,
-        ]);
-        // $profile -> name = $request->name;
-        // $profile -> email = $request->email;
-        // $profile ->phone_number = $request->phone_number;
-        // $profile -> dob = $request->dob;
-        // $profile -> gender = $request->gender;
-        // $profile->save();
+        // Log::alert($profile);
+        // $profile->update([
+        //     'name' => $request->name,
+        //      'email' => $request->email,
+        //     'phone_number' => $request->phone_number,
+        //      'dob' => $request->dob,
+        //      'gender' => $request->gender,
+        // ]);
+        $profile -> name = $request->name;
+        $profile -> email = $request->email;
+        $profile ->phone_number = $request->phone_number;
+        $profile -> dob = $request->dob;
+        $profile -> gender = $request->gender;
+        $profile->save();
 
         return new ProfileResource($profile, 200);
     }
@@ -106,11 +106,9 @@ class ProfileController extends Controller
      */
     public function destroy(Profile $profile)
     {
-        $profile->update([
-            'is_active' => false,
-        ]);
+        $profile->is_active = false;
+        $profile->save();
 
         return new ProfileResource($profile, 200);
     }
 }
-//0048614266 abraham

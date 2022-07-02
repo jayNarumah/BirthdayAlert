@@ -76,7 +76,7 @@ Route::group(['middleware' => 'auth:sanctum',], function (){
     Route::put('/user/{id}', [UserController::class, 'update']);
     Route::delete('/user/{id}', [UserController::class, 'destroy']);
 
-    Route::apiResource('/user', ProfileController::class);
+    Route::apiResource('/user', ProfileController::class);//->except('show', 'update', 'delete');
 
     Route::get('/birthday', [BirthdayController::class, 'birthday']);
     Route::get('/user-count', [GroupAdminController::class, 'count']);

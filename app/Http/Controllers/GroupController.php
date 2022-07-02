@@ -18,7 +18,8 @@ class GroupController extends Controller
     public function index()
     {
         return response()->json(Group::where('is_active', true)
-                            ->skip(1)->take(Group::all()->count())->get()->load('user'));
+                            ->skip(1)->take(Group::all()->count())
+                            ->get()->load('user'), 200);
     }
 
     /**

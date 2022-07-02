@@ -15,7 +15,7 @@ class UserController extends Controller
     {
         $index = 0;
         $id = [];
-        $members = auth()->user()->group->groupMember;
+        $members = auth()->user()->group->groupMembers;
 
         // foreach($members as $member)
         // {
@@ -29,15 +29,14 @@ class UserController extends Controller
 
         // $profiles = Profile::whereIn('id', $id)->get();
 
-        return response()->json($members->load('profile', 'group'), 201);
+        return response()->json($members->load('profile', 'group'), 200);
     }
 
     function count()
     {
-        $id = auth()->user()->group->id;
-        $users = GroupMember::where('group_id', $id)->count();
+        $count = auth()->user()->group->groupMembers;
 
-        return response()->json($users, 201);
+        return response()->json($count, 200);
     }
 
     function store(Request $request)
@@ -69,6 +68,7 @@ class UserController extends Controller
     function show(Request $request)
     {
         $id = $request->id;
+
         $user = Profile::findOrFail($id);
 
         return response()->json($user, 200);
@@ -110,7 +110,6 @@ class UserController extends Controller
             'is_active' => false,
         ]);
 
-        return response()->json("Profile Member Was Successfully Deleted !!!", 201);
-
+        return response()->json("Profile Member Was Successfully Deleted !!!", 200);
     }
 }
