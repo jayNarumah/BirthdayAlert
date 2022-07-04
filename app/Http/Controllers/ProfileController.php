@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Profile;
 use App\models\GroupMember;
 use Illuminate\Support\Facades\Log;
-use \App\Http\Resources\ProfileResource;
+use App\Http\Resources\ProfileResource;
 use App\Http\Requests\StoreProfileRequest;
 use App\Http\Requests\UpdateProfileRequest;
 
@@ -18,10 +18,21 @@ class ProfileController extends Controller
      */
     public function index()
     {
+        $index = 0;
+        $id = [];
         $members = auth()->user()->group->groupMembers;
 
-        return ProfileResource::collection($members->load('profile'), 200);
+        foreach($members as $member)
+        {
+            $profile = Profile::findOrFail($member->profile_id);
+            if($profile->id > 0)
+            {
+                $id[$index] = $profile->id;
+                $index = $index + 1;
+            }
+        }
 
+        return response()->json(Profile::whereIn('id', $id)->get(), 200);
     }
 
     /**
@@ -46,7 +57,7 @@ class ProfileController extends Controller
             'profile_id' => $profile->id,
             'group_id' => $group->id,
         ]);
-        return new ProfileResource ($profile, 200);
+        return new ProfileResource ($profile, 201);
     }
 
     /**
@@ -57,7 +68,7 @@ class ProfileController extends Controller
      */
     public function show(Profile $profile)
     {
-        return new ProfileResource ($profile, 200);
+       return new ProfileResource ($profile, 200);
     }
 
     /**
@@ -69,20 +80,20 @@ class ProfileController extends Controller
      */
     public function update(UpdateProfileRequest $request, Profile $profile)
     {
-        //Log::alert($profile);
-        $profile->update([
-            'name' => $request->name,
-             'email' => $request->email,
-            'phone_number' => $request->phone_number,
-             'dob' => $request->dob,
-             'gender' => $request->gender,
-        ]);
-        // $profile -> name = $request->name;
-        // $profile -> email = $request->email;
-        // $profile ->phone_number = $request->phone_number;
-        // $profile -> dob = $request->dob;
-        // $profile -> gender = $request->gender;
-        // $profile->save();
+        // Log::alert($profile);
+        // $profile->update([
+        //     'name' => $request->name,
+        //      'email' => $request->email,
+        //     'phone_number' => $request->phone_number,
+        //      'dob' => $request->dob,
+        //      'gender' => $request->gender,
+        // ]);
+        $profile -> name = $request->name;
+        $profile -> email = $request->email;
+        $profile ->phone_number = $request->phone_number;
+        $profile -> dob = $request->dob;
+        $profile -> gender = $request->gender;
+        $profile->save();
 
         return new ProfileResource($profile, 200);
     }
@@ -95,11 +106,9 @@ class ProfileController extends Controller
      */
     public function destroy(Profile $profile)
     {
-        $profile->update([
-            'is_active' => false,
-        ]);
+        $profile->is_active = false;
+        $profile->save();
 
         return new ProfileResource($profile, 200);
     }
 }
-//0048614266 abraham

@@ -26,7 +26,9 @@ class AdminController extends Controller
 
     function index()
     {
-        $admins=User::where('is_active', true)->skip(1)->take(User::all()->count())->get();
+        $admins=User::where('is_active', true)
+                    ->skip(1)->take(User::all()
+                    ->count())->get();
 
         return response()->json($admins->load('group','profile'), 200);
     }
@@ -59,25 +61,17 @@ class AdminController extends Controller
             ]);
 
             try {
-                if($profile->gender == 'Male')
-                {
-                    $gender = "He";
-                }
-                else{
-                    $gender = "She";
-                }
+                $group = Group::find($request->group_id);
 
                 $details = [
                     'name' => $profile->name,
-                    'name' => $profile->email,
+                    'email' => $profile->email,
                     'dob' => $profile->dob,
-                    'gender' => $gender,
                     'password' => $request->password,
-                    'group_name' => Group::find($request->group_id),
-
+                    'group_name' => $group->group_name,
                 ];
 
-                //Mail::to($request->email)->queue(new \App\Mail\NotificationMail($details));
+                // Mail::to($request->email)->queue(new \App\Mail\NotificationMail($details));
 
                 //Mail::to($request->email)->send(new SendMail($details));
 

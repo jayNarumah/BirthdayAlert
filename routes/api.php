@@ -10,7 +10,7 @@ use \App\Http\Controllers\SearchController;
 use \App\Http\Controllers\GroupController;
 use \App\Http\Controllers\AdminController;
 use \App\Http\Controllers\AuthController;
-use \App\Http\Controllers\UsersController;
+use \App\Http\Controllers\UserController;
 use \App\Http\Controllers\SmsController;
 
 
@@ -32,7 +32,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::get('/aws-sms-test', [SmsController::class, 'sendAwsMessage']);
+Route::any('/aws-sms-test', [SmsController::class, 'twilio']);
+
 
 
 Route::get('/sms', [SmsController::class, 'aws']);
@@ -71,11 +72,11 @@ Route::group(['middleware' => 'auth:sanctum',], function (){
 
 Route::group(['middleware' => 'auth:sanctum',], function (){
 
-    // Route::get('/user/{id}', [UsersController::class, 'show']);
-    // Route::put('/user/{id}', [UsersController::class, 'update']);
-    // Route::delete('/user/{id}', [UsersController::class, 'destroy']);
+    Route::get('/user/{id}', [UserController::class, 'show']);
+    Route::put('/user/{id}', [UserController::class, 'update']);
+    Route::delete('/user/{id}', [UserController::class, 'destroy']);
 
-    Route::apiResource('/user', ProfileController::class);
+    Route::apiResource('/user', ProfileController::class);//->except('show', 'update', 'delete');
 
     Route::get('/birthday', [BirthdayController::class, 'birthday']);
     Route::get('/user-count', [GroupAdminController::class, 'count']);

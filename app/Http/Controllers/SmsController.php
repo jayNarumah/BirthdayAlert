@@ -9,6 +9,7 @@ use \Aws\Sns\SnsClient;
 use Aws\Exception\AwsException;
 use \Illuminate\Support\Facades\Log;
 use \Aws\Credentials\Credentials;
+use Twilio\Rest\Client;
         /** Aliasing the classes */
 
 
@@ -16,6 +17,84 @@ use \Aws\Credentials\Credentials;
 
 class SmsController extends Controller
 {
+    function twilio()
+    {
+        $receiverNumber = "+2347066352444";
+        $message = "Sorry, You are receiving this Message from Century Information Systems Limited testing site";
+
+        try {
+
+            $account_sid = getenv("TWILIO_SID");
+            $account_token = getenv("TWILIO_TOKEN");
+            $from = getenv("TWILIO_FROM");
+           // Log::info($account_sid);
+
+            $client = new Client($account_sid, $account_token);
+            $client->messages->create($receiverNumber, [
+                'from' => $from,
+                'body' => $message]);
+
+            Log:Info('SMS Sent Successfully.');
+
+        } catch (Exception $e) {
+            Log::info("Error: ". $e->getMessage());
+        }
+
+    }
+    function twilioSms()
+    {
+        $to = "+2347066352444";
+        $from = getenv("TWILIO_FROM");
+        $message = 'Hello from Twilio!';
+        Log::alert(getenv("TWILIO_SID"));
+        //open connection
+        try {
+            $ch = curl_init();
+
+            //set the url, number of POST vars, POST data
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($ch, CURLOPT_USERPWD, getenv("TWILIO_SID").':'.getenv("TWILIO_TOKEN"));
+            curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
+            curl_setopt($ch, CURLOPT_URL, sprintf('https://api.twilio.com/2010-04-01/Accounts/'.getenv("TWILIO_SID").'/Messages.json', getenv("TWILIO_SID")));
+            curl_setopt($ch, CURLOPT_POST, 3);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, 'To='.$to.'&From='.$from.'&Body='.$message);
+
+            // execute post
+            $result = curl_exec($ch);
+            $result = json_decode($result);
+
+            // close connection
+            curl_close($ch);
+
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+
+        return $ch;
+        //Sending message ends here
+       // Log::alert($ch);
+    }
+
+    function twilioSMS1()
+    {
+        try {
+            $account_sid = getenv("TWILIO_SID");
+            $account_token = getenv("TWILIO_TOKEN");
+            $from = getenv("TWILIO_FROM");
+
+            $client = new Client($account_sid, $account_token);
+
+            $client->messages->create('+23466352444', [
+                'from' => $from,
+                'body' => 'Birthday Notification Test Sms!!!'
+            ]);
+
+            return "Message was Sent Successfully !!!";
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
+
+    }
     function sendAwsMessage()
     {
         $access_key_id = env("AWS_ACCESS_KEY_ID");
@@ -46,20 +125,20 @@ class SmsController extends Controller
     }
     function aws()
      {
-        $phone_number = "+2347066352444";
-        $sms = AWS::createClient('sns');
+        // $phone_number = "+2347066352444";
+        // $sms = AWS::createClient('sns');
 
-        $sms->publish([
-            'Message' => 'Hello, This is just a test Message from Century test BirthdayNotification Site',
-            'PhoneNumber' => $phone_number,
-            'MessageAttributes' => [
-                'AWS.SNS.SMS.SMSType'  => [
-                    'DataType'    => 'String',
-                    'StringValue' => 'Transactional',
-                 ]
-           ],
-        ]);
-        Log::alert($sms->publish());
+        // $sms->publish([
+        //     'Message' => 'Hello, This is just a test Message from Century test BirthdayNotification Site',
+        //     'PhoneNumber' => $phone_number,
+        //     'MessageAttributes' => [
+        //         'AWS.SNS.SMS.SMSType'  => [
+        //             'DataType'    => 'String',
+        //             'StringValue' => 'Transactional',
+        //          ]
+        //    ],
+        // ]);
+        // Log::alert($sms->publish());
      }
 
     function awsSms()

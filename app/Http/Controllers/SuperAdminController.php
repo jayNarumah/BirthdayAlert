@@ -46,6 +46,4 @@ class SuperAdminController extends Controller
 
         return response()->json($user->load('group', 'profile'), 201);
     }
-
-
 }

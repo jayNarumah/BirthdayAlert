@@ -11,13 +11,13 @@ class SearchController extends Controller
     {
         //$user = Profile::all();
 
-        $user = Profile::where('name', 'like', '%' . $request->search . '%')
+        $profiles = Profile::where('name', 'like', '%' . $request->search . '%')
                        ->orWhere('phone_number', 'like', '%' . $request->search . '%')
                        ->orWhere('gender', 'like', '%' . $request->search . '%')
                        ->orWhere('email', 'like', '%' . $request->search . '%')
                        ->orWhere('dob', 'like', '%' . $request->search . '%')->get();
 
-        return response()->json($user, 200);
+        return response()->json($profiles, 200);
 
     }
 }

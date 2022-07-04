@@ -32,12 +32,16 @@ class BirthdayController extends Controller
             $details = [
                 'name' => $profile->name,
                 'email' => $profile->email,
+                'dob' => $profile->dob,
+                'phone_number' => $profile->phone_number,
+                '_name' => '',
+                'birthday' => date('d') .' ' . date('M'),
                 'group_name' => '',
             ];
 
             Log::Info($profile->id . " Hello ". $profile->name ." Your Receiving this Message  becouse Your Birthday is Today");
-            //Mail::to($profile->email)->queue(new BirthdayAlertMail($details)); //Sending Birthday Message to the user
-            //exit();
+            // Mail::to($profile->email)->queue(new BirthdayAlertMail($details)); //Sending Birthday Message to the user
+            // exit();
             //getting his record that consist the groups he is in
             $user_groups = GroupMember::where('profile_id', $profile->id)->get();
 
@@ -62,9 +66,10 @@ class BirthdayController extends Controller
                         if ($group_member->profile_id != $profile->id) //Checking to see if his not the person having birthday
                         {
                         $member = Profile::findOrFail($group_member->profile_id);
+                        $details['_name'] = $member->name;
 
-                     // Mail::to($profile->email)->queue(new NotificationMail($details)); //Sending Birthday Message to the user
-
+                        //  Mail::to($profile->email)->queue(new BirthdayAlertMail($details)); //Sending Birthday Message to the user
+                        //  exit();
                          Log::Info($member->id . " Hello " .$member->name." You are receiving this Message becouse Your Group Member ". $profile->name." on ". $group->group_name ."is celebrating birthday Today");
                         }
                         }

@@ -25,7 +25,7 @@ class UpdateProfileRequest extends FormRequest
     {
         return [
             'name' => 'required|min:3|max:200',
-            'email' => 'required|email|min:6',
+            'email' => 'required|email|min:6|email',
             'phone_number' => 'required|min:11|max:13',
             'gender' => 'min:3|max:20',
             'dob' => 'required|min:4',

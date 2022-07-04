@@ -42,7 +42,7 @@ class Profile extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function groupMember()
+    public function groupMembers()
     {
         return $this->hasMany(GroupMember::class, 'profile_id', 'id');
     }
