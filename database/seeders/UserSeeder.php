@@ -25,22 +25,6 @@ class UserSeeder extends Seeder
                 'email' => 'super@demo.com',
                 'password' => bcrypt('password'),
                 'remember_token' => Str::random(10)
-                ],
-                [
-                    'user_type_id' => 2,
-                    'profile_id' => 2,
-                    'group_id' => 2,
-                    'email' => 'admin@demo.com',
-                    'password' => bcrypt('password'),
-                    'remember_token' => Str::random(10)
-                ],
-                [
-                    'user_type_id' => 2,
-                    'profile_id' => 3,
-                    'group_id' => 3,
-                    'email' => 'admin1@demo.com',
-                    'password' => bcrypt('password'),
-                    'remember_token' => Str::random(10)
                 ]
         ]);
     }
