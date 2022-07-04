@@ -409,15 +409,6 @@ table{
                     </tr>
                   </table>
                 </td>
-                <td valign="top" width="33.333%">
-                  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-                    <tr>
-                      <td style="text-align: right; padding-left: 5px; padding-right: 5px;">
-                      	<p><a href="#" style="color: rgba(255,255,255,.4);">Unsubcribe</a></p>
-                      </td>
-                    </tr>
-                  </table>
-                </td>
               </tr>
             </table>
         	</td>
