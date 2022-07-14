@@ -5,14 +5,15 @@ namespace App\Http\Controllers;
 
 use \Illuminate\Support\Facades\Mail;
 use \Illuminate\Support\Facades\Log;
-use \Illuminate\Support\Facades\DB;
 use \App\Mail\BirthdayAlertMail;
-use \App\Mail\NotificationMail;
+use \App\Mail\BirthdayMail;
 use Illuminate\Http\Request;
 use \App\Models\GroupMember;
-use \App\Models\Profile;
-use \App\Models\Group;
-use \App\Models\User;
+use Twilio\Rest\Client;
+use App\Models\Profile;
+use App\Models\Group;
+use App\Models\User;
+use Exception;
 
 
 
@@ -23,6 +24,10 @@ class BirthdayController extends Controller
         $day = date("d");
         $month = date("m");
         $like = "%-".$month."-" . $day;
+
+        $account_sid = getenv("TWILIO_SID");
+        $account_token = getenv("TWILIO_TOKEN");
+        $from = getenv("TWILIO_FROM");
 
         //Checking for the Profiles whose birthdays are Today
         $profiles = Profile::where('dob', 'like', $like)->get();
@@ -40,16 +45,28 @@ class BirthdayController extends Controller
             ];
 
             Log::Info($profile->id . " Hello ". $profile->name ." Your Receiving this Message  becouse Your Birthday is Today");
-            // Mail::to($profile->email)->queue(new BirthdayAlertMail($details)); //Sending Birthday Message to the user
+            // Mail::to($profile->email)->queue(new BirthdayMail($details)); //Sending Birthday Message to the user
+
+            $receiverNumber = "+2347066352444";
+            $message = "Sorry, You are receiving this Message from Century Information Systems Limited testing site";
+
+            try {
+                // $client = new Client($account_sid, $account_token);
+                // $client->messages->create($receiverNumber, [
+                //     'from' => $from,
+                //     'body' => $message]);
+
+                // Log:Info('SMS Sent Successfully.');
+            } catch (Exception $e) {
+                $this->info("Error: ". $e->getMessage());
+            }
+
             // exit();
             //getting his record that consist the groups he is in
             $user_groups = GroupMember::where('profile_id', $profile->id)->get();
 
             foreach ($user_groups as $user_group) //Iterating through to get multiple groups he belongs
             {
-                Log::alert($profile->id . " BelogsTo : " . $user_group?->group_id);
-
-
                 if($user_group->profile_id == $profile->id) //recheck the selected user if he is the targeted user
                 {
                     $group = Group::findOrFail($user_group->group_id); //getting his Group
@@ -65,12 +82,12 @@ class BirthdayController extends Controller
 
                         if ($group_member->profile_id != $profile->id) //Checking to see if his not the person having birthday
                         {
-                        $member = Profile::findOrFail($group_member->profile_id);
-                        $details['_name'] = $member->name;
+                            $member = Profile::findOrFail($group_member->profile_id);
+                            $details['_name'] = $member->name;
 
-                        //  Mail::to($profile->email)->queue(new BirthdayAlertMail($details)); //Sending Birthday Message to the user
-                        //  exit();
-                         Log::Info($member->id . " Hello " .$member->name." You are receiving this Message becouse Your Group Member ". $profile->name." on ". $group->group_name ."is celebrating birthday Today");
+                            //  Mail::to($profile->email)->queue(new BirthdayAlertMail($details)); //Sending Birthday Message to the user
+                            //  exit();
+                            Log::Info($member->id . " Hello " .$member->name." You are receiving this Message becouse Your Group Member ". $profile->name." on ". $group->group_name ."is celebrating birthday Today");
                         }
                         }
                     }

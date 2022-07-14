@@ -20,7 +20,7 @@ class SmsController extends Controller
     function twilio()
     {
         $receiverNumber = "+2347066352444";
-        $message = "Sorry, You are receiving this Message from Century Information Systems Limited testing site";
+        $message = "Sorry, You are receiving this Message from Century Information Systems Limited Sms test site";
 
         try {
 
