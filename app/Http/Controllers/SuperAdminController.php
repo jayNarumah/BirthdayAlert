@@ -29,20 +29,24 @@ class SuperAdminController extends Controller
             'group_id' => '[required]',
             'profile_id' =>'[required]',
             //'email' => 'required|email',
-            'password' => '[required,min:6,max:30]',
+            // 'password' => '[required,min:6,max:30]',
         ]);
 
         //$rules['group_name'] = ucwords($request->group_name);
 
 
-        $profile = Profile::findOrFail($request->profile_id);
+        $profile = Profile::where('group_id', $request->group_id)->count();
 
-        $user = User::create([
-            'profile_id' => $request->profile_id,
-            'group_id' => $request->group_id,
-            'email' => $profile->email,
-            'password' => bcrypt($rules['password']),
-        ]);
+        if ($profile > 0) {
+            return response()->json("Group already have an admin!!!", 304);
+        }
+
+        // $user = User::create([
+        //     'profile_id' => $request->profile_id,
+        //     'group_id' => $request->group_id,
+        //     'email' => $profile->email,
+        //     'password' => bcrypt($rules['password']),
+        // ]);
 
         return response()->json($user->load('group', 'profile'), 201);
     }

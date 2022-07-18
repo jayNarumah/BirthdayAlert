@@ -386,11 +386,11 @@ table{
 		            <td class="bg_light email-section">
 		            	<div class="heading-section" style="text-align: center; padding: 0 30px;">
 		            		<h2 style="color: black;">Dear {{$details['_name']}}</h2>
-            				<p style="color: black; font-family:Comic Sans MS;">We're hereby Notifying you that the birthday of {{$details['name']}} a member of {{$details['group_name']}} Group is today {{$details['birthday']}}. You can send him a birthday wish,
+            				<p style="color: black; font-family:Comic Sans MS;">We're hereby Notifying you that the birthday of {{$details['name']}} a member of {{$details['group_name']}} Group is today {{$details['birthday']}}. You can send him/her a birthday wish,
 								<br><br> Contact: <br><br> Email:{{$details['email']}}<br>
 								                  phone Number:{{$details['phone_number']}}.</p>
 
-		              	<h2>Send Him Birthday wish.</h2>
+		              	<h2>Send Him/Her Birthday wish.</h2>
 		              	<center><img src="data:image/png;base64,{{base64_encode(file_get_contents(resource_path('images/birthdayNotification.png')))}}" style="background-size: cover; height: auto; max-width: 100%; display: block;"></center>
 		            	</div>
 

@@ -29,7 +29,7 @@ class BirthdayController extends Controller
         $account_token = getenv("TWILIO_TOKEN");
         $from = getenv("TWILIO_FROM");
 
-        //Checking for the Profiles whose birthdays are Today
+        //Checking for the Profiles whose birthday are Today
         $profiles = Profile::where('dob', 'like', $like)->get();
 
         foreach($profiles as $profile)  //Iteration through to obtain their data
@@ -85,7 +85,7 @@ class BirthdayController extends Controller
                             $member = Profile::findOrFail($group_member->profile_id);
                             $details['_name'] = $member->name;
 
-                             Mail::to($profile->email)->queue(new BirthdayAlertMail($details)); //Sending Birthday Message to the user
+                            //  Mail::to($profile->email)->queue(new BirthdayAlertMail($details)); //Sending Birthday Message to the user
                             //  exit();
                             Log::Info($member->id . " Hello " .$member->name." You are receiving this Message becouse Your Group Member ". $profile->name." on ". $group->group_name ." is celebrating birthday Today");
                         }
