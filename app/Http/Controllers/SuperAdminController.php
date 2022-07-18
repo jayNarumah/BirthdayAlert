@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GroupAdmin;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use \App\Models\Profile;
@@ -32,14 +33,19 @@ class SuperAdminController extends Controller
             // 'password' => '[required,min:6,max:30]',
         ]);
 
+        $admin = GroupAdmin::create([
+            'user_id' => $rules['user_id'],
+            'group_id' => $rules['group_id']
+        ]);
+
         //$rules['group_name'] = ucwords($request->group_name);
 
 
-        $profile = Profile::where('group_id', $request->group_id)->count();
+        // $profile = Profile::where('group_id', $request->group_id)->count();
 
-        if ($profile > 0) {
-            return response()->json("Group already have an admin!!!", 304);
-        }
+        // if ($profile > 0) {
+        //     return response()->json("Group already have an admin!!!", 304);
+        // }
 
         // $user = User::create([
         //     'profile_id' => $request->profile_id,
@@ -48,6 +54,6 @@ class SuperAdminController extends Controller
         //     'password' => bcrypt($rules['password']),
         // ]);
 
-        return response()->json($user->load('group', 'profile'), 201);
+        return response()->json($admin, 201);
     }
 }

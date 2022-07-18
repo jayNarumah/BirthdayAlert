@@ -25,7 +25,6 @@ class User extends Authenticatable
         'user_type_id',
         'email',
         'password',
-        'group_id',
     ];
 
     /**
@@ -47,7 +46,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'profile_id' => 'integer',
         'user_type_id' => 'integer',
-        'group_id' => 'integer'
     ];
 
     // protected $with = [

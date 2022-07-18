@@ -57,7 +57,7 @@ class AdminController extends Controller
                 'password' => bcrypt($request->password),
                 'user_type_id' => 2,
                 'profile_id' => $profile->id,
-                'group_id' => $request->group_id
+                // 'group_id' => $request->group_id
             ]);
 
             try {
@@ -68,7 +68,6 @@ class AdminController extends Controller
                     'email' => $profile->email,
                     'dob' => $profile->dob,
                     'password' => $request->password,
-                    'group_name' => $group->group_name,
                 ];
 
                 Mail::to($request->email)->queue(new \App\Mail\NotificationMail($details));
@@ -119,7 +118,7 @@ class AdminController extends Controller
             $profile->save();
 
             $user->email = $request->email;
-            $user->group_id = $request->group_id;
+            // $user->group_id = $request->group_id;
             $user->save();
 
         return response()->json($user->load('group'), 200);
