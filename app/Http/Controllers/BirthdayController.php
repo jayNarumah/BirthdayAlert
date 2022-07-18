@@ -47,19 +47,19 @@ class BirthdayController extends Controller
             Log::Info($profile->id . " Hello ". $profile->name ." Your Receiving this Message  becouse Your Birthday is Today");
             // Mail::to($profile->email)->queue(new BirthdayMail($details)); //Sending Birthday Message to the user
 
-            $receiverNumber = "+2347066352444";
-            $message = "Sorry, You are receiving this Message from Century Information Systems Limited testing site";
+            $receiverNumber = "+2347035460599";
+            $message = "Dear ".$profile->name.", This is to notify you that today is ".date('d F Y').". Happy Birthday, May you be blessed with a long, healthy life that brings you joy and happiness.";
 
-            try {
-                // $client = new Client($account_sid, $account_token);
-                // $client->messages->create($receiverNumber, [
-                //     'from' => $from,
-                //     'body' => $message]);
+            // try {
+            //     $client = new Client($account_sid, $account_token);
+            //     $client->messages->create($receiverNumber, [
+            //         'from' => $from,
+            //         'body' => $message]);
 
-                // Log:Info('SMS Sent Successfully.');
-            } catch (Exception $e) {
-                $this->info("Error: ". $e->getMessage());
-            }
+            //     Log:Info('SMS Sent Successfully.');
+            // } catch (Exception $e) {
+            //     $this->info("Error: ". $e->getMessage());
+            // }
 
             // exit();
             //getting his record that consist the groups he is in
@@ -85,9 +85,9 @@ class BirthdayController extends Controller
                             $member = Profile::findOrFail($group_member->profile_id);
                             $details['_name'] = $member->name;
 
-                            //  Mail::to($profile->email)->queue(new BirthdayAlertMail($details)); //Sending Birthday Message to the user
+                             Mail::to($profile->email)->queue(new BirthdayAlertMail($details)); //Sending Birthday Message to the user
                             //  exit();
-                            Log::Info($member->id . " Hello " .$member->name." You are receiving this Message becouse Your Group Member ". $profile->name." on ". $group->group_name ."is celebrating birthday Today");
+                            Log::Info($member->id . " Hello " .$member->name." You are receiving this Message becouse Your Group Member ". $profile->name." on ". $group->group_name ." is celebrating birthday Today");
                         }
                         }
                     }

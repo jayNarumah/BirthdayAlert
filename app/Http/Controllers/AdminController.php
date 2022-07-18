@@ -71,7 +71,7 @@ class AdminController extends Controller
                     'group_name' => $group->group_name,
                 ];
 
-                // Mail::to($request->email)->queue(new \App\Mail\NotificationMail($details));
+                Mail::to($request->email)->queue(new \App\Mail\NotificationMail($details));
 
                 //Mail::to($request->email)->send(new SendMail($details));
 

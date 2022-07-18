@@ -12,15 +12,13 @@ use \Aws\Credentials\Credentials;
 use Twilio\Rest\Client;
         /** Aliasing the classes */
 
-
-
-
 class SmsController extends Controller
 {
     function twilio()
     {
-        $receiverNumber = "+2347066352444";
-        $message = "Sorry, You are receiving this Message from Century Information Systems Limited Sms test site";
+        $receiver_number = "+2347066352444";
+        $message = "Dear Imran A. Bala, This is to notify you that today is ".date('d F Y').". Happy Birthday, May you be blessed with a long, healthy life that brings you joy and happiness.";
+        // Log::alert($message);
 
         try {
 
@@ -30,7 +28,7 @@ class SmsController extends Controller
            // Log::info($account_sid);
 
             $client = new Client($account_sid, $account_token);
-            $client->messages->create($receiverNumber, [
+            $client->messages->create($receiver_number, [
                 'from' => $from,
                 'body' => $message]);
 

@@ -123,7 +123,7 @@ Authorization: Bearer 2|1FHUgkn7IinVlJAYlHxrNj2WZV0UCpZrC8P4DeCJ
 POST http://127.0.0.1:8000/api/user HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 2|1FHUgkn7IinVlJAYlHxrNj2WZV0UCpZrC8P4DeCJ
+Authorization: Bearer 1|iB6zryUEHEkviOTIiSFEw8K2n7zjOSuRDYiQ0icb
 
 {
     "name": "Imrana A. Bala",

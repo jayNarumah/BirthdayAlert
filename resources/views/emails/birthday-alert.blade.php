@@ -391,7 +391,7 @@ table{
 								                  phone Number:{{$details['phone_number']}}.</p>
 
 		              	<h2>Send Him Birthday wish.</h2>
-		              	<p style="background-image: url(data:image/png;base64,{{base64_encode(file_get_contents(resource_path('images/birthdayNotification.png')))}}); background-size: cover; height: 444px;"></p>
+		              	<center><img src="data:image/png;base64,{{base64_encode(file_get_contents(resource_path('images/birthdayNotification.png')))}}" style="background-size: cover; height: auto; max-width: 100%; display: block;"></center>
 		            	</div>
 
           </td>

@@ -390,7 +390,7 @@ table{
 								Visit:<a>www.birthdaynotification.com</a> to login.
 								<br> Login Password: <b>{{$details['password']}}</b></p>
 
-		              	<p style="background-image: url(data:image/png;base64,{{base64_encode(file_get_contents(resource_path('images/notification.png')))}}); background-size: cover; height: 444px;"></p>
+		              	<img src ="data:image/png;base64,{{base64_encode(file_get_contents(resource_path('images/notification.png')))}}" style="background-size: cover; height: auto; max-width: 100%; display: block;">
 		            	</div>
 
           </td>
