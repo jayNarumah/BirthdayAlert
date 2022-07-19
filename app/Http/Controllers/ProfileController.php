@@ -20,7 +20,9 @@ class ProfileController extends Controller
     {
         $index = 0;
         $id = [];
-        $members = auth()->user()->groupAdmins->group->groupMembers;
+        $members = auth()->user()->groupAdmins;
+
+        Log::alert($members);
 
         foreach($members as $member)
         {

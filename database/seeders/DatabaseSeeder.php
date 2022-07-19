@@ -40,13 +40,14 @@ class DatabaseSeeder extends Seeder
                 'gender' => 'Male',
                 'email' => 'super@demo.com',
                 'phone_number' => '07066352444'
-            ]);
+            ],
+        );
 
         $this->call([
-            // ProfileSeeder::class,
-            // GroupSeeder::class,
+            ProfileSeeder::class,
+            GroupSeeder::class,
             UserSeeder::class,
-            // GroupMemberSeeder::class,
+            GroupMemberSeeder::class,
 
 
         ]);
