@@ -20,7 +20,7 @@ class ProfileController extends Controller
     {
         $index = 0;
         $id = [];
-        $members = auth()->user()->group->groupMembers;
+        $members = auth()->user()->groupAdmins->group->groupMembers;
 
         foreach($members as $member)
         {

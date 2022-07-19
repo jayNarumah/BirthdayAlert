@@ -41,11 +41,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'super@demo.com',
                 'phone_number' => '07066352444'
             ]);
-            Group::create(
-                [
-                    'group_name' => 'Default Group',
 
-                ]);
         $this->call([
             // ProfileSeeder::class,
             // GroupSeeder::class,

@@ -26,15 +26,13 @@ class Group extends Model
     }
 
     /**
-     * Get the user associated with the Group
+     * Get the groupAdmin associated with the Group
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function user()
+    public function groupAdmin()//: HasOne
     {
-        return $this->hasOne(User::class, 'group_id', 'id');
+        return $this->hasOne(GroupAdmin::class, 'group_id', 'id');
     }
-
-
 
 }

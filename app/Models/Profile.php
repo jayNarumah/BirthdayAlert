@@ -37,14 +37,4 @@ class Profile extends Model
         return $this->hasOne(User::class, 'profile_id', 'id');
     }
 
-    /**
-     * Get all of the groupMember for the Profile
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function groupMembers()
-    {
-        return $this->hasMany(GroupMember::class, 'profile_id', 'id');
-    }
-
 }

@@ -5,32 +5,20 @@ namespace App\Http\Controllers;
 use \Illuminate\Support\Facades\Mail;
 use \Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
-use \App\Models\Profile;
-use \App\Mail\SendMail;
-use \App\Models\Group;
-use \App\Models\User;
+use App\Models\Profile;
+use App\Mail\NotificationMail;
+use App\Models\GroupAdmin;
+use App\Models\User;
 
 class AdminController extends Controller
 {
-    function mail()
-    {
-        try{
-            $details = 'Krunal';
-            Mail::to('jawadrumah@gmail.com')->send(new SendMail($details));
-
-                Log::info("Email Sent Successfully!!!");
-            } catch (\Throwable $e) {
-                throw $e;
-            }
-    }
-
     function index()
     {
         $admins=User::where('is_active', true)
                     ->skip(1)->take(User::all()
                     ->count())->get();
 
-        return response()->json($admins->load('group','profile'), 200);
+        return response()->json($admins->load('groupAdmins','profile'), 200);
     }
 
     function store(Request $request)
@@ -61,7 +49,7 @@ class AdminController extends Controller
             ]);
 
             try {
-                $group = Group::find($request->group_id);
+                // $group = Group::find($request->group_id);
 
                 $details = [
                     'name' => $profile->name,
@@ -70,9 +58,7 @@ class AdminController extends Controller
                     'password' => $request->password,
                 ];
 
-                Mail::to($request->email)->queue(new \App\Mail\NotificationMail($details));
-
-                //Mail::to($request->email)->send(new SendMail($details));
+                // Mail::to($request->email)->queue(new \App\Mail\NotificationMail($details));
 
             Log::info("Email Sent Successfully!!!");
         } catch (\Throwable $e) {
@@ -80,7 +66,7 @@ class AdminController extends Controller
         }
             return response()->json([
                 'profile' => $profile,
-                'user' => $user->load('group'),
+                'user' => $user,
             ], 201);
       //  }
       //  return response()->json($profile, 201);
@@ -90,7 +76,7 @@ class AdminController extends Controller
     {
         $user = User::findOrFail($request->id);
 
-        return response()->json($user->load('profile', 'group'), 200);
+        return response()->json($user->load('profile', 'groupAdmins'), 200);
     }
 
     function update(Request $request)
@@ -109,19 +95,36 @@ class AdminController extends Controller
         $user = User::findOrFail($request->id);
 
         $profile = $user->profile;
+        $group_admin = GroupAdmin::where('group_id', $request->group_id)->first();
 
-            $profile->name = $request->name;
-            $profile->email = $request->email;
-            $profile->phone_number = $request->phone_number;
-            $profile->dob = $request->dob;
-            $profile->gender = $request->gender;
-            $profile->save();
+        if ($group_admin AND $group_admin->profile_id != $profile->id) {
 
-            $user->email = $request->email;
-            // $user->group_id = $request->group_id;
-            $user->save();
+            return response()->json('Group Selected already have an Admin', 200);
+        }
 
-        return response()->json($user->load('group'), 200);
+        if ($group_admin) {
+            $group_admin->group_id = $request->group_id;
+            $group_admin->save();
+        }
+        else {
+            $group_admin = GroupAdmin::create([
+                'group_id' => $request->group_id,
+                'user_id' => $user->id,
+            ]);
+        }
+
+        $profile->name = $request->name;
+        $profile->email = $request->email;
+        $profile->phone_number = $request->phone_number;
+        $profile->dob = $request->dob;
+        $profile->gender = $request->gender;
+        $profile->save();
+
+        $user->email = $request->email;
+        // $user->group_id = $request->group_id;
+        $user->save();
+
+        return response()->json($user->load('groupAdmins'), 200);
 
     }
 

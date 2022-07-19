@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use \App\Models\UserType;
-use \App\Models\Group;
-use \App\Models\Profile;
+use App\Models\GroupAdmin;
+use App\Models\UserType;
+use App\Models\Profile;
 
 class User extends Authenticatable
 {
@@ -63,8 +63,14 @@ class User extends Authenticatable
         return $this->belongsTo(Profile::class);
     }
 
-    function group()
+     /**
+     * Get all of the groupAdmins for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function groupAdmins()//: HasMany
     {
-        return $this->belongsTo(Group::class);
+        return $this->hasMany(GroupAdmin::class, 'user_id', 'id');
     }
+
 }

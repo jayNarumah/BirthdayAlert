@@ -11,20 +11,20 @@ class GroupAdminController extends Controller
 {
     function count()
     {
-        $count = auth()->user()->group->groupMembers->count();
+        $count = auth()->user()->groupAdmins->group->groupMembers->count();
 
         return response()->json($count, 200);
     }
 
     function getMyGroupName()
     {
-        $group = auth()->user()->group;
+        $group = auth()->user()->groupAdmin->group;
         return response()->json($group->group_name, 200);
     }
 
     function admin()
     {
-        $admin = auth()->user()->profile;
+        $admin = auth()->user()->groupAdmins->user->profile;
         return response()->json($admin->name, 200);
     }
 
@@ -34,7 +34,7 @@ class GroupAdminController extends Controller
             'email' => 'required|email|exists:profiles,email',
         ]);
 
-        $group = auth()->user()->group;
+        $group = auth()->user()->groupAdmins->group;
         $group_id = $group->id;
 
         $profile = Profile::where('email', $request->email)->first();

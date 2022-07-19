@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\GroupAdmin;
+use App\Models\GroupMember;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
-use \App\Models\Profile;
-use \App\Models\User;
+use App\Models\Profile;
+use App\Models\User;
 
 class SuperAdminController extends Controller
 {
@@ -27,33 +28,36 @@ class SuperAdminController extends Controller
     function createAdmin(Request $request)
     {
         $rules=$request->validate([
-            'group_id' => '[required]',
-            'profile_id' =>'[required]',
-            //'email' => 'required|email',
+            'group_id' => 'required',
+            'user_id' =>'required',
+            // 'email' => 'required|email',
             // 'password' => '[required,min:6,max:30]',
         ]);
 
-        $admin = GroupAdmin::create([
-            'user_id' => $rules['user_id'],
-            'group_id' => $rules['group_id']
+        $group = GroupAdmin::where('group_id', $request->group_id)->count();
+
+        if ($group > 0)
+        {
+            return response()->json("Group Admin was already assign to the Group", 200);
+        }
+
+        $user = GroupAdmin::where('user_id', $request->user_id)->first();
+
+        if ($user> 0)
+        {
+            return response()->json("Selected User was already an Admin  to another group !!!", 200);
+        }
+
+        $admin = GroupAdmin::create($rules);
+        $user = User::findOrFail($request->user_id);
+
+        $group_member = GroupMember::create([
+            'group_id' => $request->group_id,
+            'profile_id' => $user->id,
         ]);
 
         //$rules['group_name'] = ucwords($request->group_name);
 
-
-        // $profile = Profile::where('group_id', $request->group_id)->count();
-
-        // if ($profile > 0) {
-        //     return response()->json("Group already have an admin!!!", 304);
-        // }
-
-        // $user = User::create([
-        //     'profile_id' => $request->profile_id,
-        //     'group_id' => $request->group_id,
-        //     'email' => $profile->email,
-        //     'password' => bcrypt($rules['password']),
-        // ]);
-
-        return response()->json($admin, 201);
+        return response()->json($admin->load('group', 'user'), 201);
     }
 }
