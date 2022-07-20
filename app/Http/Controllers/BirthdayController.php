@@ -122,21 +122,24 @@ class BirthdayController extends Controller
     function birthdayCount()
     {
         $like = "%-" . date("m") ."-" . date("d") ;
-        $group_members = auth()->user()->group->groupMembers;
-
+        Log::alert($like);
+        $group_members = auth()->user()->groupAdmin->group->groupMembers;
+        // Log::alert($group_members);
+        // exit();
         $id = [];
         $index = 0;
 
         foreach($group_members as $group_member )
         {
+            Log::alert($group_member->profile_id);
+
             $profile = Profile::where('id', $group_member->profile_id)
                             ->where('dob', 'like', $like)->first();
 
-            if ($profile != null)
+            if ($profile)
             {
-
-                    $id[$index] = $group_member->profile_id;
-                    $index = $index + 1;
+                $id[$index] = $group_member->profile_id;
+                $index = $index + 1;
             }
         }
 
@@ -148,7 +151,7 @@ class BirthdayController extends Controller
     function birthday()
     {
         $like = "%-" . date("m") ."-" . date("d") ;
-        $group_members = auth()->user()->group->groupMembers;
+        $group_members = auth()->user()->groupAdmin->group->groupMembers;
 
         $id = [];
         $index = 0;

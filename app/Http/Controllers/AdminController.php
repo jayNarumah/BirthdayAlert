@@ -18,7 +18,7 @@ class AdminController extends Controller
                     ->skip(1)->take(User::all()
                     ->count())->get();
 
-        return response()->json($admins->load('groupAdmins','profile'), 200);
+        return response()->json($admins->load('groupAdmins', 'profile'), 200);
     }
 
     function store(Request $request)

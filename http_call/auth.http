@@ -14,18 +14,18 @@ Authorization: Bearer 1|5vthuk5GMeqkj8izK08MDiQFLObokSS6vyI8AR8N
 POST http://127.0.0.1:8000/api/create-admin HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 1|TVluoEn9i3PB8N1tLGf68t3OvBKzoiaU9BoCr73B
+Authorization: Bearer 5|rU2cYcva36cII2QgiWiaMoxORYGKrIa0hKJ21uoN
 
 {
-    "user_id": 2,
-    "group_id": 1
+    "user_id": 5,
+    "group_id": 4
 
 }
 ####
 GET http://127.0.0.1:8000/api/admin HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 1|sJVtSkuDsLtX7C3pgFM4HhiHHhv799E0rPToVzsz
+Authorization: Bearer 1|PxNWZqDHtuQboPsQwlQOmEEt1hDDnHPX3hdJxB3M
 
 ###
 POST http://127.0.0.1:8000/api/login HTTP/1.1
@@ -33,7 +33,7 @@ Content-Type: application/json
 Accept: application/json
 
 {
-    "email": "jawad@demo.com",
+    "email": "super@demo.com",
     "password": "password"
 }
 
@@ -41,7 +41,7 @@ Accept: application/json
 POST http://127.0.0.1:8000/api/admin HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 1|TVluoEn9i3PB8N1tLGf68t3OvBKzoiaU9BoCr73B
+Authorization: Bearer 1|PxNWZqDHtuQboPsQwlQOmEEt1hDDnHPX3hdJxB3M
 
 {
     "name": "Abduljawad Ibraheem Narumah",
@@ -58,37 +58,37 @@ Authorization: Bearer 1|TVluoEn9i3PB8N1tLGf68t3OvBKzoiaU9BoCr73B
 GET http://127.0.0.1:8000/api/birthdays-count HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 1|Pf1Y1L61djpTRprgD4kx81mGP9T2vv1SyHUtQyUT
+Authorization: Bearer 1|PxNWZqDHtuQboPsQwlQOmEEt1hDDnHPX3hdJxB3M
 
 ###
 GET http://127.0.0.1:8000/api/users-count HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 1|Pf1Y1L61djpTRprgD4kx81mGP9T2vv1SyHUtQyUT
+Authorization: Bearer 1|PxNWZqDHtuQboPsQwlQOmEEt1hDDnHPX3hdJxB3M
 
 ###
 GET http://127.0.0.1:8000/api/admin-count HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 1|Pf1Y1L61djpTRprgD4kx81mGP9T2vv1SyHUtQyUT
+Authorization: Bearer 1|PxNWZqDHtuQboPsQwlQOmEEt1hDDnHPX3hdJxB3M
 
 ###
 GET http://127.0.0.1:8000/api/admin/2 HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 1|Pf1Y1L61djpTRprgD4kx81mGP9T2vv1SyHUtQyUT
+Authorization: Bearer 1|PxNWZqDHtuQboPsQwlQOmEEt1hDDnHPX3hdJxB3M
 
 ###
 DELETE http://127.0.0.1:8000/api/admin/3 HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 1|Pf1Y1L61djpTRprgD4kx81mGP9T2vv1SyHUtQyUT
+Authorization: Bearer 1|PxNWZqDHtuQboPsQwlQOmEEt1hDDnHPX3hdJxB3M
 
 ###
 PUT http://127.0.0.1:8000/api/admin/2 HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 1|Pf1Y1L61djpTRprgD4kx81mGP9T2vv1SyHUtQyUT
+Authorization: Bearer 1|PxNWZqDHtuQboPsQwlQOmEEt1hDDnHPX3hdJxB3M
 
 {
     "name": "ABDULJAWAD IBRAHIM Narumah",
@@ -103,13 +103,56 @@ Authorization: Bearer 1|Pf1Y1L61djpTRprgD4kx81mGP9T2vv1SyHUtQyUT
 GET http://127.0.0.1:8000/api/birthdays HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 1|Pf1Y1L61djpTRprgD4kx81mGP9T2vv1SyHUtQyUT
+Authorization: Bearer 1|PxNWZqDHtuQboPsQwlQOmEEt1hDDnHPX3hdJxB3M
+###
+GET http://127.0.0.1:8000/api/group HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 1|PxNWZqDHtuQboPsQwlQOmEEt1hDDnHPX3hdJxB3M
+
+###
+GET http://127.0.0.1:8000/api/group-count HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 1|PxNWZqDHtuQboPsQwlQOmEEt1hDDnHPX3hdJxB3M
+
+###
+POST http://127.0.0.1:8000/api/group HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 1|PxNWZqDHtuQboPsQwlQOmEEt1hDDnHPX3hdJxB3M
+
+{
+    "group_name": "Jay ",
+    "admin_id": 3
+}
+
+###
+GET http://127.0.0.1:8000/api/group/2 HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 1|PxNWZqDHtuQboPsQwlQOmEEt1hDDnHPX3hdJxB3M
+###
+PUT http://127.0.0.1:8000/api/group/1 HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 1|PxNWZqDHtuQboPsQwlQOmEEt1hDDnHPX3hdJxB3M
+
+{
+    "group_name": "JayConcepts"
+}
+###
+DELETE http://127.0.0.1:8000/api/group/2 HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer 1|PxNWZqDHtuQboPsQwlQOmEEt1hDDnHPX3hdJxB3M
+
 
 ###
 GET http://127.0.0.1:8000/api/user HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 2|BTjQh6JJblKKQxf7HLllMtX66sUwj1pwwIqwcX48
+Authorization: Bearer 3|BggJQ6Xn2mnSCJczeqwR6cyO9PEaFpQ0oBdRCv3f
 
 ###
 GET http://127.0.0.1:8000/api/user-count HTTP/1.1
@@ -133,7 +176,7 @@ Authorization: Bearer 2|1FHUgkn7IinVlJAYlHxrNj2WZV0UCpZrC8P4DeCJ
 POST http://127.0.0.1:8000/api/user HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 13|S3Td9W6ffcJdwXfGXZMpbqp3wepj5Y6j0Y1RrFOh
+Authorization: Bearer 2|i9EXFm2tk45fSe1XAhaHtoONeGcrQvZg867JtG9g
 
 {
     "name": "Imrana A. Bala",
@@ -170,56 +213,12 @@ Content-Type: application/json
 Accept: application/json
 Authorization: Bearer 2|1FHUgkn7IinVlJAYlHxrNj2WZV0UCpZrC8P4DeCJ
 
-###
-GET http://127.0.0.1:8000/api/group HTTP/1.1
-Content-Type: application/json
-Accept: application/json
-Authorization: Bearer 1|Pf1Y1L61djpTRprgD4kx81mGP9T2vv1SyHUtQyUT
-
-###
-GET http://127.0.0.1:8000/api/group-count HTTP/1.1
-Content-Type: application/json
-Accept: application/json
-Authorization: Bearer 1|Pf1Y1L61djpTRprgD4kx81mGP9T2vv1SyHUtQyUT
-
-###
-POST http://127.0.0.1:8000/api/group HTTP/1.1
-Content-Type: application/json
-Accept: application/json
-Authorization: Bearer 1|TVluoEn9i3PB8N1tLGf68t3OvBKzoiaU9BoCr73B
-
-{
-    "group_name": "Jay ",
-    "admin_id": 3
-}
-
-###
-GET http://127.0.0.1:8000/api/group/2 HTTP/1.1
-Content-Type: application/json
-Accept: application/json
-Authorization: Bearer 1|Pf1Y1L61djpTRprgD4kx81mGP9T2vv1SyHUtQyUT
-
-###
-PUT http://127.0.0.1:8000/api/group/1 HTTP/1.1
-Content-Type: application/json
-Accept: application/json
-Authorization: Bearer 1|Pf1Y1L61djpTRprgD4kx81mGP9T2vv1SyHUtQyUT
-
-{
-    "group_name": "JayConcepts"
-}
-
-###
-DELETE http://127.0.0.1:8000/api/group/1 HTTP/1.1
-Content-Type: application/json
-Accept: application/json
-Authorization: Bearer 1|Pf1Y1L61djpTRprgD4kx81mGP9T2vv1SyHUtQyUT
 
 ###
 POST http://127.0.0.1:8000/api/logout HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 1|Pf1Y1L61djpTRprgD4kx81mGP9T2vv1SyHUtQyUT
+Authorization: Bearer 1|PxNWZqDHtuQboPsQwlQOmEEt1hDDnHPX3hdJxB3M
 ###
 POST http://127.0.0.1:8000/api/create-admin HTTP/1.1
 ontent-Type: application/json

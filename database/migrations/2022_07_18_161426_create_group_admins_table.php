@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('group_admins', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->restrictOnDelete();
-            $table->foreignId('group_id')->unique()->constrained()->restrictOnDelete();
+            $table->foreignId('group_id')->constrained()->unique()->restrictOnDelete();
             $table->timestamps();
         });
     }

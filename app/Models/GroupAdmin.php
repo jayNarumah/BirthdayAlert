@@ -22,7 +22,7 @@ class GroupAdmin extends Model
     ];
 
     protected $with = [
-        'user',
+        // 'user',
         'group',
     ];
 

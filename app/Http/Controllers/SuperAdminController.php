@@ -43,7 +43,7 @@ class SuperAdminController extends Controller
 
         $user = GroupAdmin::where('user_id', $request->user_id)->first();
 
-        if ($user> 0)
+        if ($user)
         {
             return response()->json("Selected User was already an Admin  to another group !!!", 200);
         }
@@ -53,7 +53,7 @@ class SuperAdminController extends Controller
 
         $group_member = GroupMember::create([
             'group_id' => $request->group_id,
-            'profile_id' => $user->id,
+            'profile_id' => $user->profile_id,
         ]);
 
         //$rules['group_name'] = ucwords($request->group_name);

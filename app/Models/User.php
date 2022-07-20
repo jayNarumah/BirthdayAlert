@@ -48,11 +48,6 @@ class User extends Authenticatable
         'user_type_id' => 'integer',
     ];
 
-    // protected $with = [
-    //     'profile',
-    //     'group'
-    // ];
-
     function userType()
     {
         return $this->belongsTo(UserType::class);
@@ -60,17 +55,17 @@ class User extends Authenticatable
 
     function profile()
     {
-        return $this->belongsTo(Profile::class);
+        return $this->belongsTo(Profile::class, "profile_id", "id");
     }
 
      /**
      * Get all of the groupAdmins for the User
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function groupAdmins()//: HasMany
+    public function groupAdmin()//: HasOne
     {
-        return $this->hasMany(GroupAdmin::class, 'user_id', 'id');
+        return $this->hasOne(GroupAdmin::class, 'user_id', 'id');
     }
 
 }

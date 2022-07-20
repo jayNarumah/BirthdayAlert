@@ -2,16 +2,16 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use \App\Http\Controllers\SuperAdminController;
-use \App\Http\Controllers\GroupAdminController;
-use \App\Http\Controllers\BirthdayController;
-use \App\Http\Controllers\ProfileController;
-use \App\Http\Controllers\SearchController;
-use \App\Http\Controllers\GroupController;
-use \App\Http\Controllers\AdminController;
-use \App\Http\Controllers\AuthController;
-use \App\Http\Controllers\UserController;
-use \App\Http\Controllers\SmsController;
+use App\Http\Controllers\SuperAdminController;
+use App\Http\Controllers\GroupAdminController;
+use App\Http\Controllers\BirthdayController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\GroupController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\SmsController;
 
 
 /*

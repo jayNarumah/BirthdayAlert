@@ -18,7 +18,7 @@ class GroupController extends Controller
     public function index()
     {
         return response()->json(Group::where('is_active', true)
-                            ->get()->load('groupAdmin'), 200);
+                         ->get(), 200);
     }
 
     /**
@@ -58,7 +58,7 @@ class GroupController extends Controller
      */
     public function show(Group $group)
     {
-        return new GroupResource($group->load('groupAdmin'), 200);
+        return new GroupResource($group, 200);
     }
 
     /**
@@ -74,7 +74,7 @@ class GroupController extends Controller
             'group_name' => $request->group_name
         ]);
 
-        return new GroupResource($group->load('groupAdmin'), 200);
+        return new GroupResource($group, 200);
     }
 
     /**
