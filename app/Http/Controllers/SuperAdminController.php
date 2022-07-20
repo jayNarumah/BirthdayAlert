@@ -29,9 +29,7 @@ class SuperAdminController extends Controller
     {
         $rules=$request->validate([
             'group_id' => 'required',
-            'email' =>'required',
-            // 'email' => 'required|email',
-            // 'password' => '[required,min:6,max:30]',
+            'email' => 'required',
         ]);
 
         $group = GroupAdmin::where('group_id', $request->group_id)->count();
@@ -42,18 +40,17 @@ class SuperAdminController extends Controller
         }
 
         $user = User::where('email', $request->email)->first();
-
-        $_user = GroupAdmin::where('user_id', $user->id)->first();
         $id = $user->id;
+        $admin = GroupAdmin::where('user_id', $id)->first();
 
-        if ($_user)
+        if ($admin)
         {
             return response()->json("Selected User was already an Admin  to another group !!!", 200);
         }
 
         $admin = GroupAdmin::create([
             'group_id' => $request->group_id,
-            'user_id' => $id
+            'user_id' => $id,
         ]);
         $user = User::findOrFail($id);
 

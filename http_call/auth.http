@@ -17,7 +17,7 @@ Accept: application/json
 Authorization: Bearer 5|rU2cYcva36cII2QgiWiaMoxORYGKrIa0hKJ21uoN
 
 {
-    "user_id": 2,
+    "email": "super@demo.com",
     "group_id": 3
 
 }
