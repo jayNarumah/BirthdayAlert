@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use \Illuminate\Support\Facades\Mail;
-use \Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Models\Profile;
 use App\Mail\NotificationMail;

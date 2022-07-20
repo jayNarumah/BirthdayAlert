@@ -29,7 +29,7 @@ class SuperAdminController extends Controller
     {
         $rules=$request->validate([
             'group_id' => 'required',
-            'user_id' =>'required',
+            'email' =>'required',
             // 'email' => 'required|email',
             // 'password' => '[required,min:6,max:30]',
         ]);
@@ -41,15 +41,21 @@ class SuperAdminController extends Controller
             return response()->json("Group Admin was already assign to the Group", 200);
         }
 
-        $user = GroupAdmin::where('user_id', $request->user_id)->first();
+        $user = User::where('email', $request->email)->first();
 
-        if ($user)
+        $_user = GroupAdmin::where('user_id', $user->id)->first();
+        $id = $user->id;
+
+        if ($_user)
         {
             return response()->json("Selected User was already an Admin  to another group !!!", 200);
         }
 
-        $admin = GroupAdmin::create($rules);
-        $user = User::findOrFail($request->user_id);
+        $admin = GroupAdmin::create([
+            'group_id' => $request->group_id,
+            'user_id' => $id
+        ]);
+        $user = User::findOrFail($id);
 
         $group_member = GroupMember::create([
             'group_id' => $request->group_id,
