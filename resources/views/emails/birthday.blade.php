@@ -377,7 +377,7 @@ table{
       <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: auto;">
       	<tr>
           <td class="bg_white logo" style="padding: 1em 2.5em; text-align: center; background-color: #000;">
-           <b>  <h1 style="color:red;"> 🅷🅰🅿🅿🆈 🅱🅸🆁🆃🅷🅳🅰🆈 🅵🆁🅾🅼 🅱🅸🆁🆃🅷🅳🅰🆈 🅽🅾🆃🅸🅵🅸🅲🅰🆃🅸🅾🅽</h1></b>
+           <b>  <h1 style="color:red;"> 🅷🅰🅿🅿🆈 🅱🅸🆁🆃🅷🅳🅰🆈 </h1></b>
           </td>
 	      </tr><!-- end tr -->
 				<tr>
@@ -385,11 +385,11 @@ table{
 		          <tr>
 		            <td class="bg_light email-section">
 		            	<div class="heading-section" style="text-align: center; padding: 0 30px;">
-		            		<h2 style="color: black;">Dear {{$details['name']}}</h2>
-            				<p style="color: black;"><i>  small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth.</i></p>
+		            		<h2 style="color: black; font-family:Jokerman;">Dear {{$details['name']}}</h2>
+            				<p style="color: black;"><i> </i></p>
 
-		              	<h2>May you be blessed with a long, healthy life that brings you joy and happiness.</h2>
-		              	<p style="background-image: url(data:image/png;base64,{{base64_encode(file_get_contents(resource_path('images/birthday.png')))}}); background-size: cover; background-attachement:fixed; background-position: center center; background-repeat: no-repeat; "></p>
+		              	<h2 style="font-family:French Script MT; font-size:35px">This is to notify you that today is {{date("d M")}}.<br> Happy Birthday, May you be blessed with a long, healthy life that brings you joy and happiness.</h2>
+		              	<img src="data:image/png;base64,{{base64_encode(file_get_contents(resource_path('images/birthday.png')))}}" style="background-size: cover; height: auto; max-width: 100%; display: block;">
 		            	</div>
 
           </td>

@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use \App\Models\UserType;
-use \App\Models\Group;
-use \App\Models\Profile;
+use App\Models\GroupAdmin;
+use App\Models\UserType;
+use App\Models\Profile;
 
 class User extends Authenticatable
 {
@@ -25,7 +25,6 @@ class User extends Authenticatable
         'user_type_id',
         'email',
         'password',
-        'group_id',
     ];
 
     /**
@@ -47,13 +46,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'profile_id' => 'integer',
         'user_type_id' => 'integer',
-        'group_id' => 'integer'
     ];
-
-    // protected $with = [
-    //     'profile',
-    //     'group'
-    // ];
 
     function userType()
     {
@@ -62,11 +55,17 @@ class User extends Authenticatable
 
     function profile()
     {
-        return $this->belongsTo(Profile::class);
+        return $this->belongsTo(Profile::class, "profile_id", "id");
     }
 
-    function group()
+     /**
+     * Get all of the groupAdmins for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function groupAdmin()//: HasOne
     {
-        return $this->belongsTo(Group::class);
+        return $this->hasOne(GroupAdmin::class, 'user_id', 'id');
     }
+
 }

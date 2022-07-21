@@ -20,7 +20,7 @@ class ProfileController extends Controller
     {
         $index = 0;
         $id = [];
-        $members = auth()->user()->group->groupMembers;
+        $members = auth()->user()->groupAdmin->group->groupMembers;
 
         foreach($members as $member)
         {
@@ -43,7 +43,7 @@ class ProfileController extends Controller
      */
     public function store(StoreProfileRequest $request)
     {
-        $group = auth()->user()->profile;
+        $admin = auth()->user()->groupAdmin;
 
         $profile = Profile::create([
             'name' => $request->name,
@@ -55,7 +55,7 @@ class ProfileController extends Controller
 
         $group_member = GroupMember::create([
             'profile_id' => $profile->id,
-            'group_id' => $group->id,
+            'group_id' => $admin->group_id,
         ]);
         return new ProfileResource ($profile, 201);
     }

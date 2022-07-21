@@ -17,15 +17,6 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            [
-                'user_type_id' => 1,
-                'profile_id' => 1,
-                'group_id' => 1,
-                'email' => 'super@demo.com',
-                'password' => bcrypt('password'),
-                'remember_token' => Str::random(10)
-                ]
-        ]);
+       User::factory(3)->create();
     }
 }

@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
+use App\Models\Profile;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -18,8 +20,8 @@ class UserFactory extends Factory
     {
         return [
             'user_type_id' => 2,
-            'profile_id' => 2,
-            'group_id' => 2,
+            'profile_id' => Profile::inRandomOrder()->first(),
+            // 'group_id' => 2,
             'email' => $this->faker->unique()->safeEmail(),
             'password' => bcrypt('password'),
             'remember_token' => Str::random(10),
