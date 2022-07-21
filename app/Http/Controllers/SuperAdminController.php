@@ -29,23 +29,26 @@ class SuperAdminController extends Controller
     {
         $rules=$request->validate([
             'group_id' => 'required',
-            'email' => 'required',
+            'user_id' => 'required',
         ]);
+
+        // Log::alert($request->user_id);
+        // exit();
 
         $group = GroupAdmin::where('group_id', $request->group_id)->count();
 
         if ($group > 0)
         {
-            return response()->json("Group Admin was already assign to the Group", 200);
+            return response()->json("Group Admin was already assign to the Group", 403);
         }
 
-        $user = User::where('email', $request->email)->first();
-        $id = $user->id;
+        // $user = User::where('email', $request->email)->first();
+        $id = $request->user_id;
         $admin = GroupAdmin::where('user_id', $id)->first();
 
         if ($admin)
         {
-            return response()->json("Selected User was already an Admin  to another group !!!", 200);
+            return response()->json("Selected User was already an Admin  to another group !!!", 403);
         }
 
         $admin = GroupAdmin::create([

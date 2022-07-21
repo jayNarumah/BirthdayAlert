@@ -97,7 +97,7 @@ class AdminController extends Controller
         $profile = $user->profile;
         $group_admin = GroupAdmin::where('group_id', $request->group_id)->first();
 
-        if ($group_admin AND $group_admin->profile_id != $profile->id) {
+        if ($group_admin AND $group_admin->user_id != $user->id) {
 
             return response()->json('Group Selected already have an Admin', 200);
         }
@@ -124,7 +124,7 @@ class AdminController extends Controller
         // $user->group_id = $request->group_id;
         $user->save();
 
-        return response()->json($user->load('groupAdmins'), 200);
+        return response()->json($user->load('groupAdmin'), 200);
 
     }
 
