@@ -60,8 +60,6 @@ class DatabaseSeeder extends Seeder
             // GroupSeeder::class,
             // UserSeeder::class,
             // GroupMemberSeeder::class,
-
-
         ]);
 
         // \App\Models\User::factory(10)->create();
