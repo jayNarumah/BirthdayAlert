@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Models\Profile;
-use App\Mail\NotificationMail;
 use App\Models\GroupAdmin;
 use App\Models\User;
 
@@ -48,22 +46,6 @@ class AdminController extends Controller
                 // 'group_id' => $request->group_id
             ]);
 
-            try {
-                // $group = Group::find($request->group_id);
-
-                $details = [
-                    'name' => $profile->name,
-                    'email' => $profile->email,
-                    'dob' => $profile->dob,
-                    'password' => $request->password,
-                ];
-
-                // Mail::to($request->email)->queue(new \App\Mail\NotificationMail($details));
-
-            Log::info("Email Sent Successfully!!!");
-        } catch (\Throwable $e) {
-            throw $e;
-        }
             return response()->json([
                 'profile' => $profile,
                 'user' => $user,
