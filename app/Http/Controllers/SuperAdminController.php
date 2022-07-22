@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\GroupAdmin;
-use App\Models\GroupMember;
+
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
+use App\Mail\NotificationMail;
 use Illuminate\Http\Request;
+use App\Models\GroupMember;
+use App\Models\GroupAdmin;
 use App\Models\Profile;
 use App\Models\User;
 
@@ -63,6 +66,22 @@ class SuperAdminController extends Controller
         ]);
 
         //$rules['group_name'] = ucwords($request->group_name);
+        try {
+            $profile = $user->profile;
+
+            $details = [
+                'name' => $profile->name,
+                'email' => $profile->email,
+                'dob' => $profile->dob,
+                'password' => $request->password,
+            ];
+
+            Mail::to($request->email)->queue(new \App\Mail\NotificationMail($details));
+
+        Log::info("Email Sent Successfully!!!");
+    } catch (\Throwable $e) {
+        throw $e;
+    }
 
         return response()->json($admin->load('group', 'user'), 201);
     }
