@@ -388,7 +388,7 @@ table{
 		            		<h2 style="color: black;">Dear {{$details['name']}}</h2>
             				<p style="color: black; font-family:Comic Sans MS;">We're hereby Notifying you that you're assigned as an Admin to the {{$details['group_name']}} on Birthday Notification.
 								Visit:<a>www.birthdaynotification.com</a> to login.
-								<br> Login Password: <b>{{$details['password']}}</b></p>
+								<br> Login Password: <b></b></p>
 
 		              	<img src ="data:image/png;base64,{{base64_encode(file_get_contents(resource_path('images/notification.png')))}}" style="background-size: cover; height: auto; max-width: 100%; display: block;">
 		            	</div>

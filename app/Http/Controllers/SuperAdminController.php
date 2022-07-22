@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\GroupMember;
 use App\Models\GroupAdmin;
 use App\Models\Profile;
+use App\Models\Group;
 use App\Models\User;
 
 class SuperAdminController extends Controller
@@ -68,16 +69,17 @@ class SuperAdminController extends Controller
         //$rules['group_name'] = ucwords($request->group_name);
         try {
             $profile = $user->profile;
+            $_group =  Group::findOrFail($request->group_id);
 
             $details = [
                 'name' => $profile->name,
                 'email' => $profile->email,
                 'dob' => $profile->dob,
-                'password' => $request->password,
+                'group_name' =>$_group->group_name,
             ];
 
-            Mail::to($request->email)->queue(new \App\Mail\NotificationMail($details));
-
+            Mail::to($profile->email)->queue(new \App\Mail\NotificationMail($details));
+            Log::alert($profile->email);
         Log::info("Email Sent Successfully!!!");
     } catch (\Throwable $e) {
         throw $e;
