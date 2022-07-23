@@ -29,6 +29,6 @@ class BirthdayAlertMail extends Mailable
      */
     public function build()
     {
-        return $this->from('abdouljawadibraheem@gmail.com')->subject('Birthday Notification')->view('emails.birthday-alert')->with('details', $this->details);
+        return $this->subject('Birthday Notification')->view('emails.birthday-alert')->with('details', $this->details);
     }
 }

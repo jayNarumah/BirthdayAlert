@@ -29,6 +29,6 @@ class BirthdayMail extends Mailable
      */
     public function build()
     {
-        return $this->from('abdouljawadibraheem@gmail.com')->subject('Birthday Wishes')->view('emails.birthday')->with('details', $this->details);
+        return $this->subject('Birthday Wishes')->view('emails.birthday')->with('details', $this->details);
     }
 }
