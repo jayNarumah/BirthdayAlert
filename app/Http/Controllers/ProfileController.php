@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Profile;
-use App\models\GroupMember;
+use App\Models\GroupMember;
 use Illuminate\Support\Facades\Log;
 use App\Http\Resources\ProfileResource;
 use App\Http\Requests\StoreProfileRequest;
