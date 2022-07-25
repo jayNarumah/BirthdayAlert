@@ -14,11 +14,11 @@ Authorization: Bearer 1|5vthuk5GMeqkj8izK08MDiQFLObokSS6vyI8AR8N
 POST http://127.0.0.1:8000/api/create-admin HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 1|H0C29aP3ZPbHObZKVxIhK6RXrjHWHAMpYXUD39A0
+Authorization: Bearer 1|FNtTSw1jonvJrdCOJTES0Y791QsKikj6N9Paqv1y
 
 {
     "user_id": 2,
-    "group_id": 3
+    "group_id": 1
 }
 ####
 GET http://127.0.0.1:8000/api/admin HTTP/1.1
@@ -32,7 +32,7 @@ Content-Type: application/json
 Accept: application/json
 
 {
-    "email": "super@demo.com",
+    "email": "jay@demo.com",
     "password": "password"
 }
 
@@ -40,7 +40,7 @@ Accept: application/json
 POST http://127.0.0.1:8000/api/admin HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 1|PxNWZqDHtuQboPsQwlQOmEEt1hDDnHPX3hdJxB3M
+Authorization: Bearer 1|FNtTSw1jonvJrdCOJTES0Y791QsKikj6N9Paqv1y
 
 {
     "name": "Abduljawad Ibraheem Narumah",
@@ -119,7 +119,7 @@ Authorization: Bearer 1|PxNWZqDHtuQboPsQwlQOmEEt1hDDnHPX3hdJxB3M
 POST http://127.0.0.1:8000/api/group HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 1|PxNWZqDHtuQboPsQwlQOmEEt1hDDnHPX3hdJxB3M
+Authorization: Bearer 1|FNtTSw1jonvJrdCOJTES0Y791QsKikj6N9Paqv1y
 
 {
     "group_name": "Jay ",
@@ -157,30 +157,30 @@ Authorization: Bearer 3|BggJQ6Xn2mnSCJczeqwR6cyO9PEaFpQ0oBdRCv3f
 GET http://127.0.0.1:8000/api/user-count HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 3|BggJQ6Xn2mnSCJczeqwR6cyO9PEaFpQ0oBdRCv3f
+Authorization: Bearer 2|RzHLXp33rOWefiI2KMovDPStLlcbOzQzuHuWursa
 
 ###
 GET http://127.0.0.1:8000/api/birthday HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 3|BggJQ6Xn2mnSCJczeqwR6cyO9PEaFpQ0oBdRCv3f
+Authorization: Bearer 2|RzHLXp33rOWefiI2KMovDPStLlcbOzQzuHuWursa
 
 ###
 GET http://127.0.0.1:8000/api/birthday-count HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 3|BggJQ6Xn2mnSCJczeqwR6cyO9PEaFpQ0oBdRCv3f
+Authorization: Bearer 2|RzHLXp33rOWefiI2KMovDPStLlcbOzQzuHuWursa
 
 ###
 POST http://127.0.0.1:8000/api/user HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer 3|BggJQ6Xn2mnSCJczeqwR6cyO9PEaFpQ0oBdRCv3f
+Authorization: Bearer 2|RzHLXp33rOWefiI2KMovDPStLlcbOzQzuHuWursa
 
 {
     "name": "Imrana A. Bala",
     "phone_number": "07066352444",
-    "email": "asdddaa@gmail.com",
+    "email": "assdaaasddaaa@gmail.com",
     "gender": "Male",
     "dob": "2022-06-20"
 }
