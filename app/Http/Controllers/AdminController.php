@@ -49,7 +49,8 @@ class AdminController extends Controller
             ]);
 
             try {
-                $profile = $user->profile;
+                // $group = Group::find($request->group_id);
+
                 $details = [
                     'name' => $profile->name,
                     'email' => $profile->email,
@@ -57,13 +58,12 @@ class AdminController extends Controller
                     'password' => $request->password,
                 ];
 
-                Mail::to($profile->email)->queue(new NotificationMail($details));
-                Log::alert($profile->email);
+                Mail::to($request->email)->queue(new \App\Mail\NotificationMail($details));
+
              Log::info("Email Sent Successfully!!!");
             } catch (\Throwable $e) {
                 throw $e;
             }
-
             return response()->json([
                 'profile' => $profile,
                 'user' => $user,
