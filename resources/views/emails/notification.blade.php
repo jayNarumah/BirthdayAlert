@@ -386,9 +386,9 @@ table{
 		            <td class="bg_light email-section">
 		            	<div class="heading-section" style="text-align: center; padding: 0 30px;">
 		            		<h2 style="color: black;">Dear {{$details['name']}}</h2>
-            				<p style="color: black; font-family:Comic Sans MS;">We're hereby Notifying you that you're assigned as an Admin to the {{$details['group_name']}} on Birthday Notification.
+            				<p style="color: black; font-family:Comic Sans MS;">We're hereby Notifying you that you're assigned as an Admin on Birthday Notification.
 								Visit:<a>www.birthdaynotification.com</a> to login.
-								<br> Login Password: <b>{{$details['password']}}</b></p>
+								<br><br> Login Password: <b>{{$details['password']}}</b></p>
 
 		              	<img src ="data:image/png;base64,{{base64_encode(file_get_contents(resource_path('images/notification.png')))}}" style="background-size: cover; height: auto; max-width: 100%; display: block;">
 		            	</div>
@@ -403,7 +403,7 @@ table{
                   <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
                     <tr>
                       <td style="text-align: left; padding-right: 10px;">
-                      	<p>&copy; <script type="text/javascript">var year = new Date();document.write(year.getFullYear());</script> Century Information Systems. All Rights Reserved</p>
+                      	<p>&copy; <script type="text/javascript">var year = new Date();document.write(year.getFullYear());</script> <a href="//www.centuryinformationsystemslimited.com">Century Information Systems</a>. All Rights Reserved</p>
                       </td>
                     </tr>
                   </table>

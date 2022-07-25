@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class SendMail extends Mailable
+class SendMail extends Mailable  implements ShouldQueue
 {
     use Queueable, SerializesModels;
     public $details;
@@ -29,7 +29,7 @@ class SendMail extends Mailable
      */
     public function build()
     {
-        return $this->from('abdouljawadibraheem@gmail.com')->subject('Jay Message')->view('emails.send-credentials')->with('details', $this->details);
+        return $this->subject('Birthday Notification')->view('emails.send-credentials')->with('details', $this->details);
 
         //return $this->view('view.name');
     }

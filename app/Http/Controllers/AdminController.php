@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\NotificationMail;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use App\Models\Profile;
 use App\Models\GroupAdmin;
@@ -46,6 +48,22 @@ class AdminController extends Controller
                 // 'group_id' => $request->group_id
             ]);
 
+            try {
+                $profile = $user->profile;
+                $details = [
+                    'name' => $profile->name,
+                    'email' => $profile->email,
+                    'dob' => $profile->dob,
+                    'password' => $request->password,
+                ];
+
+                Mail::to($profile->email)->queue(new NotificationMail($details));
+                Log::alert($profile->email);
+             Log::info("Email Sent Successfully!!!");
+            } catch (\Throwable $e) {
+                throw $e;
+            }
+
             return response()->json([
                 'profile' => $profile,
                 'user' => $user,
@@ -80,7 +98,7 @@ class AdminController extends Controller
         $group_admin = GroupAdmin::where('group_id', $request->group_id)->first();
 
         if ($group_admin AND $group_admin->user_id != $user->id) {
-            return response()->json('Group Selected already have an Admin', 200);
+            return response()->json('Group Selected already have an Admin', 403);
         }
 
         if ($group_admin) {

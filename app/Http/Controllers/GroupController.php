@@ -93,7 +93,7 @@ class GroupController extends Controller
 
     function count()
     {
-        $groups = Group::where('is_active', true)->count() - 1;
+        $groups = Group::where('is_active', true)->count();
 
         return response()->json($groups, 201);
     }

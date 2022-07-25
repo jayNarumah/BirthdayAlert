@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class NotificationMail extends Mailable
+class NotificationMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
     public $details;
@@ -29,6 +29,6 @@ class NotificationMail extends Mailable
      */
     public function build()
     {
-        return $this->from('abdouljawadibraheem@gmail.com')->subject('Birthday Notification')->view('emails.notification')->with('details', $this->details);
+        return $this->subject('Birthday Notification')->view('emails.notification')->with('details', $this->details);
     }
 }
