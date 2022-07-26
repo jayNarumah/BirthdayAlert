@@ -56,10 +56,10 @@ class DatabaseSeeder extends Seeder
         );
 
         $this->call([
-            ProfileSeeder::class,
-            GroupSeeder::class,
-            UserSeeder::class,
-            GroupMemberSeeder::class,
+            // ProfileSeeder::class,
+            // GroupSeeder::class,
+            // UserSeeder::class,
+            // GroupMemberSeeder::class,
 
 
         ]);

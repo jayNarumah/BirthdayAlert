@@ -26,7 +26,7 @@ class StoreProfileRequest extends FormRequest
         return [
             'name' => 'required|min:3|max:200',
             'email' => 'required|email|min:6|unique:profiles,email',
-            'phone_number' => 'required|min:11|max:13',
+            'phone_number' => 'required|min:11|max:13unique:profiles,phone_number',
             'gender' => 'min:3|max:20',
             'dob' => 'required|min:4',
         ];

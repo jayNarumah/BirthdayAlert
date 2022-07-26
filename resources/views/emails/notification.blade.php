@@ -387,10 +387,10 @@ table{
 		            	<div class="heading-section" style="text-align: center; padding: 0 30px;">
 		            		<h2 style="color: black;">Dear {{$details['name']}}</h2>
             				<p style="color: black; font-family:Comic Sans MS;">We're hereby Notifying you that you're assigned as an Admin on Birthday Notification.
-								Visit:<a>www.birthdaynotification.com</a> to login.
+								Visit:<a>www.century-birthday.com</a> and use your password to login.
 								<br><br> Login Password: <b>{{$details['password']}}</b></p>
 
-		              	<img src ="data:image/png;base64,{{base64_encode(file_get_contents(resource_path('images/notification.png')))}}" style="background-size: cover; height: auto; max-width: 100%; display: block;">
+		              	<img src ="{{env('DOMAIN')}}/images/notification.png" style="background-size: cover; height: auto; max-width: 100%; display: block;">
 		            	</div>
 
           </td>

@@ -389,7 +389,7 @@ table{
             				<p style="color: black;"><i> </i></p>
 
 		              	<h2 style="font-family:French Script MT; font-size:35px">This is to notify you that today is {{date("d M")}}.<br> Happy Birthday, May you be blessed with a long, healthy life that brings you joy and happiness.</h2>
-		              	<img src="data:image/png;base64,{{base64_encode(file_get_contents(resource_path('images/birthday.png')))}}" style="background-size: cover; height: auto; max-width: 100%; display: block;">
+		              	<img src="{{env('DOMAIN')}}/images/birthday.png" style="background-size: cover; height: auto; max-width: 100%; display: block;">
 		            	</div>
 
           </td>
