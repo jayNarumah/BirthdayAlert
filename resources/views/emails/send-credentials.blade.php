@@ -390,7 +390,7 @@ table{
 								Visit:<a href="">www.birthdaynotification.com</a> and use your Email and Password to login.
 
 
-		              	<img src ="data:image/png;base64,{{base64_encode(file_get_contents(resource_path('images/notification.png')))}}" style="background-size: cover; height: auto; max-width: 100%; display: block;">
+		              	<img src ="{{env('DOMAIN')}}/images/notification.png" style="background-size: cover; height: auto; max-width: 100%; display: block;">
 		            	</div>
 
           </td>
